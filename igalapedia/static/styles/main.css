@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-family: Chivo, Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+}
+
+body {
+    background: #E3E9F7;
+    
+}
+img {
+    width: 100%;
+}
+header{
+    width: 100%;
+    height: 70px;
+    background: #fefefe;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    border-radius: 0 0 10px 10px;
+    margin: 0 auto;
+    position: fixed;
+}
+
+.make-green{
+    color: rgb(4, 184, 4) !important;
+    font-size: larger;
+    font-weight: 900;
+}
+
+.logo{
+    width: 180px;
+    margin-top: 2px;
+}
+
+nav .logo{
+    display: none;
+}
+
+nav ul{
+    display: flex;
+}
+
+nav ul li a{
+    color: #212526;
+    display: block;
+    margin: 0 2px;
+    font-weight: 600;
+    padding: 8px 18px;
+    transition: 0.2s;
+    border-radius: 30px;
+} 
+
+nav ul li a:hover{
+    background: #f6f4ff;
+}
+
+nav ul li a.active{
+    background: #101E4A;
+    color: #fff;
+}
+
+.hamburger{
+    display: none;
+    height: fit-content;
+    cursor: pointer;
+    padding: 3px 8px;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+.hamburger:hover{
+    background: #f6f4ff;
+}
+
+.hamburger div{
+    width: 30px;
+    height: 2px;
+    margin: 6px 0;
+    background: #212526; 
+}
+
+@media only screen and (max-width: 1100px){
+    header {
+        width: 100%;
+        padding: 0 20px;
+    }
+    nav{
+        position: absolute;
+        left: -300px;
+        top: 0;
+        z-index: 999;
+        width: 280px;
+        height: 100vh;
+        background-color: #fefefe;
+        transition: 0.2s;
+        box-shadow: 2px 0 20px 0 rgba(0, 0, 0, 0.05);
+    }
+    #nav_check:checked ~ nav {
+        left: 0;
+    }
+    nav .logo {
+        display: block;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        margin-left: 30px;
+    }
+    nav ul li a{
+        margin-bottom: 5px;
+        padding: 10px 15px;
+        border-radius: 5px;
+    }
+    nav ul {
+        display: block;
+        padding: 0 20px;
+        margin-top: 30px;
+    }
+    .hamburger{
+        display: block;
+    }
+}
+
+.fullscreen {
+ 
+    height: 100vh; 
+    width: 100vw; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #fefefe;
+    padding: 0;
+}
+
+.fullscreen h1 {
+    color:#101E4A;
+    font-size: 45px; 
+    margin-bottom: 20px;
+}
+
+.fullscreen p {
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+/* Style the GitHub link */
+.github-link {
+    text-decoration: none;
+    display: inline-block;
+    background-color: #101E4A; 
+    color: #fff;
+    padding: 10px 20px; 
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.github-link:hover {
+    background-color: #324ba0;
+}
+
+.github-link i {
+    font-size: 24px; 
+    margin-right: 10px;
+}
+
+/* Style for scroll bar */
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 6px; 
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+/* Style the Features section */
+.features {
+    background-color:#fefefe; ;
+    padding: 80px 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 36px;
+    color: #101E4A;
+    margin-bottom: 40px;
+}
+
+.feature-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.feature-card {
+    width: calc(33.33% - 20px);
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.icon {
+    font-size: 40px;
+    color: rgb(4, 184, 4);
+}
+
+.feature-title {
+    font-size: 24px;
+    margin: 10px 0;
+    color: #101E4A;
+}
+
+.feature-description {
+    font-size: 18px;
+    color: #333;
+}
+
+@media (max-width: 767px) {
+    .feature-card {
+        width: 80%; 
+        margin: 30px; 
+    }
+}
+
+
+
+
+
+
+
