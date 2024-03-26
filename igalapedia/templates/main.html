@@ -3,44 +3,20 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'styles/.main.css' %}" >
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}" >
+    <link rel="stylesheet" href="{% static 'styles/dict.css' %}" >
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="icon" href="{% static 'images/igala-logo.png' %}" type="image/x-icon">
     <title>Igala Encyclopedia</title>
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <img src="assets/images/igala-logo.png" alt="">
-        </div>
-        <input type="checkbox" id="nav_check" hidden>
-        <nav>
-            
-            <div class="logo">
-                <img src="assets/images/igala-logo.png" alt="">
-            </div>
-            
-            <ul> 
-               <li>
-                <a href="dictionary.html">Dictionary</a>
-               </li> 
-               <li>
-                <a href="">Translator</a>
-               </li> 
-               <li>
-                <a href="">API</a>
-               </li> 
-               <li>
-                <a href="">Documentary</a>
-               </li> 
-               <li>
-                <a href="">News</a>
-               </li> 
-            </ul>
-        </nav>
-        <label for="nav_check" class="hamburger">
-            <div></div>
-            <div></div>
-            <div></div>
-        </label>
-    </header>
+{% include 'nav.html' %}
+
+
+
+{% block content %}
+
+{% endblock content %}
+
+
+</body>
