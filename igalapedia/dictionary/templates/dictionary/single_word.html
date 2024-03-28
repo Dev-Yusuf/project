@@ -1,3 +1,13 @@
-<h1>{{single_words.word}}</h1>
+<h1>{{ single_words.word }}</h1>
+<p>Meaning: {{ single_words.meaning }}</p>
+<p>Example: {{ single_words.example }}</p>
 
-<p>{{single_words.meaning}}</p>
+<p>Dialects:
+    <ul>
+        {% for dialect in single_words.dialects.all %}
+            <li>{{ dialect.name }}</li>
+        {% endfor %}
+    </ul>
+</p>
+
+<p>Related terms: {{ single_words.related_terms }}</p>

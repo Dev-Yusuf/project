@@ -12,7 +12,7 @@
             
             <ul class="word-list">
               {% for word in words %}           
-                <li><a href="{% url 'single-word' word.id %}">{{word.word}}</a></li>
+                <li><a href="{% url 'single-word' word.slug %}">{{word.word}}</a></li>
               {% endfor %}               
             </ul>
         </section>
