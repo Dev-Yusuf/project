@@ -1,0 +1,109 @@
+main {
+    margin-top: 120px;
+    padding: 20px;
+}
+
+.igala-dictionary {
+    margin-top: 120px;
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.igala-dictionary h1 {
+    font-size: 28px;
+    color: #101E4A;
+}
+
+.home-link {
+    display: inline-block;
+    position: absolute;
+    top: 40px;
+    left: 40px; 
+    padding: 10px 20px;
+    background-color: #101E4A;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 16px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+.home-link:hover {
+    background-color: #212526;
+}
+
+
+@media (max-width: 768px) {
+    .home-link {
+        top: 40px; 
+        left: 30px; 
+        margin-bottom: 30px
+    }
+
+    .igala-dictionary h1 {
+        font-size: 24px;
+        width: 100%; 
+        margin-top: 40px; 
+    }
+}
+
+
+.search-input {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.search-input input[type="text"] {
+    width: 70%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.search-input button {
+    padding: 10px 20px;
+    background-color: #101E4A;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-input button:hover {
+    background-color: #212526;
+}
+
+.word-list {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    margin-top: 40px;
+}
+
+.word-list li {
+    margin: 10px 0;
+}
+
+.word-list a {
+    color: #101E4A;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.word-list a:hover {
+    color: #212526;
+}
