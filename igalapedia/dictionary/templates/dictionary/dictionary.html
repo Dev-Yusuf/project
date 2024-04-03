@@ -1,20 +1,21 @@
 {% extends 'main.html' %}
 
 {% block content %}
-     <main>
-        <section class="igala-dictionary">
-            <h1>Igala Dictionary</h1>
-            <a href="index.html" class="home-link">Home</a>
-            <div class="search-input">
-                <input type="text" id="search-word" placeholder="Search for a word">
-                <button id="search-button">Search</button>
-            </div>
-            
-            <ul class="word-list">
-              {% for word in words %}           
-                <li><a href="{% url 'single-word' word.slug %}">{{word.word}}</a></li>
-              {% endfor %}               
-            </ul>
-        </section>
-    </main>
+
+<section class="dictionary-home" >
+  <div class="igala-dictionary">
+  <h1>Igala Dictionary</h1>
+  <div class="search-input">
+      <input type="text" id="search-word" placeholder="Search for a word">
+      <button id="search-button">Search</button>
+  </div>
+  
+  <ul class="word-list">
+    {% for word in words %}           
+      <li><a href="{% url 'single-word' word.slug %}">{{word.word}}</a></li>
+    {% endfor %}               
+  </ul>
+</div>
+</section>
+
 {% endblock content %}

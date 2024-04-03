@@ -1,3 +1,27 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<section class="single-word">
+    <div class="single-word-container">
+        <!-- First Term -->
+        <div class="term-card">
+            <h2 class="term-title">{{ single_words.word }} - {{ single_words.meaning }}  {{single_words.figure_of_speech}}  <i class="fas fa-volume-up audio-icon"></i></h2>
+            <p class="term-definition"><strong>Example:</strong>{{ single_words.example }} </p>
+            <p class="term-definition"><strong>Meaning:</strong>{{ single_words.example_meaning }}</p>
+        </div>
+
+        <!-- Second Term (Duplicate this section for more terms) -->
+        <div class="term-card">
+            <h2 class="term-title">Omu - Salt (Noun)   <i class="fas fa-volume-up audio-icon"></i> </h2>
+            <p class="term-definition"><strong>Example:</strong> 1. symbol of justice, righteousness, and authority; 2. a staff carried by titled men in Igbo society; 3. a sacred object used in rituals.</p>
+        </div>
+    </div>
+    
+</section>
+
+{% endblock content %}
+
 <h1>{{ single_words.word }}</h1>
 <p>Meaning: {{ single_words.meaning }}</p>
 <p>Example: {{ single_words.example }}</p>

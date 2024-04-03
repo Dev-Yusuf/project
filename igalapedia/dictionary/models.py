@@ -8,12 +8,21 @@ class Dialect(models.Model):
     def __str__(self):
         return self.name
 
+class FigureOfSpeech(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
+
 class Words(models.Model):
     word = models.CharField(max_length=100)
     meaning = models.CharField(max_length=200, blank=True, null=True)
+    figure_of_speech = models.ManyToManyField(FigureOfSpeech, related_name='words', blank=True)
     example = models.CharField(max_length=200, null=True, default=None)
+    example_meaning = models.CharField(max_length=200, null=True, default=None)
     pronunciation = models.FileField(upload_to='word_sounds/', blank=True, null=True)
-    dialects = models.ManyToManyField(Dialect, related_name='words', default="none")
+    dialects = models.ManyToManyField(Dialect, related_name='words', blank=True)
     related_terms = models.CharField(max_length=200, null=True, default=None)
     slug = models.SlugField(unique=True, max_length=100, blank=True)
 
@@ -21,10 +30,9 @@ class Words(models.Model):
         if not self.slug:
             self.slug = slugify(self.word)
         super().save(*args, **kwargs)
-    def __str__(self):
-        return self.word
-    class Meta:
-        verbose_name = "Word"
 
     def __str__(self):
         return self.word
+
+    class Meta:
+        verbose_name = "Word"
