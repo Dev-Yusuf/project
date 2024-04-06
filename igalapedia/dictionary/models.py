@@ -8,7 +8,7 @@ class Dialect(models.Model):
     def __str__(self):
         return self.name
 
-class FigureOfSpeech(models.Model):
+class PartOfSpeech(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
 
@@ -18,9 +18,8 @@ class FigureOfSpeech(models.Model):
 class Words(models.Model):
     word = models.CharField(max_length=100)
     meaning = models.CharField(max_length=200, blank=True, null=True)
-    figure_of_speech = models.ManyToManyField(FigureOfSpeech, related_name='words', blank=True)
-    example = models.CharField(max_length=200, null=True, default=None)
-    example_meaning = models.CharField(max_length=200, null=True, default=None)
+    igala_meaning = models.CharField(max_length=200, blank=True, null=True)
+    part_of_speech = models.ManyToManyField(PartOfSpeech, related_name='words', blank=True)
     pronunciation = models.FileField(upload_to='word_sounds/', blank=True, null=True)
     dialects = models.ManyToManyField(Dialect, related_name='words', blank=True)
     related_terms = models.CharField(max_length=200, null=True, default=None)
