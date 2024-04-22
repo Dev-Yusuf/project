@@ -14,7 +14,7 @@ class PartOfSpeech(models.Model):
 
     def __str__(self):
         return self.name
-
+ 
 class Words(models.Model):
     word = models.CharField(max_length=100)
     meaning = models.CharField(max_length=200, blank=True, null=True)
