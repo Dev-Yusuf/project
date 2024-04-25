@@ -1,21 +1,25 @@
-{% extends 'main.html' %}
-
-{% block content %}
+{% extends 'main.html' %} {% block content %}
 
 <section class="single-word">
-    <div class="single-word-container">
-        <!-- First Term -->
-        <div class="term-card">
-            <h2 class="term-title">{{ single_words.word }} ( {% for figure in single_words.part_of_speech.all %}
-            <i>  {{ figure.name }} </i> {% if not forloop.last %} {% endif %} ) - {{ single_words.meaning }} 
-            {% endfor %}  <i class="fas fa-volume-up audio-icon"></i></h2>
-            <p class="term-definition"><strong>Meaning:</strong>{{ single_words.igala_meaning }}</p> <br/>
-           
-           
+  <div class="single-word-container">
+    <!-- First Term -->
+    <div class="term-card">
+      <h2 class="term-title">
+        {{ single_words.word }} -   
+        {% if single_words.part_of_speech %}
+          ({{ single_words.part_of_speech }}) - 
+          <i>{{ single_words.part_of_speech.first.name }}</i>
+        {% endif %}
+        {{ single_words.meaning }}
+        <i class="fas fa-volume-up audio-icon"></i>
+      </h2>
+      <p class="term-definition">
+        <strong>Meaning:</strong> {{ single_words.igala_meaning }}
+      </p>
+      <br />
+    </div>
 
-        </div>
-
-<!--
+    <!--
     
         <div class="term-card">
             <h2 class="term-title">Omu - Salt (Noun)   <i class="fas fa-volume-up audio-icon"></i> </h2>
@@ -40,4 +44,6 @@
 
 <p>Related terms: {{ single_words.related_terms }}</p>
 -->
-{% endblock content %}
+    {% endblock content %}
+  </div>
+</section>
