@@ -213,35 +213,35 @@ img {
 }
 
 .search-input {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 40px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
 }
 
-.search-input input[type="text"] {
-    width: 70%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    margin-right: 10px;
-    font-size: 16px;
+.search-input-field {
+  width: 70%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  font-size: 16px;
 }
 
-.search-input button {
-    padding: 10px 20px;
-    background-color: #101E4A;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.search-button {
+  padding: 10px 20px;
+  background-color: #101E4A;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.search-input button:hover {
-    background-color: #212526;
+.search-button:hover {
+  background-color: #212526;
 }
 
 .word-list {

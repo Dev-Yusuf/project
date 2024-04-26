@@ -3,14 +3,20 @@
 <section class="dictionary-home">
   <div class="igala-dictionary">
     <h1>Igala Dictionary</h1>
-    <div class="search-input">
-      <input type="text" id="search-word" placeholder="Search for a word" />
-      <button id="search-button">Search</button>
-    </div>
+    
+    <form class="search-input" action="#" method="GET">
+      {{ word_filter.form.word }}
+      <button id="search-button" class="search-button">Search</button>
+    </form>
 
     <ul class="word-list">
       {% for word in words %}
       <li><a href="{% url 'single-word' word.slug %}">{{word.word}}</a></li>
+      {% empty %}
+        <li>No such word found... 
+            Though we are still developing, if you feel the word is correct,
+            you can contact the admin so it could be added. Thank you!
+        </li>
       {% endfor %}
     </ul>
   </div>
