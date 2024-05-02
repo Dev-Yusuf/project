@@ -306,3 +306,33 @@ img {
     line-height: 1.5;
 }
 
+/* the pagination styles */
+.pagination-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination-buttons a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #101E4A;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.pagination-buttons a:hover {
+  background-color: #212526;
+}
+
+.pagination-info {
+  font-size: 16px;
+  color: #6c757d;
+  margin: 0 10px; 
+}

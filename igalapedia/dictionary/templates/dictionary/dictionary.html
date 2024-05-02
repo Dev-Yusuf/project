@@ -20,6 +20,18 @@
       {% endfor %}
     </ul>
   </div>
+
+  <div class="pagination-buttons">
+    {% if current_page_holder.has_previous %}
+    <a href="?page={{current_page_holder.previous_page_number}}" id="previous-button"><i class="fas fa-arrow-left"></i></a>
+    {% endif %}
+
+    <span class="pagination-info">{{ current_page_holder.number }} of {{ current_page_holder.paginator.num_pages }}</span>
+
+    {% if current_page_holder.has_next %}
+    <a href="?page={{current_page_holder.next_page_number}}" id="next-button"><i class="fas fa-arrow-right"></i></a>
+    {% endif %}
+  </div>
 </section>
 
 {% endblock content %}
