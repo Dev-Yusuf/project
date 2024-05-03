@@ -10,7 +10,7 @@ def all_words(request):
     words = Words.objects.all().order_by('word')
     word_filter = WordsFilters(request.GET, queryset=words)
     filtered_words = word_filter.qs
-    results = 1
+    results = 50
     word_paginator = Paginator(filtered_words, results)
     page_number = request.GET.get('page')
     try:
