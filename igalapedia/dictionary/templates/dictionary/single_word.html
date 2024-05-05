@@ -1,24 +1,28 @@
 {% extends 'main.html' %} {% block content %}
 
-<section class="single-word">
-  <div class="single-word-container">
-    <!-- First Term -->
-    <div class="term-card">
-      <h2 class="term-title">
-        {{ single_words.word }} -   
-        {% if single_words.part_of_speech %}
-          ({{ single_words.part_of_speech }}) - 
-          <i>{{ single_words.part_of_speech.first.name }}</i>
-        {% endif %}
-        {{ single_words.meaning }}
-        <i class="fas fa-volume-up audio-icon"></i>
-      </h2>
-      <p class="term-definition">
-        <strong>Meaning:</strong> {{ single_words.igala_meaning }}
-      </p>
-      <br />
-    </div>
-
+<div class="single-word-container">
+  {% for meaning in single_words.meanings.all %}
+  <div class="single-word">
+    <h2>{{ single_words.word }}</h2>
+    <i class="fas fa-volume-up volume-icon"></i>
+  </div>
+  <div class="part-of-speech">{{ meaning.part_of_speech.name }}</div>
+  <div class="word-meaning">{{ meaning.meaning }}</div>
+  <br>
+  <p class="example-heading">Example:</p>
+  {% for example in meaning.examples.all %}
+  <div class="word-example">
+    <p><span class="igala-word">{{ example.igala_example }}</span></p>
+    <p>{{ example.english_meaning }}</p>
+  </div>
+  {% endfor %}
+    <br>
+    {% if single_words.related_terms %}
+      <p class="example-heading">Related terms:</p>
+      <p>{{ single_words.related_terms }}</p>
+    {% endif %}
+  {% endfor %}
+</div>
     <!--
     
         <div class="term-card">
