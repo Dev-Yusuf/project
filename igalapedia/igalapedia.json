@@ -1,0 +1,1098 @@
+[
+    {
+        "model": "dictionary.partofspeech",
+        "pk": 1,
+        "fields": {
+            "name": "noun"
+        }
+    },
+    {
+        "model": "dictionary.partofspeech",
+        "pk": 2,
+        "fields": {
+            "name": "verb"
+        }
+    },
+    {
+        "model": "dictionary.partofspeech",
+        "pk": 3,
+        "fields": {
+            "name": "pronoun"
+        }
+    },
+    {
+        "model": "dictionary.partofspeech",
+        "pk": 4,
+        "fields": {
+            "name": "proverb"
+        }
+    },
+    {
+        "model": "dictionary.partofspeech",
+        "pk": 5,
+        "fields": {
+            "name": "adjective"
+        }
+    },
+    {
+        "model": "dictionary.partofspeech",
+        "pk": 6,
+        "fields": {
+            "name": "preposition"
+        }
+    },
+    {
+        "model": "dictionary.partofspeech",
+        "pk": 7,
+        "fields": {
+            "name": "None"
+        }
+    },
+    {
+        "model": "dictionary.partofspeech",
+        "pk": 8,
+        "fields": {
+            "name": "adverb"
+        }
+    },
+    {
+        "model": "dictionary.example",
+        "pk": 1,
+        "fields": {
+            "igala_example": "Aa cha alfabet igala ejodudu",
+            "english_meaning": "the first igala alphabet"
+        }
+    },
+    {
+        "model": "dictionary.example",
+        "pk": 2,
+        "fields": {
+            "igala_example": "A-a bile ke cha abai?",
+            "english_meaning": "why did you do like this?"
+        }
+    },
+    {
+        "model": "dictionary.example",
+        "pk": 3,
+        "fields": {
+            "igala_example": "amo oma igala chi Aaju ameh Oboni ma che",
+            "english_meaning": "the children of igala are all grand child of Ameh Oboni"
+        }
+    },
+    {
+        "model": "dictionary.example",
+        "pk": 4,
+        "fields": {
+            "igala_example": "baba wa mi aba du ni oja",
+            "english_meaning": "our father banned daily contribution"
+        }
+    },
+    {
+        "model": "dictionary.example",
+        "pk": 5,
+        "fields": {
+            "igala_example": "Ababale  john mi oko du tane",
+            "english_meaning": "Immediately, john dropped the money"
+        }
+    },
+    {
+        "model": "dictionary.example",
+        "pk": 6,
+        "fields": {
+            "igala_example": "Abacha chi ujenwu ogbogaga ane igala",
+            "english_meaning": "Cassava is a very vital food in igala land"
+        }
+    },
+    {
+        "model": "dictionary.words",
+        "pk": 1,
+        "fields": {
+            "word": "Aa",
+            "pronunciation": "",
+            "dialects": "akpotor",
+            "related_terms": "none",
+            "slug": "aa"
+        }
+    },
+    {
+        "model": "dictionary.words",
+        "pk": 2,
+        "fields": {
+            "word": "Aba",
+            "pronunciation": "",
+            "dialects": null,
+            "related_terms": "Aba(father, pin)",
+            "slug": "aba"
+        }
+    },
+    {
+        "model": "dictionary.words",
+        "pk": 3,
+        "fields": {
+            "word": "Ababale",
+            "pronunciation": "",
+            "dialects": null,
+            "related_terms": "erere (Immediately)",
+            "slug": "ababale"
+        }
+    },
+    {
+        "model": "dictionary.words",
+        "pk": 4,
+        "fields": {
+            "word": "Ababo",
+            "pronunciation": "",
+            "dialects": null,
+            "related_terms": "erere",
+            "slug": "ababo"
+        }
+    },
+    {
+        "model": "dictionary.words",
+        "pk": 5,
+        "fields": {
+            "word": "Abacha",
+            "pronunciation": "",
+            "dialects": null,
+            "related_terms": "abacha-ibegwu(wild cassava), abacha-odokpe(sweet cassava), abacha-ulogwu(bitter cassava)",
+            "slug": "abacha"
+        }
+    },
+    {
+        "model": "dictionary.words",
+        "pk": 6,
+        "fields": {
+            "word": "Abada",
+            "pronunciation": "",
+            "dialects": null,
+            "related_terms": null,
+            "slug": "abada"
+        }
+    },
+    {
+        "model": "dictionary.words",
+        "pk": 7,
+        "fields": {
+            "word": "Abadu",
+            "pronunciation": "",
+            "dialects": null,
+            "related_terms": null,
+            "slug": "abadu"
+        }
+    },
+    {
+        "model": "dictionary.words",
+        "pk": 8,
+        "fields": {
+            "word": "Aba-edo",
+            "pronunciation": "",
+            "dialects": null,
+            "related_terms": null,
+            "slug": "aba-edo"
+        }
+    },
+    {
+        "model": "dictionary.words",
+        "pk": 9,
+        "fields": {
+            "word": "Abafu",
+            "pronunciation": "",
+            "dialects": null,
+            "related_terms": "abe(Razor)",
+            "slug": "abafu"
+        }
+    },
+    {
+        "model": "dictionary.words",
+        "pk": 10,
+        "fields": {
+            "word": "Abaga",
+            "pronunciation": "",
+            "dialects": null,
+            "related_terms": null,
+            "slug": "abaga"
+        }
+    },
+    {
+        "model": "dictionary.words",
+        "pk": 11,
+        "fields": {
+            "word": "Abahi",
+            "pronunciation": "",
+            "dialects": null,
+            "related_terms": null,
+            "slug": "abahi"
+        }
+    },
+    {
+        "model": "dictionary.words",
+        "pk": 12,
+        "fields": {
+            "word": "Abai",
+            "pronunciation": "",
+            "dialects": null,
+            "related_terms": null,
+            "slug": "abai"
+        }
+    },
+    {
+        "model": "dictionary.words",
+        "pk": 13,
+        "fields": {
+            "word": "A-a",
+            "pronunciation": "",
+            "dialects": null,
+            "related_terms": null,
+            "slug": "a-a"
+        }
+    },
+    {
+        "model": "dictionary.meaning",
+        "pk": 1,
+        "fields": {
+            "word": 1,
+            "meaning": "The first igala alphabet and also the first vowel sound in igala",
+            "part_of_speech": 7,
+            "examples": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "dictionary.meaning",
+        "pk": 2,
+        "fields": {
+            "word": 13,
+            "meaning": "why",
+            "part_of_speech": 8,
+            "examples": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "dictionary.meaning",
+        "pk": 3,
+        "fields": {
+            "word": 2,
+            "meaning": "to place a ban of something",
+            "part_of_speech": 2,
+            "examples": [
+                4
+            ]
+        }
+    },
+    {
+        "model": "dictionary.meaning",
+        "pk": 4,
+        "fields": {
+            "word": 3,
+            "meaning": "Immediately",
+            "part_of_speech": 2,
+            "examples": [
+                5
+            ]
+        }
+    },
+    {
+        "model": "dictionary.meaning",
+        "pk": 5,
+        "fields": {
+            "word": 5,
+            "meaning": "Cassava",
+            "part_of_speech": 1,
+            "examples": [
+                6
+            ]
+        }
+    },
+    {
+        "model": "auth.user",
+        "fields": {
+            "password": "pbkdf2_sha256$720000$3JyeBDi9UEM9gmiFJWEvRb$LiY55gI3iWXJLcewmuiypgbeyat5Lqes1eZE16fqKAk=",
+            "last_login": "2024-05-06T09:09:32.722Z",
+            "is_superuser": true,
+            "username": "igalapedia",
+            "first_name": "",
+            "last_name": "",
+            "email": "igalapedia@email.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2024-05-03T13:23:03.286Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "375dc63v3s1y958w38gn9dcbhhdqp7sg",
+        "fields": {
+            "session_data": ".eJxVjEEOwiAQRe_C2pCBDkzr0n3PQAYYpWpoUtqV8e7apAvd_vfef6nA21rC1mQJU1ZnZdTpd4ucHlJ3kO9cb7NOc12XKepd0QdtepyzPC-H-3dQuJVvjWDZMSSJBqUbeg8-A3bkPWfTk0EHaA0QomM7xESSCJ3PnuSKiUC9P7M_NqY:1s2suT:Z6pPQVRfrGCTTZeb8TyWqLrXYP3i-BUS-ocd4_kOKdg",
+            "expire_date": "2024-05-17T13:25:09.581Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "tmgj0lpvxow9p3m2nvvh9f3cgdgc3gcg",
+        "fields": {
+            "session_data": ".eJxVjEEOwiAQRe_C2pCBDkzr0n3PQAYYpWpoUtqV8e7apAvd_vfef6nA21rC1mQJU1ZnZdTpd4ucHlJ3kO9cb7NOc12XKepd0QdtepyzPC-H-3dQuJVvjWDZMSSJBqUbeg8-A3bkPWfTk0EHaA0QomM7xESSCJ3PnuSKiUC9P7M_NqY:1s3uLk:hYnm_1kEggex2Dw2R2_AZRs2IbqvbIzz_eZkQaHjutw",
+            "expire_date": "2024-05-20T09:09:32.729Z"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 1,
+        "fields": {
+            "action_time": "2024-05-03T13:26:28.883Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "words"
+            ],
+            "object_id": "1",
+            "object_repr": "Aa",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 2,
+        "fields": {
+            "action_time": "2024-05-03T13:27:00.878Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "partofspeech"
+            ],
+            "object_id": "1",
+            "object_repr": "noun",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 3,
+        "fields": {
+            "action_time": "2024-05-03T13:27:06.588Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "partofspeech"
+            ],
+            "object_id": "2",
+            "object_repr": "verb",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 4,
+        "fields": {
+            "action_time": "2024-05-03T13:27:11.607Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "partofspeech"
+            ],
+            "object_id": "3",
+            "object_repr": "pronoun",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 5,
+        "fields": {
+            "action_time": "2024-05-03T13:27:23.475Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "partofspeech"
+            ],
+            "object_id": "4",
+            "object_repr": "proverb",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 6,
+        "fields": {
+            "action_time": "2024-05-03T13:27:30.575Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "partofspeech"
+            ],
+            "object_id": "5",
+            "object_repr": "adjective",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 7,
+        "fields": {
+            "action_time": "2024-05-03T13:27:50.134Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "partofspeech"
+            ],
+            "object_id": "6",
+            "object_repr": "preposition",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 8,
+        "fields": {
+            "action_time": "2024-05-03T13:29:17.823Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "example"
+            ],
+            "object_id": "1",
+            "object_repr": "Aa cha alfabet igala ejodudu",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 9,
+        "fields": {
+            "action_time": "2024-05-03T13:32:08.600Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "partofspeech"
+            ],
+            "object_id": "7",
+            "object_repr": "None",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 10,
+        "fields": {
+            "action_time": "2024-05-03T13:32:17.392Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "meaning"
+            ],
+            "object_id": "1",
+            "object_repr": "The first igala alphabet and also the first vowel sound in igala",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 11,
+        "fields": {
+            "action_time": "2024-05-03T13:54:59.965Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "words"
+            ],
+            "object_id": "2",
+            "object_repr": "Aba",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 12,
+        "fields": {
+            "action_time": "2024-05-03T14:01:21.287Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "words"
+            ],
+            "object_id": "2",
+            "object_repr": "Aba",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Related terms\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 13,
+        "fields": {
+            "action_time": "2024-05-03T14:02:34.547Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "words"
+            ],
+            "object_id": "3",
+            "object_repr": "Ababale",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 14,
+        "fields": {
+            "action_time": "2024-05-03T14:03:33.950Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "words"
+            ],
+            "object_id": "4",
+            "object_repr": "Ababo",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 15,
+        "fields": {
+            "action_time": "2024-05-03T14:03:56.459Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "words"
+            ],
+            "object_id": "5",
+            "object_repr": "Abacha",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 16,
+        "fields": {
+            "action_time": "2024-05-03T14:05:53.116Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "words"
+            ],
+            "object_id": "5",
+            "object_repr": "Abacha",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Related terms\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 17,
+        "fields": {
+            "action_time": "2024-05-03T14:06:16.348Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "words"
+            ],
+            "object_id": "6",
+            "object_repr": "Abada",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 18,
+        "fields": {
+            "action_time": "2024-05-03T14:06:52.956Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "words"
+            ],
+            "object_id": "7",
+            "object_repr": "Abadu",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 19,
+        "fields": {
+            "action_time": "2024-05-03T14:07:17.801Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "words"
+            ],
+            "object_id": "8",
+            "object_repr": "Aba-edo",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 20,
+        "fields": {
+            "action_time": "2024-05-03T14:07:29.605Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "words"
+            ],
+            "object_id": "9",
+            "object_repr": "Abafu",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 21,
+        "fields": {
+            "action_time": "2024-05-03T14:08:46.182Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "words"
+            ],
+            "object_id": "9",
+            "object_repr": "Abafu",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Related terms\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 22,
+        "fields": {
+            "action_time": "2024-05-03T14:09:21.528Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "words"
+            ],
+            "object_id": "10",
+            "object_repr": "Abaga",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 23,
+        "fields": {
+            "action_time": "2024-05-03T14:09:43.391Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "words"
+            ],
+            "object_id": "11",
+            "object_repr": "Abahi",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 24,
+        "fields": {
+            "action_time": "2024-05-03T14:09:59.064Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "words"
+            ],
+            "object_id": "12",
+            "object_repr": "Abai",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 25,
+        "fields": {
+            "action_time": "2024-05-03T14:11:17.914Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "words"
+            ],
+            "object_id": "13",
+            "object_repr": "A-a",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 26,
+        "fields": {
+            "action_time": "2024-05-03T14:13:02.573Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "example"
+            ],
+            "object_id": "2",
+            "object_repr": "A-a bile cha abai?",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 27,
+        "fields": {
+            "action_time": "2024-05-03T14:15:10.231Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "example"
+            ],
+            "object_id": "3",
+            "object_repr": "amo oma igala chi Aaju ameh Oboni ma che",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 28,
+        "fields": {
+            "action_time": "2024-05-03T14:18:38.422Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "example"
+            ],
+            "object_id": "4",
+            "object_repr": "baba wa bi aba du ni oja",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 29,
+        "fields": {
+            "action_time": "2024-05-03T14:21:07.802Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "partofspeech"
+            ],
+            "object_id": "8",
+            "object_repr": "adverb",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 30,
+        "fields": {
+            "action_time": "2024-05-03T14:21:22.241Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "meaning"
+            ],
+            "object_id": "2",
+            "object_repr": "why",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 31,
+        "fields": {
+            "action_time": "2024-05-03T14:22:00.797Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "meaning"
+            ],
+            "object_id": "3",
+            "object_repr": "to place a ban of something",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 32,
+        "fields": {
+            "action_time": "2024-05-03T14:22:48.622Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "meaning"
+            ],
+            "object_id": "4",
+            "object_repr": "Immediately",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 33,
+        "fields": {
+            "action_time": "2024-05-06T09:16:43.344Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "example"
+            ],
+            "object_id": "2",
+            "object_repr": "A-a bile ke cha abai?",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Igala example\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 34,
+        "fields": {
+            "action_time": "2024-05-06T09:17:06.175Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "example"
+            ],
+            "object_id": "4",
+            "object_repr": "baba wa mi aba du ni oja",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Igala example\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 35,
+        "fields": {
+            "action_time": "2024-05-06T09:18:55.800Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "example"
+            ],
+            "object_id": "5",
+            "object_repr": "Ababale  john mi oko du tane",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 36,
+        "fields": {
+            "action_time": "2024-05-06T09:25:58.131Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "example"
+            ],
+            "object_id": "6",
+            "object_repr": "Abacha chi ujenwu ogbogaga ane igala",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 37,
+        "fields": {
+            "action_time": "2024-05-06T10:19:20.503Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "words"
+            ],
+            "object_id": "5",
+            "object_repr": "Abacha",
+            "action_flag": 2,
+            "change_message": "[]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 38,
+        "fields": {
+            "action_time": "2024-05-06T10:19:41.754Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "example"
+            ],
+            "object_id": "6",
+            "object_repr": "Abacha chi ujenwu ogbogaga ane igala",
+            "action_flag": 2,
+            "change_message": "[]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 39,
+        "fields": {
+            "action_time": "2024-05-06T10:21:25.318Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "example"
+            ],
+            "object_id": "6",
+            "object_repr": "Abacha chi ujenwu ogbogaga ane igala",
+            "action_flag": 2,
+            "change_message": "[]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 40,
+        "fields": {
+            "action_time": "2024-05-06T10:21:53.058Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "meaning"
+            ],
+            "object_id": "4",
+            "object_repr": "Immediately",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Examples\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 41,
+        "fields": {
+            "action_time": "2024-05-06T10:23:09.384Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "words"
+            ],
+            "object_id": "3",
+            "object_repr": "Ababale",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Related terms\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 42,
+        "fields": {
+            "action_time": "2024-05-06T10:24:22.493Z",
+            "user": [
+                "igalapedia"
+            ],
+            "content_type": [
+                "dictionary",
+                "meaning"
+            ],
+            "object_id": "5",
+            "object_repr": "Cassava",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    }
+]

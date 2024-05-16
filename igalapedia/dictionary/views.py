@@ -16,7 +16,7 @@ def all_words(request):
     try:
         current_page_holder = word_paginator.get_page(page_number)
     except PageNotAnInteger:
-        current_page_holder = word_paginator.page(1)
+        current_page_holder = word_paginator.page(1) 
     except EmptyPage:
         current_page_holder = word_paginator.page(word_paginator.num_pages)
     context = {"words": current_page_holder, "word_filter": word_filter, "current_page_holder": current_page_holder}
