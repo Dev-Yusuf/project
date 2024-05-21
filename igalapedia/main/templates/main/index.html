@@ -58,4 +58,94 @@
     </div>
 </section>
 
+<section class="statistics-section">
+    <h1 class="statistics-title">Database Stats ⚡📈</h1>
+    <h2 class="related-title">By the Numbers</h2>
+    <div class="statistics-container">
+        <div class="statistic">
+            <p class="stats-digits">{{word_count}}</p>
+            <h2>Total Words</h2>
+        </div>
+        <div class="statistic">
+            <p class="stats-digits">{{igala_example_count}}</p>
+            <h2>Total Examples</h2>
+        </div>
+        <div class="statistic">
+          <p class="stats-digits">{{pronunciation_count}}</p>
+          <h2>Total Audio Pronunciations</h2> 
+        </div>
+    </div>
+</section>
+
+<section class="community-section">
+  <h1 class="community-title">Community 🌟</h1>
+  <h2 class="related-title">Contributors</h2>
+  <div class="contributors-container">
+      <!-- Contributor item -->
+      <div class="contributor">
+          <a href="https://github.com/username1">
+              <img src="https://media.licdn.com/dms/image/D4D03AQE8j0beEf2mhw/profile-displayphoto-shrink_800_800/0/1713775420545?e=1721865600&v=beta&t=fQmRPrun_jCTW6qa8SIjm8F308H_NhvUrn8IFd5Um3k" alt="Profile 1" data-username="@username1">
+          </a>
+      </div>
+      <div class="contributor">
+        <a href="https://github.com/username1">
+            <img src="https://media.licdn.com/dms/image/D4D03AQE8j0beEf2mhw/profile-displayphoto-shrink_800_800/0/1713775420545?e=1721865600&v=beta&t=fQmRPrun_jCTW6qa8SIjm8F308H_NhvUrn8IFd5Um3k" alt="Profile 1" data-username="@username1">
+        </a>
+    </div>
+    <div class="contributor">
+      <a href="https://github.com/username1">
+          <img src="https://media.licdn.com/dms/image/D4D03AQE8j0beEf2mhw/profile-displayphoto-shrink_800_800/0/1713775420545?e=1721865600&v=beta&t=fQmRPrun_jCTW6qa8SIjm8F308H_NhvUrn8IFd5Um3k" alt="Profile 1" data-username="@username1">
+      </a>
+  </div>
+  <div class="contributor">
+    <a href="https://github.com/username1">
+        <img src="https://media.licdn.com/dms/image/D4D03AQE8j0beEf2mhw/profile-displayphoto-shrink_800_800/0/1713775420545?e=1721865600&v=beta&t=fQmRPrun_jCTW6qa8SIjm8F308H_NhvUrn8IFd5Um3k" alt="Profile 1" data-username="@username1">
+    </a>
+</div>
+      <!-- Repeat the contributor item for each contributor -->
+  </div>
+  <div class="community-stats">
+      <div class="statistic">
+          <p class="stats-digits">{{community_stats.github_stars}}</p>
+          <h2>GitHub Stars</h2>
+      </div>
+      <div class="statistic">
+        <p class="stats-digits">{{community_stats.whatsapp_members}}+</p>
+        <h2>What'sApp Community</h2>
+      </div>
+  </div>
+</section>
+
+
+<section class="pioneer-section">
+<h1 class="pioneer-title">Pioneers 🚀</h1>
+<h2 class="related-title">Early adopters</h2>
+<div class="pioneers-container">
+  <!-- Pioneer item -->
+  <div class="pioneer">
+    <a href="#" class="pioneer-link" title="Pioneer 1">
+      <img src="assets/images/profile.jpg" alt="Pioneer 1" data-pioneer="@pioneer1">
+    </a>
+  </div>
+  <div class="pioneer">
+    <a href="#" class="pioneer-link" title="Pioneer 2">
+      <img src="assets/images/profile.jpg" alt="Pioneer 2" data-pioneer="@pioneer2">
+    </a>
+  </div>
+  <div class="pioneer">
+    <a href="#" class="pioneer-link" title="Pioneer 3">
+      <img src="assets/images/profile.jpg" alt="Pioneer 3" data-pioneer="@pioneer3">
+    </a>
+  </div>
+  <div class="pioneer">
+    <a href="#" class="pioneer-link" title="Pioneer 4">
+      <img src="assets/images/avologo2.png" alt="Pioneer 4" data-pioneer="@pioneer4">
+    </a>
+  </div>
+  <!-- Repeat the pioneer item for each pioneer -->
+</div>
+</section>
+
+{% include "footer.html" %}
+
 {% endblock content %}
