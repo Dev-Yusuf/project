@@ -1,0 +1,170 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Link to external submission CSS (reusing it for dashboard) -->
+<link rel="stylesheet" href="{% static 'styles/submission.css' %}">
+
+<section class="contributions-hero">
+    <div class="container">
+        <div class="hero-content">
+            <span class="section-eyebrow">My Dashboard</span>
+            <h1 class="hero-title">Welcome, {{ user.get_full_name|default:user.username }}!</h1>
+            <p class="hero-description">
+                Track your contributions and see your impact on the Igalapedia dictionary.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="contributions-main">
+    <div class="container">
+        
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon approved">✅</div>
+                <div class="stat-content">
+                    <div class="stat-number">{{ stats.approved_words_count }}</div>
+                    <div class="stat-label">Approved Words</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon pending">⏳</div>
+                <div class="stat-content">
+                    <div class="stat-number">{{ stats.pending_words_count }}</div>
+                    <div class="stat-label">Pending Review</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon rejected">❌</div>
+                <div class="stat-content">
+                    <div class="stat-number">{{ stats.rejected_words_count }}</div>
+                    <div class="stat-label">Rejected</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon total">📊</div>
+                <div class="stat-content">
+                    <div class="stat-number">{{ stats.total_submissions }}</div>
+                    <div class="stat-label">Total Submissions</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <h2>Quick Actions</h2>
+            <div class="actions-grid">
+                <a href="{% url 'submit_word' %}" class="action-card">
+                    <div class="action-icon">➕</div>
+                    <h3>Submit New Word</h3>
+                    <p>Contribute a new Igala word to the dictionary</p>
+                </a>
+                
+                <a href="{% url 'my_contributions' %}" class="action-card">
+                    <div class="action-icon">📝</div>
+                    <h3>View My Submissions</h3>
+                    <p>See all your submitted words and their status</p>
+                </a>
+                
+                <a href="{% url 'leaderboard' %}" class="action-card">
+                    <div class="action-icon">🏆</div>
+                    <h3>Check Leaderboard</h3>
+                    <p>See where you rank among contributors</p>
+                </a>
+                
+                <a href="{% url 'words' %}" class="action-card">
+                    <div class="action-icon">📚</div>
+                    <h3>Browse Dictionary</h3>
+                    <p>Explore the Igala dictionary</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- Achievement Section -->
+        {% if stats.approved_words_count > 0 %}
+            <div class="achievement-section">
+                <h2>Your Achievement</h2>
+                <div class="achievement-card">
+                    {% if stats.approved_words_count >= 100 %}
+                        <div class="achievement-badge legendary">
+                            <div class="badge-icon">👑</div>
+                            <div class="badge-info">
+                                <h3>Legendary Contributor</h3>
+                                <p>You've contributed 100+ approved words!</p>
+                            </div>
+                        </div>
+                    {% elif stats.approved_words_count >= 50 %}
+                        <div class="achievement-badge gold">
+                            <div class="badge-icon">🏆</div>
+                            <div class="badge-info">
+                                <h3>Champion</h3>
+                                <p>You've contributed 50+ approved words!</p>
+                            </div>
+                        </div>
+                    {% elif stats.approved_words_count >= 25 %}
+                        <div class="achievement-badge silver">
+                            <div class="badge-icon">⭐</div>
+                            <div class="badge-info">
+                                <h3>Expert Contributor</h3>
+                                <p>You've contributed 25+ approved words!</p>
+                            </div>
+                        </div>
+                    {% elif stats.approved_words_count >= 10 %}
+                        <div class="achievement-badge bronze">
+                            <div class="badge-icon">🌟</div>
+                            <div class="badge-info">
+                                <h3>Active Member</h3>
+                                <p>You've contributed 10+ approved words!</p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="achievement-badge starter">
+                            <div class="badge-icon">🌱</div>
+                            <div class="badge-info">
+                                <h3>Getting Started</h3>
+                                <p>Keep contributing to unlock more achievements!</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Contribution Timeline (if user has contributions) -->
+        {% if stats.first_contribution %}
+            <div class="timeline-section">
+                <h2>Your Journey</h2>
+                <div class="timeline-card">
+                    <div class="timeline-item">
+                        <div class="timeline-marker start"></div>
+                        <div class="timeline-content">
+                            <h4>First Contribution</h4>
+                            <p>{{ stats.first_contribution|date:"F d, Y" }}</p>
+                        </div>
+                    </div>
+                    {% if stats.last_contribution %}
+                        <div class="timeline-item">
+                            <div class="timeline-marker current"></div>
+                            <div class="timeline-content">
+                                <h4>Latest Contribution</h4>
+                                <p>{{ stats.last_contribution|date:"F d, Y" }}</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+</section>
+
+{% include "footer.html" %}
+
+{% endblock content %}
+

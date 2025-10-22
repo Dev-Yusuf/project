@@ -1,0 +1,220 @@
+/* About Page Styles */
+.about-hero {
+    padding: 8rem 0 4rem;
+    background: linear-gradient(160deg, #FFFFFF 0%, #F7FAFC 100%);
+    margin-top: 64px;
+}
+
+.about-hero-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about-mission {
+    padding: 6rem 0;
+}
+
+.mission-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.mission-stats {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.stat-card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(16, 30, 74, 0.08);
+    text-align: center;
+    transition: var(--transition);
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(16, 30, 74, 0.08);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.stat-card h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.stat-card p {
+    color: var(--light-text);
+    margin: 0;
+}
+
+.about-features {
+    padding: 6rem 0;
+    background: linear-gradient(to bottom, var(--white) 0%, rgba(247, 250, 252, 0.5) 100%);
+}
+
+.feature-icon-large {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.about-story {
+    padding: 6rem 0;
+}
+
+.story-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about-technology {
+    padding: 6rem 0;
+    background: linear-gradient(to bottom, rgba(247, 250, 252, 0.5) 0%, var(--white) 100%);
+}
+
+.tech-stack {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.tech-item {
+    text-align: center;
+    padding: 2rem;
+    background: var(--white);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(16, 30, 74, 0.08);
+    transition: var(--transition);
+}
+
+.tech-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(16, 30, 74, 0.08);
+}
+
+.tech-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.tech-item h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.tech-item p {
+    color: var(--light-text);
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.about-contribute {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #1a2f6d 100%);
+    color: var(--white);
+}
+
+.contribute-cta {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.contribute-cta .section-title,
+.contribute-cta .section-description {
+    color: var(--white);
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.cta-buttons .primary-button {
+    background: var(--white);
+    color: var(--primary-color);
+}
+
+.cta-buttons .primary-button:hover {
+    background: #f8f9fa;
+}
+
+.cta-buttons .secondary-button {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--white);
+}
+
+.cta-buttons .secondary-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.about-contact {
+    padding: 6rem 0;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+}
+
+.contact-methods {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--white);
+    border: 1px solid rgba(16, 30, 74, 0.08);
+    border-radius: 8px;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.contact-link:hover {
+    border-color: var(--primary-color);
+    transform: translateX(4px);
+}
+
+.contact-link i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+    .mission-grid,
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+    }
+
+    .tech-stack {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+}
+

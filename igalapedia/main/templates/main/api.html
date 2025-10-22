@@ -1,0 +1,177 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Link to external API page CSS -->
+<link rel="stylesheet" href="{% static 'styles/api.css' %}">
+
+<section class="api-hero">
+    <div class="container">
+        <div class="api-hero-content">
+            <span class="section-eyebrow">API Documentation</span>
+            <h1 class="hero-title">Igalapedia <span class="accent-text">API</span></h1>
+            <p class="hero-description">
+                Integrate Igala language resources into your applications with our RESTful API.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="api-status">
+    <div class="container">
+        <div class="status-card">
+            <h2>🚧 API Under Development</h2>
+            <p>We're currently building a comprehensive REST API to provide programmatic access to Igalapedia's resources.</p>
+        </div>
+    </div>
+</section>
+
+<section class="api-features">
+    <div class="container">
+        <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">Planned API Endpoints</h2>
+        <div class="endpoints-grid">
+            <div class="endpoint-card">
+                <div class="endpoint-method get">GET</div>
+                <div class="endpoint-details">
+                    <h4>/api/v1/words</h4>
+                    <p>Retrieve a paginated list of Igala words</p>
+                </div>
+            </div>
+
+            <div class="endpoint-card">
+                <div class="endpoint-method get">GET</div>
+                <div class="endpoint-details">
+                    <h4>/api/v1/words/:slug</h4>
+                    <p>Get detailed information about a specific word</p>
+                </div>
+            </div>
+
+            <div class="endpoint-card">
+                <div class="endpoint-method get">GET</div>
+                <div class="endpoint-details">
+                    <h4>/api/v1/search</h4>
+                    <p>Search for words by query parameter</p>
+                </div>
+            </div>
+
+            <div class="endpoint-card">
+                <div class="endpoint-method get">GET</div>
+                <div class="endpoint-details">
+                    <h4>/api/v1/examples</h4>
+                    <p>Retrieve usage examples in Igala</p>
+                </div>
+            </div>
+
+            <div class="endpoint-card">
+                <div class="endpoint-method post">POST</div>
+                <div class="endpoint-details">
+                    <h4>/api/v1/translate</h4>
+                    <p>Translate text between English and Igala</p>
+                </div>
+            </div>
+
+            <div class="endpoint-card">
+                <div class="endpoint-method get">GET</div>
+                <div class="endpoint-details">
+                    <h4>/api/v1/random</h4>
+                    <p>Get a random Igala word</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="api-features-list">
+    <div class="container">
+        <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">Planned Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon-large">🔒</div>
+                <h3>Authentication</h3>
+                <p>API key-based authentication for secure access</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-large">⚡</div>
+                <h3>Rate Limiting</h3>
+                <p>Fair usage policies with generous rate limits</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-large">📊</div>
+                <h3>Analytics</h3>
+                <p>Track your API usage and performance</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-large">📖</div>
+                <h3>Documentation</h3>
+                <p>Interactive API documentation with examples</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-large">🌍</div>
+                <h3>CORS Support</h3>
+                <p>Use the API from any domain</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-large">💎</div>
+                <h3>Free Forever</h3>
+                <p>Free API access for all developers</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="api-example">
+    <div class="container">
+        <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">Example API Response</h2>
+        <div class="code-example">
+            <div class="code-header">
+                <span>GET /api/v1/words/omi</span>
+                <span class="status-badge">200 OK</span>
+            </div>
+            <pre><code>{
+  "word": "ọ́mì",
+  "slug": "omi",
+  "pronunciation": "/ɔ́mɪ̀/",
+  "meanings": [
+    {
+      "part_of_speech": "noun",
+      "definition": "water",
+      "examples": [
+        {
+          "igala": "Ọ́mì ńyí dí tǒ",
+          "english": "This water is cold"
+        }
+      ]
+    }
+  ],
+  "related_terms": ["ọ́mì tǒ", "ọ́mì gbọgbọ"],
+  "contributor": "IgalaLanguageTeam"
+}</code></pre>
+        </div>
+    </div>
+</section>
+
+<section class="api-cta">
+    <div class="container">
+        <div class="cta-content">
+            <h2 class="section-title">Help Us Build the API</h2>
+            <p class="section-description">
+                We're looking for developers to help design and implement the Igalapedia API. 
+                Your contribution will help make Igala language resources accessible to developers worldwide.
+            </p>
+            <div class="cta-buttons">
+                <a href="https://github.com/Dev-Yusuf/project" target="_blank" class="primary-button">
+                    Contribute on GitHub
+                </a>
+                <a href="{% url 'about' %}" class="secondary-button">
+                    Learn More About Igalapedia
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include "footer.html" %}
+
+{% endblock content %}
+

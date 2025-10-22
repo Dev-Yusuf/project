@@ -92,18 +92,18 @@ WSGI_APPLICATION = 'igalapedia.wsgi.application'
 
 
 
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'IgalapediaDB',
-#         'USER': 'postgres',
-#         'PASSWORD': '09095564929.mi',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
-
+"""
+DATABASES = {
+     'default': {
+         'ENGINE': 'django.db.backends.postgresql',
+         'NAME': 'IgalapediaDB',
+         'USER': 'postgres',
+         'PASSWORD': '09095564929.mi',
+         'HOST': 'localhost',
+         'PORT': '5432',
+     }
+ }
+"""
 
 DATABASES = {
     'default': {
@@ -149,13 +149,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_URL = '/images/'
+MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
-MEDIA_ROOT = BASE_DIR / 'static/images'
+MEDIA_ROOT = BASE_DIR / 'media'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
@@ -163,3 +163,8 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Authentication URLs
+LOGIN_URL = 'login'  # Custom login page
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'index'

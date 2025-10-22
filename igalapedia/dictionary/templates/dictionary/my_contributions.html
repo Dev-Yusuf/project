@@ -1,0 +1,169 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Link to external submission CSS -->
+<link rel="stylesheet" href="{% static 'styles/submission.css' %}">
+
+<section class="contributions-hero">
+    <div class="container">
+        <div class="hero-content">
+            <span class="section-eyebrow">My Dashboard</span>
+            <h1 class="hero-title">My Contributions</h1>
+            <p class="hero-description">
+                Track your submissions and see your impact on the Igalapedia dictionary.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="contributions-main">
+    <div class="container">
+        
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon approved">✅</div>
+                <div class="stat-content">
+                    <div class="stat-number">{{ stats.approved_words_count }}</div>
+                    <div class="stat-label">Approved</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon pending">⏳</div>
+                <div class="stat-content">
+                    <div class="stat-number">{{ stats.pending_words_count }}</div>
+                    <div class="stat-label">Pending Review</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon rejected">❌</div>
+                <div class="stat-content">
+                    <div class="stat-number">{{ stats.rejected_words_count }}</div>
+                    <div class="stat-label">Rejected</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon total">📊</div>
+                <div class="stat-content">
+                    <div class="stat-number">{{ stats.total_submissions }}</div>
+                    <div class="stat-label">Total Submissions</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submissions List -->
+        <div class="submissions-section">
+            <div class="section-header">
+                <h2>Your Submissions</h2>
+                <a href="{% url 'submit_word' %}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Submit New Word
+                </a>
+            </div>
+
+            {% if pending_words %}
+                <div class="submissions-list">
+                    {% for submission in pending_words %}
+                        <div class="submission-card status-{{ submission.status|lower }}">
+                            <div class="submission-header">
+                                <div class="submission-title">
+                                    <h3>{{ submission.word }}</h3>
+                                    <span class="status-badge status-{{ submission.status|lower }}">
+                                        {{ submission.get_status_display }}
+                                    </span>
+                                </div>
+                                <div class="submission-date">
+                                    <i class="far fa-calendar"></i>
+                                    {{ submission.submitted_at|date:"M d, Y" }}
+                                </div>
+                            </div>
+
+                            <div class="submission-body">
+                                {% if submission.dialects %}
+                                    <div class="submission-detail">
+                                        <strong>Dialects:</strong> {{ submission.dialects }}
+                                    </div>
+                                {% endif %}
+
+                                <div class="submission-meanings">
+                                    <strong>Meanings:</strong>
+                                    <ul>
+                                        {% for meaning in submission.pending_meanings.all %}
+                                            <li>
+                                                <span class="pos-tag">{{ meaning.part_of_speech.name }}</span>
+                                                {{ meaning.meaning }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+
+                                {% if submission.status == 'APPROVED' and submission.approved_word %}
+                                    <div class="submission-success">
+                                        <i class="fas fa-check-circle"></i>
+                                        Your word has been published! 
+                                        <a href="{% url 'single-word' submission.approved_word.slug %}">View in dictionary</a>
+                                    </div>
+                                {% elif submission.status == 'REJECTED' %}
+                                    {% if submission.review_notes %}
+                                        <div class="submission-feedback">
+                                            <strong>Admin Feedback:</strong>
+                                            <p>{{ submission.review_notes }}</p>
+                                        </div>
+                                    {% endif %}
+                                {% elif submission.status == 'PENDING' %}
+                                    <div class="submission-pending">
+                                        <i class="fas fa-clock"></i>
+                                        Your submission is being reviewed by our team.
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            {% if submission.reviewed_at %}
+                                <div class="submission-footer">
+                                    <small>
+                                        Reviewed {{ submission.reviewed_at|date:"M d, Y" }}
+                                        {% if submission.reviewed_by %}
+                                            by {{ submission.reviewed_by.username }}
+                                        {% endif %}
+                                    </small>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <div class="empty-icon">📝</div>
+                    <h3>No Submissions Yet</h3>
+                    <p>You haven't submitted any words yet. Start contributing to the Igala dictionary!</p>
+                    <a href="{% url 'submit_word' %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-plus"></i> Submit Your First Word
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Leaderboard CTA -->
+        {% if stats.approved_words_count > 0 %}
+            <div class="leaderboard-cta-box">
+                <div class="cta-content">
+                    <h3>🏆 You're making an impact!</h3>
+                    <p>You have {{ stats.approved_words_count }} approved contribution{{ stats.approved_words_count|pluralize }}. Check your ranking on the leaderboard!</p>
+                    <a href="{% url 'leaderboard' %}" class="btn btn-outline-primary">
+                        View Leaderboard
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+</section>
+
+{% include "footer.html" %}
+
+{% endblock content %}
+

@@ -1,0 +1,203 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Link to external About page CSS -->
+<link rel="stylesheet" href="{% static 'styles/about.css' %}">
+
+<section class="about-hero">
+    <div class="container">
+        <div class="about-hero-content">
+            <span class="section-eyebrow">About Igalapedia</span>
+            <h1 class="hero-title">Preserving the <span class="accent-text">Igala</span> Language for Future Generations</h1>
+            <p class="hero-description">
+                A comprehensive open-source project focused on preserving and promoting the Igala language and culture through technology.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="about-mission">
+    <div class="container">
+        <div class="mission-grid">
+            <div class="mission-text">
+                <h2 class="section-title">Our Mission</h2>
+                <p class="section-description">
+                    Igalapedia is dedicated to creating a comprehensive digital encyclopedia that preserves the rich linguistic and cultural heritage of the Igala people. We believe that language is not just a means of communication, but a vessel carrying history, wisdom, and identity.
+                </p>
+                <p class="section-description">
+                    Through modern technology and community collaboration, we're building a platform that makes Igala language accessible to learners, preserves it for future generations, and celebrates the cultural diversity it represents.
+                </p>
+            </div>
+            <div class="mission-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <h3>{{ word_count|default:"0" }}</h3>
+                    <p>Words Documented</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎵</div>
+                    <h3>{{ pronunciation_count|default:"0" }}</h3>
+                    <p>Audio Pronunciations</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💡</div>
+                    <h3>{{ igala_example_count|default:"0" }}</h3>
+                    <p>Usage Examples</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about-features">
+    <div class="container">
+        <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">What We Offer</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon-large">📖</div>
+                <h3>Comprehensive Dictionary</h3>
+                <p>A growing collection of Igala words with detailed meanings, parts of speech, and usage examples to help learners understand context.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-large">🔊</div>
+                <h3>Audio Pronunciations</h3>
+                <p>Native speaker recordings to help you learn the correct pronunciation of Igala words and phrases.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-large">🔄</div>
+                <h3>Translation Tools</h3>
+                <p>Bidirectional translation between English and Igala to facilitate learning and communication.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-large">🌐</div>
+                <h3>Open API</h3>
+                <p>Developer-friendly API to integrate Igala language resources into your applications and projects.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-large">🤝</div>
+                <h3>Community Driven</h3>
+                <p>Open-source platform where community members can contribute words, translations, and cultural insights.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-large">🏆</div>
+                <h3>Contributor Recognition</h3>
+                <p>Leaderboard system that acknowledges and celebrates community contributors helping preserve the language.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about-story">
+    <div class="container">
+        <div class="story-content">
+            <h2 class="section-title">Our Story</h2>
+            <p class="section-description">
+                Igalapedia was born from a deep passion for preserving African languages in the digital age. 
+                Inspired by the groundbreaking <strong>IgboAPI</strong> - the first African Language API - we recognized 
+                the urgent need to document and digitize the Igala language before it fades from active use.
+            </p>
+            <p class="section-description">
+                The Igala people, predominantly found in Kogi State, Nigeria, have a rich linguistic and cultural heritage. 
+                However, like many indigenous languages, Igala faces the challenge of declining usage among younger generations. 
+                Igalapedia aims to reverse this trend by making the language accessible, engaging, and relevant in the modern world.
+            </p>
+            <p class="section-description">
+                We're building more than just a dictionary - we're creating a living archive that combines language documentation 
+                with cultural preservation, educational resources, and community engagement.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="about-technology">
+    <div class="container">
+        <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">Built With Modern Technology</h2>
+        <div class="tech-stack">
+            <div class="tech-item">
+                <div class="tech-icon">🐍</div>
+                <h4>Python & Django</h4>
+                <p>Robust backend framework</p>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">🎨</div>
+                <h4>HTML/CSS/JS</h4>
+                <p>Modern, responsive frontend</p>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">🗄️</div>
+                <h4>PostgreSQL</h4>
+                <p>Reliable data storage</p>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">☁️</div>
+                <h4>AWS</h4>
+                <p>Cloud infrastructure</p>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">🔓</div>
+                <h4>Open Source</h4>
+                <p>Community-driven development</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about-contribute">
+    <div class="container">
+        <div class="contribute-cta">
+            <h2 class="section-title">Join Our Mission</h2>
+            <p class="section-description">
+                Whether you're a native Igala speaker, a language enthusiast, a developer, or simply someone who 
+                cares about cultural preservation, there's a place for you in the Igalapedia community.
+            </p>
+            <div class="cta-buttons">
+                <a href="{% url 'words' %}" class="primary-button">
+                    Explore Dictionary
+                </a>
+                <a href="https://github.com/Dev-Yusuf/project" target="_blank" class="secondary-button">
+                    Contribute on GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about-contact">
+    <div class="container">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>Get In Touch</h3>
+                <p>Have questions, suggestions, or want to contribute? We'd love to hear from you!</p>
+                <div class="contact-methods">
+                    <a href="https://github.com/Dev-Yusuf/project" target="_blank" class="contact-link">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub Repository</span>
+                    </a>
+                    <a href="https://github.com/Dev-Yusuf/project/issues" target="_blank" class="contact-link">
+                        <i class="fas fa-bug"></i>
+                        <span>Report Issues</span>
+                    </a>
+                </div>
+            </div>
+            <div class="contact-acknowledgment">
+                <h3>Acknowledgments</h3>
+                <p>
+                    We extend our heartfelt gratitude to all contributors who have dedicated their time and 
+                    expertise to the development of Igalapedia. Your contributions are invaluable in shaping 
+                    this project and furthering the preservation of the Igala language and culture.
+                </p>
+                <p style="margin-top: 1rem; font-style: italic; color: var(--light-text);">
+                    Special thanks to the IgboAPI team for pioneering African language digitization and 
+                    inspiring this project.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include "footer.html" %}
+
+{% endblock content %}
+

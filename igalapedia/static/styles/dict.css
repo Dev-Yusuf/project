@@ -1,109 +1,269 @@
+/* General Styles */
 main {
-    margin-top: 120px;
+    margin-top: 100px;
     padding: 20px;
+    background-color: #f4f7f6;
 }
 
-.igala-dictionary {
-    margin-top: 120px;
-    text-align: center;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+.dictionary-home {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .igala-dictionary h1 {
-    font-size: 28px;
+    font-size: 36px;
+    font-weight: 700;
     color: #101E4A;
+    text-align: center;
+    margin-bottom: 40px;
 }
 
-.home-link {
-    display: inline-block;
-    position: absolute;
-    top: 40px;
-    left: 40px; 
-    padding: 10px 20px;
-    background-color: #101E4A;
-    color: #fff;
-    border-radius: 5px;
-    font-size: 16px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-    margin-right: 10px;
-    margin-bottom: 20px;
-}
-
-.home-link:hover {
-    background-color: #212526;
-}
-
-
-@media (max-width: 768px) {
-    .home-link {
-        top: 40px; 
-        left: 30px; 
-        margin-bottom: 30px
-    }
-
-    .igala-dictionary h1 {
-        font-size: 24px;
-        width: 100%; 
-        margin-top: 40px; 
-    }
-}
-
-
+/* Search Form */
 .search-input {
-    margin-top: 20px;
     display: flex;
-    justify-content: center;
-    align-items: center;
     margin-bottom: 40px;
 }
 
 .search-input input[type="text"] {
-    width: 70%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    margin-right: 10px;
+    flex-grow: 1;
+    padding: 15px 20px;
     font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px 0 0 8px;
+    outline: none;
+    transition: border-color 0.3s ease;
 }
 
-.search-input button {
-    padding: 10px 20px;
-    background-color: #101E4A;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
+.search-input input[type="text"]:focus {
+    border-color: #101E4A;
+}
+
+.search-input .search-button {
+    padding: 15px 30px;
     font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #101E4A;
+    border: none;
+    border-radius: 0 8px 8px 0;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.search-input button:hover {
-    background-color: #212526;
+.search-input .search-button:hover {
+    background-color: #1a2b5e;
 }
 
+/* Word List */
 .word-list {
     list-style: none;
     padding: 0;
-    text-align: left;
-    margin-top: 40px;
+    margin: 0;
 }
 
 .word-list li {
-    margin: 10px 0;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.3s ease;
+}
+
+.word-list li:last-child {
+    border-bottom: none;
+}
+
+.word-list li:hover {
+    background-color: #f9f9f9;
 }
 
 .word-list a {
-    color: #101E4A;
+    display: block;
     text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease;
+    color: #333;
+    font-size: 18px;
+    font-weight: 500;
 }
 
-.word-list a:hover {
-    color: #212526;
+.word-list .empty-message {
+    text-align: center;
+    padding: 40px;
+    color: #777;
+    font-style: italic;
+}
+
+/* Pagination */
+.pagination-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.pagination-buttons a {
+    text-decoration: none;
+    color: #101E4A;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 0 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination-buttons a:hover {
+    background-color: #101E4A;
+    color: #fff;
+}
+
+.pagination-info {
+    margin: 0 15px;
+    font-size: 16px;
+    color: #555;
+}
+
+/* Leaderboard Styles */
+.leaderboard-section {
+    margin-top: 100px;
+    padding: 20px;
+    background-color: #f4f7f6;
+}
+
+.leaderboard-home {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.leaderboard-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #101E4A;
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+.leaderboard-desc {
+    text-align: center;
+    color: #555;
+    font-size: 18px;
+    margin-bottom: 32px;
+    font-family: 'Inter', sans-serif;
+}
+
+.leaderboard-table-container {
+    overflow-x: auto;
+}
+
+.leaderboard-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
+    font-family: 'Inter', sans-serif;
+}
+
+.leaderboard-table th, .leaderboard-table td {
+    padding: 20px 16px;
+    text-align: left;
+    font-size: 18px;
+    border: none;
+}
+
+.leaderboard-table th {
+    background: #101E4A;
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 24px 16px;
+}
+
+.leaderboard-table th:first-child {
+    border-radius: 8px 0 0 0;
+}
+
+.leaderboard-table th:last-child {
+    border-radius: 0 8px 0 0;
+}
+
+.leaderboard-table tr {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.leaderboard-table tr:last-child {
+    border-bottom: none;
+}
+
+.leaderboard-table tr.top-contributor {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.leaderboard-table tr:hover {
+    background-color: #f8f9fa;
+}
+
+.count-badge {
+    display: inline-block;
+    background: #101E4A;
+    color: #fff;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.empty-message {
+    text-align: center;
+    color: #777;
+    font-style: italic;
+    padding: 40px 0;
+    font-size: 18px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dictionary-home {
+        padding: 20px;
+    }
+
+    .igala-dictionary h1 {
+        font-size: 28px;
+    }
+
+    .search-input {
+        flex-direction: column;
+    }
+
+    .search-input input[type="text"] {
+        border-radius: 8px;
+        margin-bottom: 10px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .search-input .search-button {
+        border-radius: 8px;
+        width: 100%;
+    }
+
+    .leaderboard-home {
+        padding: 20px;
+    }
+    .leaderboard-title {
+        font-size: 28px;
+    }
+    .leaderboard-desc {
+        font-size: 16px;
+    }
+    .leaderboard-table th, .leaderboard-table td {
+        font-size: 16px;
+        padding: 10px 6px;
+    }
 }

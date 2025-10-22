@@ -4,7 +4,7 @@
   <div class="igala-dictionary">
     <h1>Igala Dictionary</h1>
     
-    <form class="search-input" action="#" method="GET">
+    <form class="search-input" method="GET">
       {{ word_filter.form.word }}
       <button id="search-button" class="search-button">Search</button>
     </form>
@@ -13,24 +13,23 @@
       {% for word in words %}
       <li><a href="{% url 'single-word' word.slug %}">{{word.word}}</a></li>
       {% empty %}
-        <li>No such word found...🥹
-            Though we are still developing, if you feel the word is correct,
-            you can contact the admin so it could be added. Thank you! 🙏🙏
+        <li class="empty-message">
+            No such word found. If you believe the word is correct, please contact us.
         </li>
       {% endfor %}
     </ul>
-  </div>
 
-  <div class="pagination-buttons">
-    {% if current_page_holder.has_previous %}
-    <a href="?page={{current_page_holder.previous_page_number}}" id="previous-button"><i class="fas fa-arrow-left"></i></a>
-    {% endif %}
-
-    <span class="pagination-info">{{ current_page_holder.number }} of {{ current_page_holder.paginator.num_pages }}</span>
-
-    {% if current_page_holder.has_next %}
-    <a href="?page={{current_page_holder.next_page_number}}" id="next-button"><i class="fas fa-arrow-right"></i></a>
-    {% endif %}
+    <div class="pagination-buttons">
+        {% if current_page_holder.has_previous %}
+        <a href="?page={{current_page_holder.previous_page_number}}" id="previous-button"><i class="fas fa-arrow-left"></i></a>
+        {% endif %}
+    
+        <span class="pagination-info">{{ current_page_holder.number }} of {{ current_page_holder.paginator.num_pages }}</span>
+    
+        {% if current_page_holder.has_next %}
+        <a href="?page={{current_page_holder.next_page_number}}" id="next-button"><i class="fas fa-arrow-right"></i></a>
+        {% endif %}
+    </div>
   </div>
 </section>
 

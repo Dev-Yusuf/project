@@ -3,6 +3,8 @@ from . import views
 
 urlpatterns = [
     path('', views.all_words, name='words'),
-    path('single-word/<slug:slug>/', views.singleword, name='single-word')
-
+    path('single-word/<slug:slug>/', views.singleword, name='single-word'),
+    path('leaderboard/', views.leaderboard, name='leaderboard'),
+    path('submit/', views.submit_word, name='submit_word'),
+    path('my-contributions/', views.my_contributions, name='my_contributions'),
 ]

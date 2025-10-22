@@ -1,0 +1,102 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Link to external pioneers CSS -->
+<link rel="stylesheet" href="{% static 'styles/pioneers.css' %}">
+
+<section class="pioneers-hero">
+    <div class="container">
+        <div class="hero-content">
+            <span class="section-eyebrow">Our Pioneers</span>
+            <h1 class="hero-title">Visionaries Preserving Igala Heritage</h1>
+            <p class="hero-description">
+                Meet the dedicated individuals who are leading the way in documenting and preserving 
+                the Igala language for future generations. Their passion and commitment ensure that 
+                our rich cultural heritage lives on.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="pioneers-main">
+    <div class="container">
+        {% if pioneers %}
+            <div class="pioneers-count">
+                <i class="fas fa-users"></i>
+                <span>{{ pioneers|length }} Pioneer{{ pioneers|length|pluralize }} Leading the Way</span>
+            </div>
+
+            <div class="pioneers-grid-full">
+                {% for pioneer in pioneers %}
+                <div class="pioneer-card-full">
+                    <div class="pioneer-image-container">
+                        {% if pioneer.profile_image %}
+                            <img src="{{ pioneer.profile_image.url }}" alt="{{ pioneer.pioneer_name }}" class="pioneer-img">
+                        {% else %}
+                            <div class="pioneer-placeholder">
+                                <i class="fas fa-user fa-3x"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="pioneer-details">
+                        <h3 class="pioneer-name">{{ pioneer.pioneer_name|default:"Pioneer Name" }}</h3>
+                        <span class="pioneer-badge">{{ pioneer.position|default:"Cultural Advocate" }}</span>
+                        
+                        <p class="pioneer-bio">
+                            {{ pioneer.bio|default:"Contributing to the preservation and promotion of Igala language and culture. Dedicated to ensuring our heritage is passed down to future generations." }}
+                        </p>
+                        
+                        {% if pioneer.pioneer_social_link %}
+                        <div class="pioneer-social-links">
+                            <a href="{{ pioneer.pioneer_social_link }}" target="_blank" class="social-btn" title="Visit profile">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Connect</span>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <!-- Empty State -->
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <i class="fas fa-users fa-5x"></i>
+                </div>
+                <h2>No Pioneers Yet</h2>
+                <p>Be the first to join our community of cultural advocates dedicated to preserving the Igala language.</p>
+                <a href="{% url 'register' %}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-user-plus"></i> Become a Pioneer
+                </a>
+            </div>
+        {% endif %}
+
+        <!-- Call to Action -->
+        <div class="pioneers-cta-section">
+            <div class="cta-card-pioneers">
+                <div class="cta-icon-pioneers">🌍</div>
+                <div class="cta-content-pioneers">
+                    <h3>Join Our Mission</h3>
+                    <p>Become part of a dedicated community working to preserve and promote the Igala language and culture.</p>
+                    <div class="cta-buttons-pioneers">
+                        <a href="{% url 'register' %}" class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i> Get Started
+                        </a>
+                        <a href="{% url 'about' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-info-circle"></i> Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include "footer.html" %}
+
+{% endblock content %}
+

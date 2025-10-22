@@ -13,22 +13,57 @@
                     <a class="nav-link" href="{% url 'words' %}">Dictionary</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="about.html">Translator</a>
+                    <a class="nav-link" href="{% url 'leaderboard' %}">Leaderboard</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Contribute
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'submit_word' %}">Submit a Word</a></li>
+                        <li><a class="dropdown-item" href="{% url 'my_contributions' %}">My Contributions</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Resources
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">History</a></li>
-                        <li><a class="dropdown-item" href="#">Blog</a></li>
-                        <li><a class="dropdown-item" href="#">Books</a></li>
-                        <li><a class="dropdown-item" href="#">API</a></li>
+                        <li><a class="dropdown-item" href="{% url 'translator' %}">Translator</a></li>
+                        <li><a class="dropdown-item" href="{% url 'api' %}">API</a></li>
+                        <li><a class="dropdown-item" href="https://github.com/Dev-Yusuf/project" target="_blank">GitHub</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" onclick="alert('Coming soon!'); return false;">History</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="alert('Coming soon!'); return false;">Blog</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="alert('Coming soon!'); return false;">Books</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="{% url 'about' %}">About</a>
                 </li>
+                
+                {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle"></i> {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{% url 'dashboard' %}"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li><a class="dropdown-item" href="{% url 'my_contributions' %}"><i class="fas fa-list"></i> My Contributions</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary" href="{% url 'register' %}" style="color: white; padding: 0.5rem 1rem; margin-left: 0.5rem;">
+                            <i class="fas fa-user-plus"></i> Register
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>

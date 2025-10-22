@@ -1,0 +1,598 @@
+/* Leaderboard Page Styles */
+.leaderboard-hero {
+    padding: 8rem 0 4rem;
+    background: linear-gradient(160deg, #FFFFFF 0%, #F7FAFC 100%);
+    margin-top: 64px;
+}
+
+.hero-content-leaderboard {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.leaderboard-main {
+    padding: 4rem 0 6rem;
+}
+
+/* Podium Section */
+.podium-section {
+    margin-bottom: 6rem;
+}
+
+.podium-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 3rem;
+}
+
+.podium-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    align-items: end;
+}
+
+.podium-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.podium-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(16, 30, 74, 0.12);
+}
+
+.podium-first {
+    border-color: #FFD700;
+    background: linear-gradient(to bottom, #FFF9E5 0%, #FFFFFF 100%);
+    order: 2;
+    min-height: 320px;
+}
+
+.podium-second {
+    border-color: #C0C0C0;
+    background: linear-gradient(to bottom, #F5F5F5 0%, #FFFFFF 100%);
+    order: 1;
+    min-height: 280px;
+}
+
+.podium-third {
+    border-color: #CD7F32;
+    background: linear-gradient(to bottom, #FFF3E5 0%, #FFFFFF 100%);
+    order: 3;
+    min-height: 280px;
+}
+
+.podium-crown {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.5rem;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+}
+
+.podium-rank {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.25rem;
+    box-shadow: 0 4px 12px rgba(16, 30, 74, 0.2);
+}
+
+.podium-first .podium-rank {
+    background: #FFD700;
+    color: #000;
+}
+
+.podium-second .podium-rank {
+    background: #C0C0C0;
+    color: #000;
+}
+
+.podium-third .podium-rank {
+    background: #CD7F32;
+    color: #fff;
+}
+
+.podium-icon {
+    font-size: 4rem;
+    margin: 1rem 0;
+}
+
+.podium-info h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.podium-count {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin: 0;
+}
+
+/* Leaderboard Table Section */
+.leaderboard-table-section {
+    margin-top: 4rem;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.table-header h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.contributor-count {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(4, 184, 4, 0.08);
+    border-radius: 100px;
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.contributor-count i {
+    font-size: 1.125rem;
+}
+
+.leaderboard-table-container {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.leaderboard-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.leaderboard-table thead {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+.leaderboard-table th {
+    padding: 1.25rem 1.5rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.contributor-row {
+    border-bottom: 1px solid rgba(16, 30, 74, 0.06);
+    transition: var(--transition);
+}
+
+.contributor-row:hover {
+    background: rgba(16, 30, 74, 0.02);
+}
+
+.contributor-row.top-three {
+    background: rgba(255, 215, 0, 0.03);
+}
+
+.contributor-row.top-three:hover {
+    background: rgba(255, 215, 0, 0.08);
+}
+
+.leaderboard-table td {
+    padding: 1.25rem 1.5rem;
+}
+
+.rank-cell {
+    width: 80px;
+}
+
+.rank-number {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: rgba(16, 30, 74, 0.08);
+    border-radius: 6px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.rank-highlight {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    color: #000;
+    font-weight: 700;
+}
+
+.contributor-cell {
+    width: 35%;
+}
+
+.contributor-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.contributor-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.125rem;
+}
+
+.contributor-name {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.count-cell {
+    width: 25%;
+}
+
+.count-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: var(--accent-color);
+    color: var(--white);
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.125rem;
+    margin-right: 0.5rem;
+}
+
+.count-label {
+    color: var(--light-text);
+    font-size: 0.875rem;
+}
+
+.badge-cell {
+    width: 20%;
+}
+
+.achievement-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.achievement-badge.gold {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    color: #000;
+}
+
+.achievement-badge.silver {
+    background: linear-gradient(135deg, #E8E8E8 0%, #C0C0C0 100%);
+    color: #000;
+}
+
+.achievement-badge.bronze {
+    background: linear-gradient(135deg, #F4A460 0%, #CD7F32 100%);
+    color: #fff;
+}
+
+.achievement-badge.green {
+    background: rgba(4, 184, 4, 0.12);
+    color: var(--accent-color);
+}
+
+.achievement-badge.blue {
+    background: rgba(59, 130, 246, 0.12);
+    color: #3B82F6;
+}
+
+.achievement-badge.gray {
+    background: rgba(16, 30, 74, 0.08);
+    color: var(--light-text);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 6rem 2rem;
+}
+
+.empty-icon {
+    font-size: 6rem;
+    margin-bottom: 2rem;
+}
+
+.empty-state h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.empty-state p {
+    font-size: 1.125rem;
+    color: var(--light-text);
+    margin-bottom: 2rem;
+}
+
+/* CTA Section */
+.leaderboard-cta {
+    margin-top: 6rem;
+}
+
+.cta-card {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 3rem;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #1a2f6d 100%);
+    border-radius: var(--border-radius);
+    color: var(--white);
+}
+
+.cta-icon {
+    font-size: 4rem;
+    flex-shrink: 0;
+}
+
+.cta-content h3 {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.cta-content p {
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.cta-buttons .primary-button {
+    background: var(--white);
+    color: var(--primary-color);
+}
+
+.cta-buttons .primary-button:hover {
+    background: #f8f9fa;
+}
+
+.cta-buttons .secondary-button {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--white);
+}
+
+.cta-buttons .secondary-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .podium-container {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+    }
+
+    .podium-first,
+    .podium-second,
+    .podium-third {
+        order: initial !important;
+        min-height: auto;
+    }
+
+    .table-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .leaderboard-section {
+        padding: 3rem 0.5rem;
+    }
+
+    .leaderboard-table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 -0.5rem;
+        padding: 0 0.5rem;
+    }
+
+    .leaderboard-table {
+        min-width: 100%;
+    }
+
+    .leaderboard-table th,
+    .leaderboard-table td {
+        padding: 0.875rem 0.5rem;
+        font-size: 0.8125rem;
+    }
+
+    .rank-cell {
+        width: 60px;
+    }
+
+    .contributor-cell {
+        width: auto;
+        min-width: 140px;
+    }
+
+    .count-cell {
+        width: auto;
+        min-width: 100px;
+    }
+
+    .badge-cell {
+        width: auto;
+        min-width: 100px;
+    }
+
+    .contributor-avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 0.875rem;
+    }
+
+    .contributor-name {
+        font-size: 0.875rem;
+    }
+
+    .rank-number {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.8125rem;
+    }
+
+    .count-badge {
+        padding: 0.375rem 0.625rem;
+        font-size: 0.9375rem;
+    }
+
+    .count-label {
+        font-size: 0.75rem;
+    }
+
+    .achievement-badge {
+        font-size: 0.6875rem;
+        padding: 0.375rem 0.625rem;
+        white-space: nowrap;
+    }
+
+    .cta-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .cta-buttons .primary-button,
+    .cta-buttons .secondary-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .podium-title {
+        font-size: 1.5rem;
+    }
+
+    .podium-card h3 {
+        font-size: 1rem;
+    }
+
+    .podium-count {
+        font-size: 0.875rem;
+    }
+
+    .leaderboard-table th,
+    .leaderboard-table td {
+        padding: 0.75rem 0.375rem;
+        font-size: 0.75rem;
+    }
+
+    .rank-cell {
+        width: 50px;
+    }
+
+    .contributor-cell {
+        min-width: 120px;
+    }
+
+    .count-cell {
+        min-width: 85px;
+    }
+
+    .badge-cell {
+        min-width: 90px;
+    }
+
+    .contributor-info {
+        gap: 0.5rem;
+    }
+
+    .contributor-avatar {
+        width: 28px;
+        height: 28px;
+        font-size: 0.75rem;
+    }
+
+    .contributor-name {
+        font-size: 0.75rem;
+    }
+
+    .rank-number {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.75rem;
+    }
+
+    .count-badge {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.875rem;
+        margin-right: 0.25rem;
+    }
+
+    .count-label {
+        font-size: 0.6875rem;
+    }
+
+    .achievement-badge {
+        font-size: 0.625rem;
+        padding: 0.3rem 0.5rem;
+    }
+
+    /* Ensure table is scrollable on very small screens */
+    .leaderboard-table-container {
+        box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.1);
+    }
+}
+

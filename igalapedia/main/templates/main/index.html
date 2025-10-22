@@ -105,40 +105,45 @@
                         <span class="activity-badge">Live</span>
                     </div>
                     <div class="activity-list">
-                        <div class="activity-item">
-                            <div class="activity-icon">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M8 5.5V8.5L10 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
+                        {% if recent_words or recent_examples %}
+                            {% for word in recent_words %}
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                        <path d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M8 5.5V8.5L10 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="activity-content">
+                                    <p><strong>New Word Added:</strong> <a href="{% url 'single-word' word.slug %}" style="color: var(--accent-color); text-decoration: none;">"{{ word.word }}"</a>
+                                    {% if word.contributor %} by {{ word.contributor.get_full_name|default:word.contributor.username }}{% endif %}</p>
+                                    <span class="activity-time">Recently added</span>
+                                </div>
                             </div>
-                            <div class="activity-content">
-                                <p><strong>New Word Added:</strong> "Ọ̀gbọ́" - Wisdom</p>
-                                <span class="activity-time">2 minutes ago</span>
+                            {% endfor %}
+                            
+                            {% for example in recent_examples %}
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                        <path d="M2 4H14M2 8H14M2 12H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="activity-content">
+                                    <p><strong>Example Added:</strong> "{{ example.igala_example }}"</p>
+                                    <span class="activity-time">Recently added</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="activity-item">
-                            <div class="activity-icon">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M2 4H14M2 8H14M2 12H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
+                            {% endfor %}
+                        {% else %}
+                            <div class="activity-item">
+                                <div class="activity-content">
+                                    <p style="text-align: center; color: var(--light-text); padding: 20px;">
+                                        No recent contributions yet. Be the first to contribute!
+                                    </p>
+                                </div>
                             </div>
-                            <div class="activity-content">
-                                <p><strong>Example Added:</strong> Usage example for "Ẹ̀kọ́"</p>
-                                <span class="activity-time">5 minutes ago</span>
-                            </div>
-                        </div>
-                        <div class="activity-item">
-                            <div class="activity-icon">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M8 2V14M2 8H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                            <div class="activity-content">
-                                <p><strong>Audio Added:</strong> Pronunciation for "Ọmọ"</p>
-                                <span class="activity-time">10 minutes ago</span>
-                            </div>
-  </div>
+                        {% endif %}
 </div>
   </div>
       </div>
@@ -155,87 +160,53 @@
         </div>
 
         <div class="pioneers-grid">
-            <div class="pioneer-card">
-                <div class="pioneer-image">
-                    <img src="{% static 'images/pioneers/pioneer1.jpg' %}" alt="Dr. Sarah Johnson">
-                    <div class="pioneer-social">
-                        <a href="#" class="social-link">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                <path d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609 12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M6 9H2V21H6V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M4 6C5.10457 6 6 5.10457 6 4C6 2.89543 5.10457 2 4 2C2.89543 2 2 2.89543 2 4C2 5.10457 2.89543 6 4 6Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </a>
-                        <a href="#" class="social-link">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                <path d="M23 3C22.0424 3.67548 20.9821 4.19211 19.86 4.53C19.2577 3.83751 18.4573 3.34669 17.567 3.12393C16.6767 2.90116 15.7395 2.95724 14.8821 3.28445C14.0247 3.61166 13.2884 4.19587 12.773 4.95932C12.2575 5.72277 11.9877 6.62974 12 7.55V8.55C10.2426 8.59503 8.50127 8.19463 6.93101 7.3777C5.36074 6.56077 4.01032 5.34983 3 3.86C3 3.86 -1 13 8 17C5.94053 18.398 3.48716 19.0989 1 19C10 24 21 19 21 7.5C20.9991 7.22145 20.9723 6.94359 20.92 6.67C21.9406 5.66349 22.6608 4.39271 23 3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </a>
+            {% if pioneers %}
+                {% for pioneer in pioneers %}
+                <div class="pioneer-card">
+                    <div class="pioneer-image">
+                        {% if pioneer.profile_image %}
+                            <img src="{{ pioneer.profile_image.url }}" alt="{{ pioneer.pioneer_name }}">
+                        {% else %}
+                            <img src="{% static 'images/igala-logo.png' %}" alt="{{ pioneer.pioneer_name }}" style="object-fit: contain; padding: 20px;">
+                        {% endif %}
+                        {% if pioneer.pioneer_social_link %}
+                        <div class="pioneer-social">
+                            <a href="{{ pioneer.pioneer_social_link }}" target="_blank" class="social-link" title="Visit profile">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609 12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M6 9H2V21H6V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M4 6C5.10457 6 6 5.10457 6 4C6 2.89543 5.10457 2 4 2C2.89543 2 2 2.89543 2 4C2 5.10457 2.89543 6 4 6Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="pioneer-info">
+                        <h3>{{ pioneer.pioneer_name|default:"Pioneer Name" }}</h3>
+                        <span class="pioneer-role">{{ pioneer.position|default:"Cultural Advocate" }}</span>
+                        <p>{{ pioneer.bio|default:"Contributing to the preservation and promotion of Igala language and culture." }}</p>
                     </div>
                 </div>
-                <div class="pioneer-info">
-                    <h3>Dr. Sarah Johnson</h3>
-                    <span class="pioneer-role">Linguistic Researcher</span>
-                    <p>Leading research in Igala phonology and documentation of dialectal variations.</p>
+                {% endfor %}
+            {% else %}
+                <!-- Fallback content when no pioneers in database -->
+                <div class="pioneer-card">
+                    <div class="pioneer-image">
+                        <img src="{% static 'images/igala-logo.png' %}" alt="Igalapedia" style="object-fit: contain; padding: 20px;">
+                    </div>
+                    <div class="pioneer-info">
+                        <h3>Be a Pioneer</h3>
+                        <span class="pioneer-role">Cultural Advocate</span>
+                        <p>Join us in preserving the Igala language and culture for future generations.</p>
+                    </div>
                 </div>
-            </div>
-
-            <div class="pioneer-card">
-                <div class="pioneer-image">
-                    <img src="{% static 'images/pioneers/pioneer2.jpg' %}" alt="Chief Ameh Okoliko">
-                    <div class="pioneer-social">
-                        <a href="#" class="social-link">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                <path d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609 12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M6 9H2V21H6V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M4 6C5.10457 6 6 5.10457 6 4C6 2.89543 5.10457 2 4 2C2.89543 2 2 2.89543 2 4C2 5.10457 2.89543 6 4 6Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-    </a>
-  </div>
-                </div>
-                <div class="pioneer-info">
-                    <h3>Chief Ameh Okoliko</h3>
-                    <span class="pioneer-role">Cultural Custodian</span>
-                    <p>Preserving traditional Igala oral histories and cultural expressions.</p>
-                </div>
-            </div>
-
-            <div class="pioneer-card">
-                <div class="pioneer-image">
-                    <img src="{% static 'images/pioneers/pioneer3.jpg' %}" alt="Dr. Michael Aduku">
-                    <div class="pioneer-social">
-                        <a href="#" class="social-link">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                <path d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609 12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M6 9H2V21H6V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M4 6C5.10457 6 6 5.10457 6 4C6 2.89543 5.10457 2 4 2C2.89543 2 2 2.89543 2 4C2 5.10457 2.89543 6 4 6Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </a>
-                        <a href="#" class="social-link">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                <path d="M23 3C22.0424 3.67548 20.9821 4.19211 19.86 4.53C19.2577 3.83751 18.4573 3.34669 17.567 3.12393C16.6767 2.90116 15.7395 2.95724 14.8821 3.28445C14.0247 3.61166 13.2884 4.19587 12.773 4.95932C12.2575 5.72277 11.9877 6.62974 12 7.55V8.55C10.2426 8.59503 8.50127 8.19463 6.93101 7.3777C5.36074 6.56077 4.01032 5.34983 3 3.86C3 3.86 -1 13 8 17C5.94053 18.398 3.48716 19.0989 1 19C10 24 21 19 21 7.5C20.9991 7.22145 20.9723 6.94359 20.92 6.67C21.9406 5.66349 22.6608 4.39271 23 3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-    </a>
-  </div>
-                </div>
-                <div class="pioneer-info">
-                    <h3>Dr. Michael Aduku</h3>
-                    <span class="pioneer-role">Digital Innovator</span>
-                    <p>Developing technological solutions for language preservation and education.</p>
-                </div>
-            </div>
+            {% endif %}
         </div>
 
         <div class="view-all-pioneers">
-            <a href="#" class="view-all-button">
+            <a href="{% url 'pioneers' %}" class="view-all-button">
                 <span class="button-text">Meet All Pioneers</span>
-                <span class="button-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <path d="M17 8C18.5913 8 20.1174 8.63214 21.2426 9.75736C22.3679 10.8826 23 12.4087 23 14V21H19V14C19 13.4696 18.7893 12.9609 18.4142 12.5858C18.0391 12.2107 17.5304 12 17 12C16.4696 12 15.9609 12.2107 15.5858 12.5858C15.2107 12.9609 15 13.4696 15 14V21H11V14C11 12.4087 11.6321 10.8826 12.7574 9.75736C13.8826 8.63214 15.4087 8 17 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M7 9H3V21H7V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M5 6C6.10457 6 7 5.10457 7 4C7 2.89543 6.10457 2 5 2C3.89543 2 3 2.89543 3 4C3 5.10457 3.89543 6 5 6Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </span>
+                <span class="button-icon">→</span>
     </a>
   </div>
 

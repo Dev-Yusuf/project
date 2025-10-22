@@ -1,53 +1,48 @@
-{% extends 'main.html' %} {% block content %}
+{% extends 'main.html' %} 
+{% load static %}
+{% load dictionary_extras %}
+
+{% block content %}
 
 <div class="single-word-container">
-  {% for meaning in single_words.meanings.all %}
-  <div class="single-word">
-    <h2>{{ single_words.word }}</h2>
-    <i class="fas fa-volume-up volume-icon"></i>
-  </div>
-  <div class="part-of-speech">{{ meaning.part_of_speech.name }}</div>
-  <div class="word-meaning">{{ meaning.meaning }}</div>
-  <br>
-  <p class="example-heading">Example:</p>
-  {% for example in meaning.examples.all %}
-  <div class="word-example">
-    <p><span class="igala-word">{{ example.igala_example }}</span></p>
-    <p>{{ example.english_meaning }}</p>
-  </div>
-  {% endfor %}
-    <br>
-    {% if single_words.related_terms %}
-      <p class="example-heading">Related terms:</p>
-      <p>{{ single_words.related_terms }}</p>
-    {% endif %}
-  {% endfor %}
-</div>
-    <!--
-    
-        <div class="term-card">
-            <h2 class="term-title">Omu - Salt (Noun)   <i class="fas fa-volume-up audio-icon"></i> </h2>
-            <p class="term-definition"><strong>Example:</strong> 1. symbol of justice, righteousness, and authority; 2. a staff carried by titled men in Igbo society; 3. a sacred object used in rituals.</p>
-        </div>
+  <!-- Breadcrumb Navigation -->
+  <nav aria-label="breadcrumb" class="breadcrumb-nav">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'words' %}">Dictionary</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ single_words.word }}</li>
+    </ol>
+  </nav>
+
+  <div class="word-card">
+    <div class="word-header">
+      <h2>{{ single_words.word }}</h2>
+      {% if single_words.pronunciation %}
+        <i class="fas fa-volume-up volume-icon" data-audio="{{ single_words.pronunciation.url }}" title="Play pronunciation"></i>
+      {% else %}
+        <i class="fas fa-volume-up volume-icon" title="Pronunciation not available"></i>
+      {% endif %}
     </div>
-    
-</section>
 
+    {% for meaning in single_words.meanings.all %}
+      <div class="part-of-speech">{{ meaning.part_of_speech.name }}</div>
+      <div class="word-meaning">{{ meaning.meaning }}</div>
 
-<h1>{{ single_words.word }}</h1>
-<p>Meaning: {{ single_words.meaning }}</p>
-<p>Example: {{ single_words.example }}</p>
+      <p class="example-heading">Example:</p>
+      {% for example in meaning.examples.all %}
+        <div class="word-example">
+          <p><span class="igala-word">{{ example.igala_example }}</span></p>
+          <p>{{ example.english_meaning }}</p>
+        </div>
+      {% endfor %}
+    {% endfor %}
 
-<p>Dialects:
-    <ul>
-        {% for dialect in single_words.dialects.all %}
-            <li>{{ dialect.name }}</li>
-        {% endfor %}
-    </ul>
-</p>
-
-<p>Related terms: {{ single_words.related_terms }}</p>
--->
-    {% endblock content %}
+    {% if single_words.related_terms %}
+      <div class="related-terms-section">
+        <p class="example-heading">Related terms:</p>
+        <p class="related-terms-list">{% related_terms_html single_words.related_terms %}</p>
+      </div>
+    {% endif %}
   </div>
-</section>
+</div>
+{% endblock content %}

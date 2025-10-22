@@ -1,0 +1,181 @@
+/* General Styles for Single Word Page */
+.single-word-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Breadcrumb Navigation */
+.breadcrumb-nav {
+    margin-bottom: 20px;
+}
+
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0 0 20px 0;
+    list-style: none;
+    background-color: transparent;
+    font-size: 14px;
+}
+
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: "›";
+    padding: 0 8px;
+    color: #6c757d;
+    font-size: 16px;
+}
+
+.breadcrumb-item a {
+    color: #101E4A;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-item a:hover {
+    color: #04B804;
+    text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+    color: #6c757d;
+    font-weight: 400;
+}
+
+.word-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.word-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.word-header h2 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #101E4A;
+    margin: 0;
+}
+
+.volume-icon {
+    font-size: 24px;
+    color: #101E4A;
+    margin-left: 15px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.volume-icon:hover {
+    color: #007bff;
+}
+
+.part-of-speech {
+    font-size: 16px;
+    font-weight: 600;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.word-meaning {
+    font-size: 18px;
+    color: #343a40;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.example-heading {
+    font-size: 16px;
+    font-weight: 700;
+    color: #101E4A;
+    margin-bottom: 10px;
+}
+
+.word-example {
+    background-color: #f8f9fa;
+    border-left: 4px solid #101E4A;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 0 8px 8px 0;
+}
+
+.word-example .igala-word {
+    font-weight: 600;
+    color: #343a40;
+}
+
+.word-example p {
+    margin: 0;
+    font-style: italic;
+    color: #495057;
+}
+
+.related-terms-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.related-terms-section p {
+    font-size: 16px;
+    color: #343a40;
+}
+
+.related-terms-section .example-heading {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.related-terms-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.related-term-link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #f0f4f8;
+    color: #101E4A;
+    text-decoration: none;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-size: 15px;
+}
+
+.related-term-link:hover {
+    background-color: #101E4A;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(16, 30, 74, 0.15);
+}
+
+.related-term-plain {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #f9f9f9;
+    color: #6c757d;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+    font-size: 15px;
+}
