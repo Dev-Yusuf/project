@@ -1,0 +1,75 @@
+:root {
+    /* Igala Key Colors */
+    --primary-color: #1a1a1a;
+    /* Black - Structural, Nav, Headings */
+    --primary-hover: #000000;
+
+    --secondary-color: #FFC107;
+    /* Igala Yellow - High Contrast Actions */
+    --secondary-hover: #d9a406;
+
+    --accent-color: #059669;
+    /* Igala Green - Success, Accents */
+
+    --bg-body: #ffffff;
+    /* White - Clean Background */
+    --bg-card: #ffffff;
+    --bg-nav: rgba(255, 255, 255, 0.95);
+    /* High opacity white for clean look */
+
+    --text-main: #1a1a1a;
+    /* Black for main text */
+    --text-muted: #4b5563;
+    /* Gray 600 */
+    --text-light: #f3f4f6;
+    /* Gray 100 */
+    --text-on-primary: #ffffff;
+    /* White text on black bg */
+    --text-on-secondary: #000000;
+    /* Black text on yellow bg (accessibility) */
+
+    --border-color: #e5e7eb;
+    /* Gray 200 */
+
+    /* Typography */
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-heading: 'Outfit', sans-serif;
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 3rem;
+
+    /* Radii & Shadows */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 1rem;
+
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-normal: 300ms ease;
+}
+
+[data-theme="dark"] {
+    --bg-body: #111827;
+    /* Gray 900 */
+    --bg-card: #1f2937;
+    /* Gray 800 */
+    --bg-nav: rgba(17, 24, 39, 0.9);
+
+    --text-main: #f9fafb;
+    /* Gray 50 */
+    --text-muted: #9ca3af;
+    /* Gray 400 */
+    --text-on-primary: #ffffff;
+    --text-on-secondary: #000000;
+
+    --border-color: #374151;
+    /* Gray 700 */
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: #1a1a1a; max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; margin-bottom: 24px; }
+        .brand { font-size: 24px; font-weight: 700; color: #059669; }
+        .content { background: #f8fafc; border-radius: 8px; padding: 24px; margin: 24px 0; }
+        .button { display: inline-block; background: #FFC107; color: #000; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 600; margin: 16px 0; }
+        .footer { font-size: 12px; color: #6b7280; text-align: center; margin-top: 32px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <span class="brand">Igalapedia</span>
+    </div>
+    <div class="content">
+        <p>Hello {{ username }},</p>
+        <p>Welcome to <strong>Igalapedia</strong> — the community-driven platform for preserving and sharing the Igala language and culture.</p>
+        <p>Your account has been created successfully. You can now:</p>
+        <ul>
+            <li>Explore the Igala dictionary</li>
+            <li>Submit new words and contribute meanings</li>
+            <li>Track your contributions and see them on the leaderboard</li>
+        </ul>
+        <p>Get started by exploring the dictionary or submitting your first word.</p>
+        <p><a href="{{ site_url }}" class="button">Visit Igalapedia</a></p>
+    </div>
+    <div class="footer">
+        <p>This email was sent because you registered at Igalapedia. If you did not create an account, you can ignore this message.</p>
+        <p>&copy; {% now "Y" %} Igalapedia. Preserving Igala heritage through technology.</p>
+    </div>
+</body>
+</html>

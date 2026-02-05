@@ -3,259 +3,323 @@
 
 {% block content %}
 
-<!-- Link to external submission CSS -->
-<link rel="stylesheet" href="{% static 'styles/submission.css' %}">
-
-<section class="submission-hero">
+<section class="section">
     <div class="container">
-        <div class="hero-content">
-            <span class="section-eyebrow">Community Contribution</span>
-            <h1 class="hero-title">Submit a Word to Igalapedia</h1>
-            <p class="hero-description">
-                Help preserve the Igala language by contributing words, meanings, and examples. 
-                Your submission will be reviewed by our team before being added to the dictionary.
+        <!-- Hero Header -->
+        <div class="text-center mb-5">
+            <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary mb-2 px-3 py-2 fw-bold">Community
+                Contribution</span>
+            <h1 class="display-4 fw-bold mb-3" style="color: var(--text-main);">Submit a Word</h1>
+            <p class="lead text-muted mx-auto" style="max-width: 700px;">
+                Help us grow Igalapedia. Your contributions help preserve our language for future generations.
             </p>
         </div>
-    </div>
-</section>
 
-<section class="submission-form-section">
-    <div class="container">
-        <div class="form-container">
-            
-            {% if messages %}
-                <div class="messages-container">
-                    {% for message in messages %}
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- Submission Form Card -->
+                <div class="card border-0 shadow-lg scale-up"
+                    style="background: var(--bg-card); border-radius: var(--radius-lg);">
+                    <div class="card-body p-4 p-md-5">
+
+                        {% if messages %}
+                        {% for message in messages %}
                         <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
                             {{ message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         </div>
-                    {% endfor %}
-                </div>
-            {% endif %}
+                        {% endfor %}
+                        {% endif %}
 
-            <div class="form-card">
-                <form method="post" enctype="multipart/form-data" id="word-submission-form">
-                    {% csrf_token %}
-                    
-                    <!-- Word Information Section -->
-                    <div class="form-section">
-                        <h2 class="section-heading">
-                            <span class="section-icon">📝</span>
-                            Word Information
-                        </h2>
-                        
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="{{ word_form.word.id_for_label }}" class="form-label">
-                                    {{ word_form.word.label }}
-                                </label>
-                                {{ word_form.word }}
-                                {% if word_form.word.help_text %}
-                                    <div class="form-text">{{ word_form.word.help_text }}</div>
-                                {% endif %}
-                                {% if word_form.word.errors %}
-                                    <div class="invalid-feedback d-block">{{ word_form.word.errors }}</div>
-                                {% endif %}
-                            </div>
-                            
-                            <div class="col-md-6 mb-3">
-                                <label for="{{ word_form.dialects.id_for_label }}" class="form-label">
-                                    {{ word_form.dialects.label }}
-                                </label>
-                                {{ word_form.dialects }}
-                                {% if word_form.dialects.help_text %}
-                                    <div class="form-text">{{ word_form.dialects.help_text }}</div>
-                                {% endif %}
-                            </div>
-                        </div>
+                        <form method="post" enctype="multipart/form-data" id="word-submission-form"
+                            class="needs-validation" novalidate>
+                            {% csrf_token %}
 
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="{{ word_form.pronunciation_file.id_for_label }}" class="form-label">
-                                    {{ word_form.pronunciation_file.label }}
-                                </label>
-                                {{ word_form.pronunciation_file }}
-                                {% if word_form.pronunciation_file.help_text %}
-                                    <div class="form-text">{{ word_form.pronunciation_file.help_text }}</div>
-                                {% endif %}
-                            </div>
-                            
-                            <div class="col-md-6 mb-3">
-                                <label for="{{ word_form.related_terms.id_for_label }}" class="form-label">
-                                    {{ word_form.related_terms.label }}
-                                </label>
-                                {{ word_form.related_terms }}
-                                {% if word_form.related_terms.help_text %}
-                                    <div class="form-text">{{ word_form.related_terms.help_text }}</div>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
+                            <!-- Basic Info -->
+                            <h4 class="fw-bold mb-4 text-primary bb-1 pb-2 border-light">Word Information</h4>
 
-                    <!-- Meanings Section -->
-                    <div class="form-section">
-                        <h2 class="section-heading">
-                            <span class="section-icon">💡</span>
-                            Meanings & Definitions
-                        </h2>
-                        
-                        <p class="section-description">Add at least one meaning for this word.</p>
-                        
-                        {{ meaning_formset.management_form }}
-                        
-                        <div id="meanings-container">
-                            {% for form in meaning_formset %}
-                                <div class="meaning-form-item" data-formset-form>
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <label class="form-label">English Meaning *</label>
+                            <div class="row g-4 mb-4">
+                                <div class="col-md-6">
+                                    <label for="{{ word_form.word.id_for_label }}"
+                                        class="form-label fw-bold small text-uppercase text-muted">Word (Igala)</label>
+                                    {{ word_form.word }}
+                                    <div id="word-check-status" class="small mt-1" style="display: none;"></div>
+                                    {% if word_form.word.errors %}
+                                    <div class="text-danger small mt-1">{{ word_form.word.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{ word_form.dialects.id_for_label }}"
+                                        class="form-label fw-bold small text-uppercase text-muted">Dialects</label>
+                                    {{ word_form.dialects }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{ word_form.pronunciation_file.id_for_label }}"
+                                        class="form-label fw-bold small text-uppercase text-muted">Audio
+                                        Recording</label>
+                                    {{ word_form.pronunciation_file }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{ word_form.related_terms.id_for_label }}"
+                                        class="form-label fw-bold small text-uppercase text-muted">Related Terms</label>
+                                    {{ word_form.related_terms }}
+                                </div>
+                            </div>
+
+                            <!-- Meanings -->
+                            <h4 class="fw-bold mb-4 text-primary bb-1 pb-2 border-light mt-5">Meanings & Definitions
+                            </h4>
+
+                            {{ meaning_formset.management_form }}
+                            {{ example_formset.management_form }}
+
+                            <!-- Hidden template for example row (cloned by JS) -->
+                            <div id="example-row-template" style="display: none;">
+                                <div class="example-row border border-light rounded p-2 mb-2 bg-white d-flex gap-2 align-items-start flex-wrap">
+                                    <input type="hidden" name="examples-__prefix__-meaning_index" id="id_examples-__prefix__-meaning_index" value="0">
+                                    <div class="flex-grow-1">
+                                        <input type="text" name="examples-__prefix__-igala_example" placeholder="Example in Igala" class="form-control form-control-sm" id="id_examples-__prefix__-igala_example" maxlength="200">
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <input type="text" name="examples-__prefix__-english_meaning" placeholder="English translation" class="form-control form-control-sm" id="id_examples-__prefix__-english_meaning" maxlength="200">
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-outline-danger remove-example"><i class="fas fa-times"></i></button>
+                                    <input type="checkbox" name="examples-__prefix__-DELETE" id="id_examples-__prefix__-DELETE" style="display: none;">
+                                </div>
+                            </div>
+
+                            <div id="meanings-container">
+                                {% for form in meaning_formset %}
+                                <div class="meaning-form-item bg-light p-4 rounded-3 mb-4 position-relative"
+                                    data-formset-form style="border: 1px dashed var(--border-color);">
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-bold small text-muted">English Meaning *</label>
                                             {{ form.meaning }}
                                             {% if form.meaning.errors %}
-                                                <div class="invalid-feedback d-block">{{ form.meaning.errors }}</div>
+                                            <div class="text-danger small mt-1">{{ form.meaning.errors.0 }}</div>
                                             {% endif %}
                                         </div>
-                                        
-                                        <div class="col-md-6 mb-3">
-                                            <label class="form-label">Part of Speech *</label>
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-bold small text-muted">Part of Speech *</label>
                                             {{ form.part_of_speech }}
-                                            {% if form.part_of_speech.errors %}
-                                                <div class="invalid-feedback d-block">{{ form.part_of_speech.errors }}</div>
-                                            {% endif %}
                                         </div>
                                     </div>
-                                    
-                                    {% if not forloop.first %}
-                                        <button type="button" class="btn btn-sm btn-outline-danger remove-meaning">
-                                            <i class="fas fa-trash"></i> Remove
+
+                                    <!-- Usage examples for this meaning -->
+                                    <div class="mt-3 pt-3 border-top border-light">
+                                        <label class="form-label fw-bold small text-muted">Usage examples (optional)</label>
+                                        <div class="examples-container" id="examples-container-{{ forloop.counter0 }}" data-meaning-index="{{ forloop.counter0 }}">
+                                            <!-- Example rows added by JS -->
+                                        </div>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm mt-2 add-example" data-meaning-index="{{ forloop.counter0 }}">
+                                            <i class="fas fa-plus me-1"></i> Add example
                                         </button>
+                                    </div>
+
+                                    {% if not forloop.first %}
+                                    <button type="button"
+                                        class="btn btn-sm btn-outline-danger remove-meaning position-absolute top-0 end-0 m-2 border-0">
+                                        <i class="fas fa-times"></i>
+                                    </button>
                                     {% endif %}
-                                    
+
                                     {{ form.DELETE }}
-                                    <hr class="my-3">
+                                    <!-- Hidden DELETE field required for formsets -->
                                 </div>
-                            {% endfor %}
+                                {% endfor %}
+                            </div>
+
+                            <button type="button" id="add-meaning"
+                                class="btn btn-outline-primary btn-sm rounded-pill fw-bold mb-5">
+                                <i class="fas fa-plus me-1"></i> Add Another Meaning
+                            </button>
+
+                            <div class="d-grid gap-3 d-md-flex">
+                                <button type="submit" class="btn btn-primary btn-lg flex-grow-1 fw-bold"
+                                    style="border-radius: var(--radius-md);">
+                                    Submit Word
+                                </button>
+                                <a href="{% url 'words' %}" class="btn btn-outline-secondary btn-lg fw-bold"
+                                    style="border-radius: var(--radius-md);">
+                                    Cancel
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Guidelines (Optional, could be sidebar or below) -->
+                <div class="mt-4 text-center">
+                    <button class="btn btn-link text-muted text-decoration-none" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#guidelines">
+                        <i class="fas fa-info-circle me-1"></i> View Submission Guidelines
+                    </button>
+                    <div class="collapse mt-3" id="guidelines">
+                        <div class="card card-body bg-light border-0 text-start small text-muted">
+                            <ul class="mb-0">
+                                <li>Ensure the word is spelled correctly using standard Igala orthography if possible.</li>
+                                <li>Provide at least one clear English meaning.</li>
+                                <li>You can add optional usage examples (Igala sentence + English translation) for each meaning; they will be reviewed with your submission.</li>
+                                <li>Audio recordings should be clear and free of background noise.</li>
+                            </ul>
                         </div>
-                        
-                        <button type="button" id="add-meaning" class="btn btn-outline-primary">
-                            <i class="fas fa-plus"></i> Add Another Meaning
-                        </button>
                     </div>
+                </div>
 
-                    <!-- Guidelines -->
-                    <div class="guidelines-box">
-                        <h3>📋 Submission Guidelines</h3>
-                        <ul>
-                            <li>Ensure the word is spelled correctly in Igala</li>
-                            <li>Provide accurate English translations</li>
-                            <li>Include context or usage examples when possible</li>
-                            <li>Your submission will be reviewed before publication</li>
-                            <li>You'll be credited as a contributor once approved</li>
-                        </ul>
-                    </div>
-
-                    <!-- Submit Buttons -->
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary btn-lg">
-                            <i class="fas fa-paper-plane"></i> Submit for Review
-                        </button>
-                        <a href="{% url 'words' %}" class="btn btn-outline-secondary btn-lg">
-                            <i class="fas fa-times"></i> Cancel
-                        </a>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Side Info -->
-            <div class="info-card">
-                <h3>Why Contribute?</h3>
-                <div class="info-item">
-                    <div class="info-icon">🏆</div>
-                    <div class="info-content">
-                        <h4>Earn Recognition</h4>
-                        <p>Appear on the community leaderboard</p>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <div class="info-icon">🌍</div>
-                    <div class="info-content">
-                        <h4>Preserve Culture</h4>
-                        <p>Help preserve Igala for future generations</p>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <div class="info-icon">📚</div>
-                    <div class="info-content">
-                        <h4>Build Knowledge</h4>
-                        <p>Contribute to the largest Igala dictionary</p>
-                    </div>
-                </div>
-                
-                <div class="info-cta">
-                    <a href="{% url 'my_contributions' %}" class="btn btn-outline-primary w-100">
-                        <i class="fas fa-list"></i> View My Contributions
-                    </a>
-                </div>
             </div>
         </div>
     </div>
 </section>
 
-{% include "footer.html" %}
-
 <script>
-// Formset management for meanings
-document.addEventListener('DOMContentLoaded', function() {
-    let formCount = parseInt(document.querySelector('#id_meanings-TOTAL_FORMS').value);
-    
-    // Add new meaning form
-    document.getElementById('add-meaning').addEventListener('click', function() {
+    // Style form controls dynamically if needed (or rely on CSS overwrites)
+    // Add 'form-control' class to all inputs if Django doesn't add them
+    document.querySelectorAll('input, select, textarea').forEach(el => {
+        if (!el.classList.contains('form-control') && !el.classList.contains('form-select') && !el.classList.contains('btn') && el.type !== 'checkbox' && el.type !== 'hidden') {
+            el.classList.add('form-control');
+        }
+        if (el.tagName === 'SELECT') {
+            el.classList.add('form-select');
+        }
+    });
+
+    // Formset logic (simplified)
+    document.addEventListener('DOMContentLoaded', function () {
+        const addBtn = document.getElementById('add-meaning');
         const container = document.getElementById('meanings-container');
-        const lastForm = container.querySelector('[data-formset-form]:last-child');
-        const newForm = lastForm.cloneNode(true);
-        
-        // Update form index
-        const formRegex = RegExp(`meanings-(\\d+)-`, 'g');
-        newForm.innerHTML = newForm.innerHTML.replace(formRegex, `meanings-${formCount}-`);
-        
-        // Clear values
-        newForm.querySelectorAll('input, select').forEach(input => {
-            if (input.type !== 'hidden') {
+        const totalForms = document.querySelector('#id_meanings-TOTAL_FORMS');
+
+        addBtn.addEventListener('click', function () {
+            let formCount = parseInt(totalForms.value);
+            const template = container.querySelector('.meaning-form-item').cloneNode(true);
+
+            // Clean values and update names/ids
+            template.querySelectorAll('input, select, textarea').forEach(input => {
                 input.value = '';
+                const name = input.name.replace(/-\d+-/, `-${formCount}-`);
+                const id = input.id.replace(/-\d+-/, `-${formCount}-`);
+                input.name = name;
+                input.id = id;
+            });
+            // Update examples section for this meaning index
+            const exContainer = template.querySelector('.examples-container');
+            if (exContainer) {
+                exContainer.id = 'examples-container-' + formCount;
+                exContainer.setAttribute('data-meaning-index', formCount);
+            }
+            const addExBtn = template.querySelector('.add-example');
+            if (addExBtn) addExBtn.setAttribute('data-meaning-index', formCount);
+
+            // Add remove button if needed
+            if (!template.querySelector('.remove-meaning')) {
+                const btn = document.createElement('button');
+                btn.className = 'btn btn-sm btn-outline-danger remove-meaning position-absolute top-0 end-0 m-2 border-0';
+                btn.innerHTML = '<i class="fas fa-times"></i>';
+                btn.type = 'button';
+                template.appendChild(btn);
+            }
+
+            container.appendChild(template);
+            totalForms.value = formCount + 1;
+        });
+
+        container.addEventListener('click', function (e) {
+            if (e.target.closest('.remove-meaning')) {
+                const item = e.target.closest('.meaning-form-item');
+                const deleteBox = item.querySelector('input[name*="-DELETE"]');
+                if (deleteBox) {
+                    deleteBox.checked = true;
+                    item.style.display = 'none';
+                } else {
+                    item.remove();
+                }
             }
         });
-        
-        // Add remove button if it doesn't exist
-        if (!newForm.querySelector('.remove-meaning')) {
-            const removeBtn = document.createElement('button');
-            removeBtn.type = 'button';
-            removeBtn.className = 'btn btn-sm btn-outline-danger remove-meaning';
-            removeBtn.innerHTML = '<i class="fas fa-trash"></i> Remove';
-            newForm.querySelector('hr').before(removeBtn);
+
+        // --- Usage examples formset (event delegation so it works for dynamically added meanings) ---
+        const exampleTemplate = document.getElementById('example-row-template');
+        const exampleTotalForms = document.getElementById('id_examples-TOTAL_FORMS');
+        const meaningsContainer = document.getElementById('meanings-container');
+        if (exampleTemplate && exampleTotalForms && meaningsContainer) {
+            meaningsContainer.addEventListener('click', function (e) {
+                const addBtn = e.target.closest('.add-example');
+                if (!addBtn) return;
+                e.preventDefault();
+                const meaningIndex = parseInt(addBtn.getAttribute('data-meaning-index'), 10);
+                const container = document.getElementById('examples-container-' + meaningIndex);
+                if (!container) return;
+                const formIndex = parseInt(exampleTotalForms.value, 10);
+                const row = exampleTemplate.querySelector('.example-row').cloneNode(true);
+                row.querySelectorAll('input, select, textarea').forEach(function (input) {
+                    if (input.name) input.name = input.name.replace(/__prefix__/g, formIndex);
+                    if (input.id) input.id = input.id.replace(/__prefix__/g, formIndex);
+                });
+                row.querySelector('input[name*="-meaning_index"]').value = meaningIndex;
+                row.querySelector('.remove-example').addEventListener('click', function () {
+                    const del = row.querySelector('input[name*="-DELETE"]');
+                    if (del) { del.checked = true; row.style.display = 'none'; } else { row.remove(); }
+                });
+                container.appendChild(row);
+                exampleTotalForms.value = formIndex + 1;
+            });
         }
-        
-        container.appendChild(newForm);
-        formCount++;
-        document.querySelector('#id_meanings-TOTAL_FORMS').value = formCount;
-    });
-    
-    // Remove meaning form
-    document.addEventListener('click', function(e) {
-        if (e.target.closest('.remove-meaning')) {
-            const form = e.target.closest('[data-formset-form]');
-            const deleteInput = form.querySelector('[name$="-DELETE"]');
-            if (deleteInput) {
-                deleteInput.checked = true;
-                form.style.display = 'none';
-            } else {
-                form.remove();
-                formCount--;
-                document.querySelector('#id_meanings-TOTAL_FORMS').value = formCount;
-            }
+
+        // --- Duplicate word check (debounced AJAX) ---
+        const wordInput = document.getElementById('id_word');
+        const wordCheckStatus = document.getElementById('word-check-status');
+        const submitBtn = document.querySelector('button[type="submit"]');
+        let debounceTimer = null;
+
+        if (wordInput && wordCheckStatus && submitBtn) {
+            wordInput.addEventListener('input', function () {
+                const word = wordInput.value.trim();
+                
+                // Clear previous timer
+                if (debounceTimer) clearTimeout(debounceTimer);
+                
+                // Clear status if empty
+                if (!word) {
+                    wordCheckStatus.style.display = 'none';
+                    wordCheckStatus.innerHTML = '';
+                    submitBtn.disabled = false;
+                    return;
+                }
+                
+                // Show checking status
+                wordCheckStatus.style.display = 'block';
+                wordCheckStatus.innerHTML = '<span class="text-muted"><i class="fas fa-spinner fa-spin me-1"></i> Checking...</span>';
+                
+                // Debounce: wait 400ms after user stops typing
+                debounceTimer = setTimeout(function () {
+                    fetch('{% url "word_exists" %}?word=' + encodeURIComponent(word))
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.exists) {
+                                wordCheckStatus.innerHTML = 
+                                    '<span class="text-danger">' +
+                                    '<i class="fas fa-exclamation-circle me-1"></i> ' +
+                                    'This word already exists in the dictionary. ' +
+                                    '<a href="' + data.word_url + '" target="_blank" class="fw-bold">View it here</a>' +
+                                    '</span>';
+                                submitBtn.disabled = true;
+                            } else {
+                                wordCheckStatus.innerHTML = 
+                                    '<span class="text-success">' +
+                                    '<i class="fas fa-check-circle me-1"></i> Word is available' +
+                                    '</span>';
+                                submitBtn.disabled = false;
+                            }
+                        })
+                        .catch(function () {
+                            // On error, clear status and allow submit (server-side will validate)
+                            wordCheckStatus.style.display = 'none';
+                            submitBtn.disabled = false;
+                        });
+                }, 400);
+            });
         }
     });
-});
 </script>
 
 {% endblock content %}
-

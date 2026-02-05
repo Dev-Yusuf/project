@@ -2,291 +2,236 @@
 {% load static %}
 
 {% block content %}
+<!-- Hero Section -->
+<section class="hero-section text-center position-relative overflow-hidden">
+    <!-- Decorative background elements -->
+    <div
+        style="position: absolute; top: -10%; left: -5%; width: 40%; height: 40%; background: radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%); border-radius: 50%; z-index: -1;">
+    </div>
+    <div
+        style="position: absolute; bottom: -10%; right: -5%; width: 40%; height: 40%; background: radial-gradient(circle, rgba(255,193,7,0.1) 0%, transparent 70%); border-radius: 50%; z-index: -1;">
+    </div>
 
-<section class="hero-section">
-    <div class="hero-background">
-        <div class="hero-content">
-            <span class="hero-eyebrow">Welcome to Igalapedia</span>
-            <h1 class="hero-title">Preserving <span class="accent-text">Igala</span> Heritage Through Technology</h1>
-            <p class="hero-description">A modern digital archive empowering the preservation and learning of Igala language and culture.</p>
-            
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number">{{word_count}}</span>
-                    <span class="stat-label">Words Documented</span>
+    <div class="container position-relative z-1">
+        <span class="badge rounded-pill px-3 py-2 mb-3"
+            style="background-color: rgba(16, 185, 129, 0.1); color: var(--accent-color); font-weight: 600;">
+            Welcome to IgalaHeritage
+        </span>
+        <h1 class="hero-title mb-4">
+            Preserving <span style="color: var(--primary-color);">Igala Heritage</span><br>Through Technology
+        </h1>
+        <p class="hero-subtitle mb-5">
+            A community-driven digital archive dedicated to documenting, preserving, and sharing the richness of the
+            Igala language and culture for future generations.
+        </p>
+
+        <div class="d-flex justify-content-center gap-3 mb-5 flex-wrap">
+            <a href="{% url 'words' %}" class="btn btn-primary btn-lg shadow-sm">
+                Explore Dictionary
+            </a>
+            <a href="{% url 'register' %}" class="btn btn-light btn-lg shadow-sm text-primary"
+                style="background: white; border: 1px solid var(--border-color);">
+                Join Community
+            </a>
+        </div>
+
+        <!-- Stats Counter -->
+        <div class="row justify-content-center g-4 mt-4">
+            <div class="col-auto px-4 border-end border-light-subtle d-none d-md-block"></div>
+            <div class="col-auto text-center px-4">
+                <div class="h2 fw-bold mb-0" style="color: var(--text-main);">{{ word_count|default:"0" }}</div>
+                <div class="small text-muted text-uppercase fw-bold" style="letter-spacing: 1px;">Words</div>
+            </div>
+            <div class="col-auto px-4 border-end border-light-subtle text-muted opacity-25">|</div>
+            <div class="col-auto text-center px-4">
+                <div class="h2 fw-bold mb-0" style="color: var(--text-main);">{{ audio_count|default:"0" }}
                 </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <span class="stat-number">{{pronunciation_count}}</span>
-                    <span class="stat-label">Audio Recordings</span>
+                <div class="small text-muted text-uppercase fw-bold" style="letter-spacing: 1px;">Audio</div>
+            </div>
+            <div class="col-auto px-4 border-end border-light-subtle text-muted opacity-25">|</div>
+            <div class="col-auto text-center px-4">
+                <div class="h2 fw-bold mb-0" style="color: var(--text-main);">{{ contributor_count|default:"0" }}</div>
+                <div class="small text-muted text-uppercase fw-bold" style="letter-spacing: 1px;">Contributors</div>
+            </div>
+            <div class="col-auto px-4 border-end border-light-subtle d-none d-md-block"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Features / Cards Section -->
+<section class="section">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Card 1: Dictionary -->
+            <div class="col-md-4">
+                <div class="card h-100 p-4 border-0 shadow-hover"
+                    style="background: linear-gradient(145deg, #ffffff, #f8fafc);">
+                    <div class="mb-4">
+                        <span class="d-inline-flex align-items-center justify-content-center rounded-circle"
+                            style="width: 50px; height: 50px; background-color: rgba(16, 185, 129, 0.1); color: var(--accent-color);">
+                            <i class="fas fa-book fa-lg"></i>
+                        </span>
+                    </div>
+                    <h3 class="h4 fw-bold mb-3">Complete Dictionary</h3>
+                    <p class="text-muted mb-4">Access thousands of Igala words with definitions, audio pronunciations,
+                        and usage examples.</p>
+                    <a href="{% url 'words' %}" class="fw-bold text-decoration-none mt-auto"
+                        style="color: var(--accent-color);">
+                        Browse Words <i class="fas fa-arrow-right ms-2 small"></i>
+                    </a>
                 </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <span class="stat-number">{{igala_example_count}}</span>
-                    <span class="stat-label">Usage Examples</span>
+            </div>
+
+            <!-- Card 2: Contribute -->
+            <div class="col-md-4">
+                <div class="card h-100 p-4 border-0 shadow-hover"
+                    style="background: linear-gradient(145deg, #ffffff, #f8fafc);">
+                    <div class="mb-4">
+                        <span class="d-inline-flex align-items-center justify-content-center rounded-circle"
+                            style="width: 50px; height: 50px; background-color: rgba(16, 185, 129, 0.1); color: var(--secondary-color);">
+                            <i class="fas fa-hand-holding-heart fa-lg"></i>
+                        </span>
+                    </div>
+                    <h3 class="h4 fw-bold mb-3">Contribute</h3>
+                    <p class="text-muted mb-4">Help us grow. Add new words, suggest edits, or record audio
+                        pronunciations to preserve the language.</p>
+                    <a href="{% url 'submit_word' %}" class="fw-bold text-decoration-none mt-auto"
+                        style="color: var(--secondary-color);">
+                        Start Contributing <i class="fas fa-arrow-right ms-2 small"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 3: Learn -->
+            <div class="col-md-4">
+                <div class="card h-100 p-4 border-0 shadow-hover"
+                    style="background: linear-gradient(145deg, #ffffff, #f8fafc);">
+                    <div class="mb-4">
+                        <span class="d-inline-flex align-items-center justify-content-center rounded-circle"
+                            style="width: 50px; height: 50px; background-color: rgba(245, 158, 11, 0.1); color: var(--accent-color);">
+                            <i class="fas fa-graduation-cap fa-lg"></i>
+                        </span>
+                    </div>
+                    <h3 class="h4 fw-bold mb-3">Learn & Practice</h3>
+                    <p class="text-muted mb-4">Use our translator tool, API, and upcoming flashcards to master the Igala
+                        language.</p>
+                    <a href="{% url 'translator' %}" class="fw-bold text-decoration-none mt-auto"
+                        style="color: var(--accent-color);">
+                        Try Tools <i class="fas fa-arrow-right ms-2 small"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="contribute-section">
+<!-- Pioneers Section -->
+{% if pioneers %}
+<section class="section bg-light">
     <div class="container">
-        <div class="contribute-grid">
-            <div class="contribute-content">
-                <span class="section-eyebrow">Join Our Mission</span>
-                <h2 class="section-title">Help Preserve Igala Language for Future Generations</h2>
-                <p class="section-description">Whether you're a native speaker, language enthusiast, or developer, there are many ways to contribute to the growth of Igalapedia.</p>
-                
-                <div class="contribution-ways">
-                    <div class="contribution-item">
-                        <div class="contribution-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M19.4 15C19.2669 15.3016 19.2272 15.6362 19.286 15.9606C19.3448 16.285 19.4995 16.5843 19.73 16.82L19.79 16.88C19.976 17.0657 20.1235 17.2863 20.2241 17.5291C20.3248 17.7719 20.3766 18.0322 20.3766 18.295C20.3766 18.5578 20.3248 18.8181 20.2241 19.0609C20.1235 19.3037 19.976 19.5243 19.79 19.71C19.6043 19.896 19.3837 20.0435 19.1409 20.1441C18.8981 20.2448 18.6378 20.2966 18.375 20.2966C18.1122 20.2966 17.8519 20.2448 17.6091 20.1441C17.3663 20.0435 17.1457 19.896 16.96 19.71L16.9 19.65C16.6643 19.4195 16.365 19.2648 16.0406 19.206C15.7162 19.1472 15.3816 19.1869 15.08 19.32C14.7842 19.4468 14.532 19.6572 14.3543 19.9255C14.1766 20.1938 14.0813 20.5082 14.08 20.83V21C14.08 21.5304 13.8693 22.0391 13.4942 22.4142C13.1191 22.7893 12.6104 23 12.08 23C11.5496 23 11.0409 22.7893 10.6658 22.4142C10.2907 22.0391 10.08 21.5304 10.08 21V20.91C10.0723 20.579 9.96512 20.258 9.77251 19.9887C9.5799 19.7194 9.31074 19.5143 9 19.4C8.69838 19.2669 8.36381 19.2272 8.03941 19.286C7.71502 19.3448 7.41568 19.4995 7.18 19.73L7.12 19.79C6.93425 19.976 6.71368 20.1235 6.47088 20.2241C6.22808 20.3248 5.96783 20.3766 5.705 20.3766C5.44217 20.3766 5.18192 20.3248 4.93912 20.2241C4.69632 20.1235 4.47575 19.976 4.29 19.79C4.10405 19.6043 3.95653 19.3837 3.85588 19.1409C3.75523 18.8981 3.70343 18.6378 3.70343 18.375C3.70343 18.1122 3.75523 17.8519 3.85588 17.6091C3.95653 17.3663 4.10405 17.1457 4.29 16.96L4.35 16.9C4.58054 16.6643 4.73519 16.365 4.794 16.0406C4.85282 15.7162 4.81312 15.3816 4.68 15.08C4.55324 14.7842 4.34276 14.532 4.07447 14.3543C3.80618 14.1766 3.49179 14.0813 3.17 14.08H3C2.46957 14.08 1.96086 13.8693 1.58579 13.4942C1.21071 13.1191 1 12.6104 1 12.08C1 11.5496 1.21071 11.0409 1.58579 10.6658C1.96086 10.2907 2.46957 10.08 3 10.08H3.09C3.42099 10.0723 3.742 9.96512 4.0113 9.77251C4.28059 9.5799 4.48572 9.31074 4.6 9C4.73312 8.69838 4.77282 8.36381 4.714 8.03941C4.65519 7.71502 4.50054 7.41568 4.27 7.18L4.21 7.12C4.02405 6.93425 3.87653 6.71368 3.77588 6.47088C3.67523 6.22808 3.62343 5.96783 3.62343 5.705C3.62343 5.44217 3.67523 5.18192 3.77588 4.93912C3.87653 4.69632 4.02405 4.47575 4.21 4.29C4.39575 4.10405 4.61632 3.95653 4.85912 3.85588C5.10192 3.75523 5.36217 3.70343 5.625 3.70343C5.88783 3.70343 6.14808 3.75523 6.39088 3.85588C6.63368 3.95653 6.85425 4.10405 7.04 4.29L7.1 4.35C7.33568 4.58054 7.63502 4.73519 7.95941 4.794C8.28381 4.85282 8.61838 4.81312 8.92 4.68H9C9.29577 4.55324 9.54802 4.34276 9.72569 4.07447C9.90337 3.80618 9.99872 3.49179 10 3.17V3C10 2.46957 10.2107 1.96086 10.5858 1.58579C10.9609 1.21071 11.4696 1 12 1C12.5304 1 13.0391 1.21071 13.4142 1.58579C13.7893 1.96086 14 2.46957 14 3V3.09C14.0013 3.41179 14.0966 3.72618 14.2743 3.99447C14.452 4.26276 14.7042 4.47324 15 4.6C15.3016 4.73312 15.6362 4.77282 15.9606 4.714C16.285 4.65519 16.5843 4.50054 16.82 4.27L16.88 4.21C17.0657 4.02405 17.2863 3.87653 17.5291 3.77588C17.7719 3.67523 18.0322 3.62343 18.295 3.62343C18.5578 3.62343 18.8181 3.67523 19.0609 3.77588C19.3037 3.87653 19.5243 4.02405 19.71 4.21C19.896 4.39575 20.0435 4.61632 20.1441 4.85912C20.2448 5.10192 20.2966 5.36217 20.2966 5.625C20.2966 5.88783 20.2448 6.14808 20.1441 6.39088C20.0435 6.63368 19.896 6.85425 19.71 7.04L19.65 7.1C19.4195 7.33568 19.2648 7.63502 19.206 7.95941C19.1472 8.28381 19.1869 8.61838 19.32 8.92V9C19.4468 9.29577 19.6572 9.54802 19.9255 9.72569C20.1938 9.90337 20.5082 9.99872 20.83 10H21C21.5304 10 22.0391 10.2107 22.4142 10.5858C22.7893 10.9609 23 11.4696 23 12C23 12.5304 22.7893 13.0391 22.4142 13.4142C22.0391 13.7893 21.5304 14 21 14H20.91C20.5882 14.0013 20.2738 14.0966 20.0055 14.2743C19.7372 14.452 19.5268 14.7042 19.4 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
+        <div class="text-center mb-5">
+            <span class="text-primary fw-bold text-uppercase small" style="letter-spacing: 2px;">Community</span>
+            <h2 class="display-6 fw-bold mt-2">Our Pioneers</h2>
+            <p class="text-muted mx-auto" style="max-width: 600px;">
+                Meet the dedicated individuals leading the charge in preserving the Igala language.
+            </p>
         </div>
-                        <div class="contribution-details">
-                            <h3>Technical Contributions</h3>
-                            <p>Help improve our platform by contributing code, fixing bugs, or suggesting new features.</p>
-                            <a href="https://github.com/Dev-Yusuf/project" class="text-link">
-                                View GitHub Repository
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M3.33337 8H12.6667M12.6667 8L8.00004 3.33333M12.6667 8L8.00004 12.6667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </a>
-        </div>
-    </div>
 
-                    <div class="contribution-item">
-                        <div class="contribution-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M17 8H19C19.5304 8 20.0391 8.21071 20.4142 8.58579C20.7893 8.96086 21 9.46957 21 10V18C21 18.5304 20.7893 19.0391 20.4142 19.4142C20.0391 19.7893 19.5304 20 19 20H5C4.46957 20 3.96086 19.7893 3.58579 19.4142C3.21071 19.0391 3 18.5304 3 18V10C3 9.46957 3.21071 8.96086 3.58579 8.58579C3.96086 8.21071 4.46957 8 5 8H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M12 15V3M12 3L7 8M12 3L17 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
+        <div class="row g-4 justify-content-center">
+            {% for pioneer in pioneers %}
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center">
+                    <div class="card-body p-4">
+                        <div class="mb-3 mx-auto"
+                            style="width: 100px; height: 100px; overflow: hidden; border-radius: 50%;">
+                            {% if pioneer.profile_image %}
+                            <img src="{{ pioneer.profile_image.url }}" alt="{{ pioneer.pioneer_name }}"
+                                class="w-100 h-100 object-fit-cover">
+                            {% else %}
+                            <div
+                                class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center text-white">
+                                <i class="fas fa-user fa-3x"></i>
+                            </div>
+                            {% endif %}
                         </div>
-                        <div class="contribution-details">
-                            <h3>Content Contributions</h3>
-                            <p>Add new words, improve translations, or provide cultural context and usage examples.</p>
-                            <a href="#" class="text-link">
-                                Learn How to Contribute
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M3.33337 8H12.6667M12.6667 8L8.00004 3.33333M12.6667 8L8.00004 12.6667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-          </a>
-      </div>
-                    </div>
+                        <h5 class="fw-bold mb-1">{{ pioneer.pioneer_name }}</h5>
+                        <p class="text-primary small mb-3">{{ pioneer.position|default:"Contributor" }}</p>
+                        <p class="text-muted small mb-3">{{ pioneer.bio|truncatewords:20 }}</p>
 
-                    <div class="contribution-item">
-                        <div class="contribution-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M12 16V12M12 8H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <div class="contribution-details">
-                            <h3>Community Support</h3>
-                            <p>Join our community discussions, help other learners, and share your knowledge.</p>
-                            <a href="#" class="text-link">
-                                Join Community
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M3.33337 8H12.6667M12.6667 8L8.00004 3.33333M12.6667 8L8.00004 12.6667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-        </a>
-    </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="contribute-visual">
-                <div class="activity-feed">
-                    <div class="activity-header">
-                        <h4>Recent Contributions</h4>
-                        <span class="activity-badge">Live</span>
-                    </div>
-                    <div class="activity-list">
-                        {% if recent_words or recent_examples %}
-                            {% for word in recent_words %}
-                            <div class="activity-item">
-                                <div class="activity-icon">
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                        <path d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M8 5.5V8.5L10 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-                                <div class="activity-content">
-                                    <p><strong>New Word Added:</strong> <a href="{% url 'single-word' word.slug %}" style="color: var(--accent-color); text-decoration: none;">"{{ word.word }}"</a>
-                                    {% if word.contributor %} by {{ word.contributor.get_full_name|default:word.contributor.username }}{% endif %}</p>
-                                    <span class="activity-time">Recently added</span>
-                                </div>
-                            </div>
-                            {% endfor %}
-                            
-                            {% for example in recent_examples %}
-                            <div class="activity-item">
-                                <div class="activity-icon">
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                        <path d="M2 4H14M2 8H14M2 12H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-                                <div class="activity-content">
-                                    <p><strong>Example Added:</strong> "{{ example.igala_example }}"</p>
-                                    <span class="activity-time">Recently added</span>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        {% else %}
-                            <div class="activity-item">
-                                <div class="activity-content">
-                                    <p style="text-align: center; color: var(--light-text); padding: 20px;">
-                                        No recent contributions yet. Be the first to contribute!
-                                    </p>
-                                </div>
-                            </div>
-                        {% endif %}
-</div>
-  </div>
-      </div>
-      </div>
-  </div>
-</section>
-
-<section class="pioneers-section">
-    <div class="container">
-        <div class="pioneers-header">
-            <span class="section-eyebrow">Meet Our Pioneers</span>
-            <h2 class="section-title">Visionaries Preserving Igala Heritage</h2>
-            <p class="section-description">Meet the dedicated individuals who are leading the way in documenting and preserving the Igala language for future generations.</p>
-        </div>
-
-        <div class="pioneers-grid">
-            {% if pioneers %}
-                {% for pioneer in pioneers %}
-                <div class="pioneer-card">
-                    <div class="pioneer-image">
-                        {% if pioneer.profile_image %}
-                            <img src="{{ pioneer.profile_image.url }}" alt="{{ pioneer.pioneer_name }}">
-                        {% else %}
-                            <img src="{% static 'images/igala-logo.png' %}" alt="{{ pioneer.pioneer_name }}" style="object-fit: contain; padding: 20px;">
-                        {% endif %}
                         {% if pioneer.pioneer_social_link %}
-                        <div class="pioneer-social">
-                            <a href="{{ pioneer.pioneer_social_link }}" target="_blank" class="social-link" title="Visit profile">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                    <path d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609 12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M6 9H2V21H6V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M4 6C5.10457 6 6 5.10457 6 4C6 2.89543 5.10457 2 4 2C2.89543 2 2 2.89543 2 4C2 5.10457 2.89543 6 4 6Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </a>
-                        </div>
+                        <a href="{{ pioneer.pioneer_social_link }}" target="_blank"
+                            class="btn btn-outline-primary btn-sm rounded-pill btn-icon">
+                            <i class="fab fa-twitter"></i> Connect
+                        </a>
                         {% endif %}
                     </div>
-                    <div class="pioneer-info">
-                        <h3>{{ pioneer.pioneer_name|default:"Pioneer Name" }}</h3>
-                        <span class="pioneer-role">{{ pioneer.position|default:"Cultural Advocate" }}</span>
-                        <p>{{ pioneer.bio|default:"Contributing to the preservation and promotion of Igala language and culture." }}</p>
-                    </div>
                 </div>
-                {% endfor %}
-            {% else %}
-                <!-- Fallback content when no pioneers in database -->
-                <div class="pioneer-card">
-                    <div class="pioneer-image">
-                        <img src="{% static 'images/igala-logo.png' %}" alt="Igalapedia" style="object-fit: contain; padding: 20px;">
-                    </div>
-                    <div class="pioneer-info">
-                        <h3>Be a Pioneer</h3>
-                        <span class="pioneer-role">Cultural Advocate</span>
-                        <p>Join us in preserving the Igala language and culture for future generations.</p>
-                    </div>
-                </div>
-            {% endif %}
+            </div>
+            {% endfor %}
         </div>
 
-        <div class="view-all-pioneers">
-            <a href="{% url 'pioneers' %}" class="view-all-button">
-                <span class="button-text">Meet All Pioneers</span>
-                <span class="button-icon">→</span>
-    </a>
-  </div>
+        <div class="text-center mt-5">
+            <a href="{% url 'pioneers' %}" class="btn btn-link text-decoration-none fw-bold">View All Pioneers <i
+                    class="fas fa-arrow-right ms-1"></i></a>
+        </div>
+    </div>
+</section>
+{% endif %}
 
-        <div class="pioneers-cta">
-            <p>Interested in contributing to the preservation of Igala language?</p>
-            <a href="#" class="text-link">
-                Join Our Community
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M3.33337 8H12.6667M12.6667 8L8.00004 3.33333M12.6667 8L8.00004 12.6667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-    </a>
-  </div>
+<!-- Donation Section -->
+<section class="section">
+    <div class="container">
+        <div class="row align-items-center bg-primary bg-opacity-10 rounded-4 p-4 p-md-5"
+            style="background-color: rgba(16, 185, 129, 0.85) !important;">
+            <div class="col-md-7 mb-4 mb-md-0">
+                <h2 class="fw-bold mb-3" style="color: white;">Support the Project</h2>
+                <p class="lead mb-4" style="color: white; opacity: 0.9;">
+                    IgalaHeritage is a non-profit initiative. Your donations help us maintain servers, improve tools, and
+                    expand our reach.
+                </p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <button class="btn btn-primary px-4 py-2 fw-bold shadow-sm"
+                        onclick="alert('Donation integration coming soon!')">
+                        <i class="fas fa-heart me-2"></i> Make a Donation
+                    </button>
+                    <a href="{% url 'about' %}" class="btn btn-outline-light px-4 py-2 fw-bold"
+                        style="border-color: white; color: white;">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-5 text-center d-none d-md-block">
+                <i class="fas fa-hand-holding-heart opacity-25" style="font-size: 8rem; color: white;"></i>
+            </div>
+        </div>
     </div>
 </section>
 
-<section class="donation-section">
-    <div class="container">
-        <div class="donation-content">
-            <span class="section-eyebrow">Support Our Mission</span>
-            <h2 class="section-title">Help Us Preserve Igala Language for Future Generations</h2>
-            <p class="section-description">Your contribution helps us maintain and expand our digital archive, develop new features, and ensure this cultural treasure remains accessible to everyone.</p>
-            
-            <div class="donation-features">
-                <div class="feature-item">
-                    <div class="feature-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <div class="feature-text">
-                        <h4>Sustainable Development</h4>
-                        <p>Support continuous platform improvements and new features</p>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M20 12V22H4V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M22 7H2V12H22V7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 22V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 7H16.5C17.163 7 17.7989 6.73661 18.2678 6.26777C18.7366 5.79893 19 5.16304 19 4.5C19 3.83696 18.7366 3.20107 18.2678 2.73223C17.7989 2.26339 17.163 2 16.5 2C13 2 12 7 12 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 7H7.5C6.83696 7 6.20107 6.73661 5.73223 6.26777C5.26339 5.79893 5 5.16304 5 4.5C5 3.83696 5.26339 3.20107 5.73223 2.73223C6.20107 2.26339 6.83696 2 7.5 2C11 2 12 7 12 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <div class="feature-text">
-                        <h4>Free Access</h4>
-                        <p>Keep Igalapedia accessible to everyone, everywhere</p>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <div class="feature-text">
-                        <h4>Community Growth</h4>
-                        <p>Support community events and educational programs</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="donation-actions">
-                <a href="#" class="primary-button">
-                    <span class="button-text">Make a Donation</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M12 16V12M12 8H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </a>
-                <a href="#" class="secondary-button">Learn More About Funding</a>
-            </div>
-        </div>
-</div>
+<!-- Call to Action -->
+<section class="section" style="background-color: #0f172a; color: white;">
+    <div class="container text-center">
+        <h2 class="display-5 fw-bold mb-4" style="color: white;">Ready to start your journey?</h2>
+        <p class="lead mb-5 opacity-75" style="max-width: 600px; margin: 0 auto;">Join a community of over {{ contributor_count }} contributors and learners preserving the Igala heritage.</p>
+        <a href="{% url 'register' %}" class="btn btn-primary btn-lg px-5">Get Started Free</a>
+    </div>
 </section>
 
 {% include "footer.html" %}
 
+<style>
+    .shadow-hover {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid var(--border-color) !important;
+    }
+
+    .shadow-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        border-color: transparent !important;
+    }
+
+    .object-fit-cover {
+        object-fit: cover;
+    }
+</style>
 {% endblock content %}

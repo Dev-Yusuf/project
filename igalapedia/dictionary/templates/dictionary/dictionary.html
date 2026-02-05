@@ -1,36 +1,114 @@
-{% extends 'main.html' %} {% block content %}
+{% extends 'main.html' %}
+{% block content %}
 
-<section class="dictionary-home">
-  <div class="igala-dictionary">
-    <h1>Igala Dictionary</h1>
-    
-    <form class="search-input" method="GET">
-      {{ word_filter.form.word }}
-      <button id="search-button" class="search-button">Search</button>
-    </form>
+<section class="section" style="padding-top: 120px;">
+  <div class="container">
+    <!-- Header & Search -->
+    <div class="text-center mb-5">
+      <h1 class="display-4 fw-bold mb-3" style="color: var(--text-main);">Igala Dictionary</h1>
+      <p class="text-muted mb-4 lead">Explore our extensive collection of Igala words and meanings.</p>
 
-    <ul class="word-list">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <form class="d-flex gap-2 p-2 bg-white rounded-pill shadow-sm border" method="GET">
+            {{ word_filter.form.word }}
+            <!-- Assuming the form widget renders an input, we might need to style it via CSS if it renders raw HTML, 
+                             or if it is a Django form field we might need to add class in python or wrap it. 
+                             I'll assume it renders a standard input and style it via CSS targeting input inside this form. -->
+            <button id="search-button" class="btn btn-primary rounded-pill px-4 fw-bold">Search</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Word Grid -->
+    <div class="row g-3">
       {% for word in words %}
-      <li><a href="{% url 'single-word' word.slug %}">{{word.word}}</a></li>
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="{% url 'single-word' word.slug %}" class="card h-100 text-decoration-none shadow-hover border-0"
+          style="background: var(--bg-card);">
+          <div class="card-body text-center d-flex flex-column align-items-center justify-content-center py-4">
+            <h3 class="h4 fw-bold mb-0 text-primary">{{word.word}}</h3>
+            <!-- Optional: If we had part of speech here it would be great, but keeping it simple -->
+            <div class="mt-2 text-muted small opacity-0">View Details</div>
+          </div>
+        </a>
+      </div>
       {% empty %}
-        <li class="empty-message">
-            No such word found. If you believe the word is correct, please contact us.
-        </li>
+      <div class="col-12 text-center py-5">
+        <div class="mb-3 text-muted">
+          <i class="fas fa-search fa-3x opacity-25"></i>
+        </div>
+        <h3 class="h5 text-muted">No words found matching your search.</h3>
+        <p class="text-muted small">Try checking the spelling or submitting a new word.</p>
+        <a href="{% url 'submit_word' %}" class="btn btn-outline-primary btn-sm mt-2">Submit a Word</a>
+      </div>
       {% endfor %}
-    </ul>
+    </div>
 
-    <div class="pagination-buttons">
-        {% if current_page_holder.has_previous %}
-        <a href="?page={{current_page_holder.previous_page_number}}" id="previous-button"><i class="fas fa-arrow-left"></i></a>
-        {% endif %}
-    
-        <span class="pagination-info">{{ current_page_holder.number }} of {{ current_page_holder.paginator.num_pages }}</span>
-    
-        {% if current_page_holder.has_next %}
-        <a href="?page={{current_page_holder.next_page_number}}" id="next-button"><i class="fas fa-arrow-right"></i></a>
-        {% endif %}
+    <!-- Pagination -->
+    <div class="d-flex justify-content-center mt-5 align-items-center gap-3">
+      {% if current_page_holder.has_previous %}
+      <a href="?page={{current_page_holder.previous_page_number}}"
+        class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center"
+        style="width: 40px; height: 40px;">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+      {% else %}
+      <button class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center disabled"
+        style="width: 40px; height: 40px; opacity: 0.5;">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      {% endif %}
+
+      <span class="text-muted fw-bold">
+        Page {{ current_page_holder.number }} of {{ current_page_holder.paginator.num_pages }}
+      </span>
+
+      {% if current_page_holder.has_next %}
+      <a href="?page={{current_page_holder.next_page_number}}"
+        class="btn btn-outline-primary rounded-circle d-flex align-items-center justify-content-center"
+        style="width: 40px; height: 40px;">
+        <i class="fas fa-arrow-right"></i>
+      </a>
+      {% else %}
+      <button class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center disabled"
+        style="width: 40px; height: 40px; opacity: 0.5;">
+        <i class="fas fa-arrow-right"></i>
+      </button>
+      {% endif %}
     </div>
   </div>
 </section>
+
+<style>
+  /* Custom styles for the search input rendered by Django form */
+  form input[type="text"] {
+    border: none !important;
+    box-shadow: none !important;
+    flex-grow: 1;
+    padding-left: 1rem;
+    background: transparent;
+    outline: none;
+  }
+
+  form input[type="text"]:focus {
+    outline: none;
+  }
+
+  .shadow-hover {
+    transition: all 0.2s ease;
+  }
+
+  .shadow-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .shadow-hover:hover .opacity-0 {
+    opacity: 0.7 !important;
+    transition: opacity 0.2s ease;
+  }
+</style>
 
 {% endblock content %}

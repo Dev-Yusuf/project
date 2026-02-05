@@ -9,31 +9,27 @@ from .forms import CustomUserRegistrationForm, CustomLoginForm
 
 
 def mainpage(request):
-    """
-    Main page view that displays statistics and community information.
-    
-    Returns:
-        Rendered template with statistics context
-    """
-    # Get aggregated counts for various fields
     fields_to_count = [
         ('word', ''),
         ('pronunciation', ''),
         ('igala_example', '')
     ]
     
-    # Get pioneers from database (limit to 3 for homepage)
     pioneers = Pioneer.objects.all()[:3]
-    
-    # Get recent contributions (last 3 words added)
     recent_words = Words.objects.select_related('contributor').order_by('-id')[:3]
-    
-    # Get recent examples added
     recent_examples = Example.objects.order_by('-id')[:2]
-    
+    word_count = Words.objects.count()
+    audio_count = Words.objects.exclude(pronunciation__isnull=True).exclude(pronunciation='').count()
+    contributor_count = ContributionStats.objects.filter(approved_words_count__gt=0).count()
+    if contributor_count == 0:
+        from django.contrib.auth import get_user_model
+        User = get_user_model()
+        contributor_count = User.objects.count()
+
     context = {
-        **get_aggregated_counts(Words, fields_to_count[:2]),  # Get word and pronunciation counts
-        **get_aggregated_counts(Example, fields_to_count[2:]),  # Get example counts
+        'word_count': word_count,
+        'audio_count': audio_count,
+        'contributor_count': contributor_count,
         'community_stats': get_first_instance(Community),
         'pioneers': pioneers,
         'recent_words': recent_words,
@@ -80,6 +76,12 @@ def register(request):
             ContributionStats.objects.create(user=user)
             # Log the user in
             login(request, user)
+            # Send welcome email (non-blocking; failures don't affect registration)
+            try:
+                from main.emails import send_welcome_email
+                send_welcome_email(user, request)
+            except Exception:
+                pass
             messages.success(request, f'Welcome to Igalapedia, {user.username}! Your account has been created successfully.')
             return redirect('index')
         else:
@@ -143,13 +145,28 @@ def user_logout(request):
 @login_required
 def user_dashboard(request):
     """User dashboard showing contribution statistics"""
+    from dictionary.models import PendingWord
+    
     # Get or create user stats
     stats, created = ContributionStats.objects.get_or_create(user=request.user)
     if created or stats.total_submissions == 0:
         stats.update_stats()
     
+    # Fetch recent 4 approved and rejected words
+    recent_approved = PendingWord.objects.filter(
+        submitted_by=request.user,
+        status='APPROVED'
+    ).select_related('approved_word').order_by('-reviewed_at')[:4]
+    
+    recent_rejected = PendingWord.objects.filter(
+        submitted_by=request.user,
+        status='REJECTED'
+    ).order_by('-reviewed_at')[:4]
+    
     context = {
         'stats': stats,
+        'recent_approved': recent_approved,
+        'recent_rejected': recent_rejected,
         'page_title': 'My Dashboard - Igalapedia'
     }
     return render(request, 'main/dashboard.html', context)

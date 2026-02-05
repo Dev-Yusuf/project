@@ -25,7 +25,14 @@ SECRET_KEY = 'django-insecure-_+es)q^ebfr4m)1^=*p-o2s8)ek37yp#cp6&!-ld&s^&4#8q6l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "*",
+     "72726b2eb762.ngrok-free.app",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://72726b2eb762.ngrok-free.app',
+]
 
 
 # Application definition
@@ -168,3 +175,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'login'  # Custom login page
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
+
+# Email configuration
+# Development: emails are printed to the console (runserver output)
+# Production: set EMAIL_BACKEND to 'django.core.mail.backends.smtp.EmailBackend'
+# and configure EMAIL_HOST, EMAIL_PORT, EMAIL_USE_TLS, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'Igalapedia <noreply@igalapedia.org>'
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
+# Optional: for production SMTP (e.g. Gmail, SendGrid)
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.example.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'your-email@example.com'
+# EMAIL_HOST_PASSWORD = 'your-app-password'

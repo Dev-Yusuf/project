@@ -1,14 +1,30 @@
 {% load static %}
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container nav-container">
-        <a class="navbar-brand" href="{% url 'index' %}">
-            <img src="{% static 'images/igala-logo.png' %}" alt="Igalapedia Logo">
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
+            <svg class="navbar-logo" width="210" height="40" viewBox="0 0 420 80" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="IgalaHeritage logo">
+                <g transform="translate(0,8)">
+                    <circle cx="32" cy="32" r="30" stroke="#1a1a1a" stroke-width="3" fill="none" />
+                    <circle cx="44" cy="22" r="7" fill="#FFC107" />
+                    <line x1="44" y1="8" x2="44" y2="2" stroke="#FFC107" stroke-width="2"/>
+                    <line x1="54" y1="12" x2="58" y2="8" stroke="#FFC107" stroke-width="2"/>
+                    <line x1="60" y1="22" x2="66" y2="22" stroke="#FFC107" stroke-width="2"/>
+                    <polygon points="20,30 32,20 44,30" fill="#1a1a1a" />
+                    <rect x="24" y="30" width="16" height="14" rx="2" fill="#059669" />
+                    <rect x="30" y="36" width="4" height="8" rx="1" fill="#ffffff" />
+                    <path d="M14 48 C20 46, 26 50, 32 48 C38 46, 44 50, 50 48" stroke="#059669" stroke-width="2" fill="none" />
+                </g>
+                <text x="80" y="52" font-family="Outfit, Inter, system-ui, sans-serif" font-size="32" font-weight="600" fill="#1a1a1a">
+                    Igala<tspan fill="#FFC107">Heritage</tspan>
+                </text>
+            </svg>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'words' %}">Dictionary</a>
                 </li>
@@ -16,53 +32,59 @@
                     <a class="nav-link" href="{% url 'leaderboard' %}">Leaderboard</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
                         Contribute
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu border-0 shadow-lg" style="border-radius: var(--radius-md);">
                         <li><a class="dropdown-item" href="{% url 'submit_word' %}">Submit a Word</a></li>
                         <li><a class="dropdown-item" href="{% url 'my_contributions' %}">My Contributions</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
                         Resources
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu border-0 shadow-lg" style="border-radius: var(--radius-md);">
                         <li><a class="dropdown-item" href="{% url 'translator' %}">Translator</a></li>
                         <li><a class="dropdown-item" href="{% url 'api' %}">API</a></li>
-                        <li><a class="dropdown-item" href="https://github.com/Dev-Yusuf/project" target="_blank">GitHub</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#" onclick="alert('Coming soon!'); return false;">History</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="alert('Coming soon!'); return false;">Blog</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="alert('Coming soon!'); return false;">Books</a></li>
+                        <li><a class="dropdown-item" href="https://github.com/Dev-Yusuf/project"
+                                target="_blank">GitHub</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'about' %}">About</a>
                 </li>
-                
+
                 {% if user.is_authenticated %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user-circle"></i> {{ user.username }}
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="{% url 'dashboard' %}"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                            <li><a class="dropdown-item" href="{% url 'my_contributions' %}"><i class="fas fa-list"></i> My Contributions</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-                        </ul>
-                    </li>
+                <li class="nav-item dropdown ms-lg-3">
+                    <a class="nav-link dropdown-toggle btn btn-sm btn-outline-primary px-3 rounded-pill" href="#"
+                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user-circle me-1"></i> {{ user.username }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg"
+                        style="border-radius: var(--radius-md);">
+                        <li><a class="dropdown-item" href="{% url 'dashboard' %}"><i
+                                    class="fas fa-tachometer-alt me-2 text-muted"></i> Dashboard</a></li>
+                        <li><a class="dropdown-item" href="{% url 'my_contributions' %}"><i
+                                    class="fas fa-list me-2 text-muted"></i> My Contributions</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}"><i
+                                    class="fas fa-sign-out-alt me-2 text-danger"></i> Logout</a></li>
+                    </ul>
+                </li>
                 {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-primary" href="{% url 'register' %}" style="color: white; padding: 0.5rem 1rem; margin-left: 0.5rem;">
-                            <i class="fas fa-user-plus"></i> Register
-                        </a>
-                    </li>
+                <li class="nav-item ms-lg-2">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item ms-lg-2">
+                    <a class="btn btn-primary btn-sm px-4 rounded-pill" href="{% url 'register' %}">
+                        Register
+                    </a>
+                </li>
                 {% endif %}
             </ul>
         </div>

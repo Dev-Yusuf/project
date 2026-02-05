@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, transaction, IntegrityError
 from django.utils.text import slugify
 from django.conf import settings
 from django.utils import timezone
@@ -12,12 +12,13 @@ class PartOfSpeech(models.Model):
 class Example(models.Model):
     igala_example = models.CharField(max_length=200)
     english_meaning = models.CharField(max_length=200)
+    audio = models.FileField(upload_to='example_sounds/', blank=True, null=True)
 
     def __str__(self):
         return self.igala_example
     
 class Words(models.Model):
-    word = models.CharField(max_length=100)
+    word = models.CharField(max_length=100, unique=True)
     pronunciation = models.FileField(upload_to='word_sounds/', blank=True, null=True)
     dialects = models.CharField(max_length=200, blank=True, null=True)
     related_terms = models.CharField(max_length=200, null=True, blank=True)
@@ -52,15 +53,10 @@ class Meaning(models.Model):
         return self.meaning
 
 
-# ============================================
+
 # CONTRIBUTION/SUBMISSION MODELS
-# ============================================
 
 class PendingWord(models.Model):
-    """
-    Model for user-submitted words pending admin approval.
-    Once approved, these become official Words in the dictionary.
-    """
     STATUS_CHOICES = [
         ('PENDING', 'Pending Review'),
         ('APPROVED', 'Approved'),
@@ -112,28 +108,46 @@ class PendingWord(models.Model):
     
     def approve(self, reviewer):
         """
-        Approve this submission and create official Word entry
+        Approve this submission and create official Word entry.
+        Returns the created Words instance on success, or None if:
+        - Already processed (not PENDING)
+        - Duplicate word exists (race condition or concurrent approval)
+        
+        If duplicate detected, auto-rejects with appropriate notes.
         """
         if self.status != 'PENDING':
             return None
         
-        # Create official word
-        word = Words.objects.create(
-            word=self.word,
-            pronunciation=self.pronunciation_file,
-            dialects=self.dialects,
-            related_terms=self.related_terms,
-            contributor=self.submitted_by
-        )
-        
-        # Update submission status
-        self.status = 'APPROVED'
-        self.reviewed_by = reviewer
-        self.reviewed_at = timezone.now()
-        self.approved_word = word
-        self.save()
-        
-        return word
+        try:
+            with transaction.atomic():
+                # Create official word (unique constraint will raise IntegrityError if duplicate)
+                word = Words.objects.create(
+                    word=self.word,
+                    pronunciation=self.pronunciation_file,
+                    dialects=self.dialects,
+                    related_terms=self.related_terms,
+                    contributor=self.submitted_by
+                )
+                
+                # Update submission status
+                self.status = 'APPROVED'
+                self.reviewed_by = reviewer
+                self.reviewed_at = timezone.now()
+                self.approved_word = word
+                self.save()
+                
+                return word
+        except IntegrityError:
+            # Duplicate word already exists - auto-reject this submission
+            existing = Words.objects.filter(word__iexact=self.word).first()
+            self.status = 'REJECTED'
+            self.reviewed_by = reviewer
+            self.reviewed_at = timezone.now()
+            self.review_notes = f'Duplicate: The word "{self.word}" already exists in the dictionary.'
+            if existing:
+                self.review_notes += f' See: /dictionary/single-word/{existing.slug}/'
+            self.save()
+            return None
     
     def reject(self, reviewer, notes=""):
         """
@@ -230,5 +244,100 @@ class ContributionStats(models.Model):
         if last_submission:
             self.last_contribution = last_submission.submitted_at
         
+        self.save()
+
+
+class PendingExampleContribution(models.Model):
+    """
+    Model for usage examples submitted by users for already-approved words.
+    This is separate from PendingExample which is tied to new pending word submissions.
+    """
+    STATUS_CHOICES = [
+        ('PENDING', 'Pending Review'),
+        ('APPROVED', 'Approved'),
+        ('REJECTED', 'Rejected'),
+    ]
+    
+    # Target meaning (the approved meaning this example is for)
+    meaning = models.ForeignKey(
+        Meaning,
+        on_delete=models.CASCADE,
+        related_name='pending_example_contributions'
+    )
+    
+    # Example content
+    igala_example = models.CharField(max_length=200)
+    english_meaning = models.CharField(max_length=200)
+    
+    # Submission Metadata
+    submitted_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='pending_example_contributions'
+    )
+    submitted_at = models.DateTimeField(auto_now_add=True)
+    
+    # Review Metadata
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='PENDING')
+    reviewed_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='reviewed_example_contributions'
+    )
+    reviewed_at = models.DateTimeField(null=True, blank=True)
+    review_notes = models.TextField(blank=True, null=True, help_text="Admin notes about the review")
+    
+    # Link to approved example (if approved)
+    approved_example = models.OneToOneField(
+        Example,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='source_contribution'
+    )
+    
+    class Meta:
+        verbose_name = "Pending Example Contribution"
+        verbose_name_plural = "Pending Example Contributions"
+        ordering = ['-submitted_at']
+    
+    def __str__(self):
+        return f'"{self.igala_example}" for {self.meaning.word.word} - {self.get_status_display()}'
+    
+    def approve(self, reviewer):
+        """
+        Approve this example and add it to the meaning.
+        """
+        if self.status != 'PENDING':
+            return None
+        
+        # Create official example
+        example = Example.objects.create(
+            igala_example=self.igala_example,
+            english_meaning=self.english_meaning
+        )
+        
+        # Attach to meaning
+        self.meaning.examples.add(example)
+        
+        # Update submission status
+        self.status = 'APPROVED'
+        self.reviewed_by = reviewer
+        self.reviewed_at = timezone.now()
+        self.approved_example = example
+        self.save()
+        
+        return example
+    
+    def reject(self, reviewer, notes=""):
+        """
+        Reject this example submission.
+        """
+        self.status = 'REJECTED'
+        self.reviewed_by = reviewer
+        self.reviewed_at = timezone.now()
+        self.review_notes = notes
         self.save()
 

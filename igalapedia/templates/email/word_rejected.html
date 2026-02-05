@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: #1a1a1a; max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; margin-bottom: 24px; }
+        .brand { font-size: 24px; font-weight: 700; color: #059669; }
+        .content { background: #fef2f2; border-radius: 8px; padding: 24px; margin: 24px 0; border-left: 4px solid #dc2626; }
+        .word { font-size: 18px; font-weight: 700; color: #991b1b; margin: 8px 0; }
+        .notes { background: #fff; padding: 12px; border-radius: 6px; margin: 12px 0; font-size: 14px; color: #4b5563; }
+        .button { display: inline-block; background: #FFC107; color: #000; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 600; margin: 16px 0; }
+        .footer { font-size: 12px; color: #6b7280; text-align: center; margin-top: 32px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <span class="brand">Igalapedia</span>
+    </div>
+    <div class="content">
+        <p>Hello {{ username }},</p>
+        <p>We've reviewed your submission and unfortunately it could not be approved at this time.</p>
+        <p class="word">Word submitted: "{{ word }}"</p>
+        {% if review_notes %}
+        <p><strong>Feedback from our team:</strong></p>
+        <div class="notes">{{ review_notes }}</div>
+        <p>You can submit a new or revised entry based on this feedback.</p>
+        {% else %}
+        <p>If you have questions, you can try submitting again with any corrections or contact us for more information.</p>
+        {% endif %}
+        <p><a href="{{ submit_url }}" class="button">Submit another word</a></p>
+    </div>
+    <div class="footer">
+        <p>&copy; {% now "Y" %} Igalapedia. Preserving Igala heritage through technology.</p>
+    </div>
+</body>
+</html>

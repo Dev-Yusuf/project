@@ -6,19 +6,7 @@
 <!-- Link to external Leaderboard page CSS -->
 <link rel="stylesheet" href="{% static 'styles/leaderboard.css' %}">
 
-<section class="leaderboard-hero">
-    <div class="container">
-        <div class="hero-content-leaderboard">
-            <span class="section-eyebrow">Community Champions</span>
-            <h1 class="hero-title">🏆 Contributor Leaderboard</h1>
-            <p class="hero-description">
-                Celebrating the dedicated contributors who are preserving the Igala language for future generations.
-            </p>
-        </div>
-    </div>
-</section>
-
-<section class="leaderboard-main">
+<section class="leaderboard-main" style="padding-top: 120px;">
     <div class="container">
         {% if contributors %}
             <!-- Top 3 Podium -->

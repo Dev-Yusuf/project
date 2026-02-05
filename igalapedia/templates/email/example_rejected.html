@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example Submission Update - Igalapedia</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f4f4f5;">
+    <table role="presentation" style="width: 100%; border-collapse: collapse;">
+        <tr>
+            <td align="center" style="padding: 40px 20px;">
+                <table role="presentation" style="width: 100%; max-width: 600px; border-collapse: collapse; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                    <!-- Header -->
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); padding: 40px 30px; text-align: center;">
+                            <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: bold;">Submission Update</h1>
+                        </td>
+                    </tr>
+                    
+                    <!-- Content -->
+                    <tr>
+                        <td style="padding: 40px 30px;">
+                            <p style="margin: 0 0 20px; color: #374151; font-size: 16px; line-height: 1.6;">
+                                Hello <strong>{{ username }}</strong>,
+                            </p>
+                            
+                            <p style="margin: 0 0 20px; color: #374151; font-size: 16px; line-height: 1.6;">
+                                We've reviewed your usage example submission for the word "<strong>{{ word }}</strong>" and unfortunately it could not be approved at this time.
+                            </p>
+                            
+                            <div style="background-color: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 0 8px 8px 0; margin: 25px 0;">
+                                <p style="margin: 0 0 10px; color: #991b1b; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Example Submitted</p>
+                                <p style="margin: 0; color: #374151; font-size: 16px; font-style: italic;">"{{ igala_example }}"</p>
+                            </div>
+                            
+                            {% if review_notes %}
+                            <div style="background-color: #fffbeb; border-left: 4px solid #f59e0b; padding: 20px; border-radius: 0 8px 8px 0; margin: 25px 0;">
+                                <p style="margin: 0 0 10px; color: #92400e; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Feedback from our team</p>
+                                <p style="margin: 0; color: #374151; font-size: 16px; line-height: 1.6;">{{ review_notes }}</p>
+                            </div>
+                            {% endif %}
+                            
+                            <p style="margin: 0 0 25px; color: #374151; font-size: 16px; line-height: 1.6;">
+                                Don't be discouraged! You can always try submitting a revised example. We appreciate your effort to contribute to the Igala language preservation.
+                            </p>
+                            
+                            <div style="text-align: center; margin: 30px 0;">
+                                <a href="{{ word_url }}" style="display: inline-block; background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); color: #ffffff; text-decoration: none; padding: 14px 30px; border-radius: 8px; font-weight: bold; font-size: 16px;">Try Again</a>
+                            </div>
+                            
+                            <p style="margin: 0; color: #6b7280; font-size: 14px; line-height: 1.6;">
+                                Thank you for your understanding and continued support!
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background-color: #f9fafb; padding: 25px 30px; text-align: center; border-top: 1px solid #e5e7eb;">
+                            <p style="margin: 0; color: #9ca3af; font-size: 13px;">
+                                &copy; Igalapedia. Preserving Igala heritage through technology.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

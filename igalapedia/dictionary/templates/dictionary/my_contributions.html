@@ -3,167 +3,531 @@
 
 {% block content %}
 
-<!-- Link to external submission CSS -->
-<link rel="stylesheet" href="{% static 'styles/submission.css' %}">
-
-<section class="contributions-hero">
+<!-- Hero Section -->
+<section class="section contributions-hero">
     <div class="container">
-        <div class="hero-content">
-            <span class="section-eyebrow">My Dashboard</span>
-            <h1 class="hero-title">My Contributions</h1>
-            <p class="hero-description">
-                Track your submissions and see your impact on the Igalapedia dictionary.
-            </p>
+        <div class="text-center mb-5">
+            <span class="badge rounded-pill px-3 py-2 mb-3 badge-dashboard">
+                My Dashboard
+            </span>
+            <h1 class="display-5 fw-bold mb-3">My Contributions</h1>
+            <p class="text-muted lead">Track your submissions and see your impact on the Igalapedia dictionary.</p>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-3 col-sm-6">
+                <div class="card border-0 shadow-sm h-100 stat-card">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-check-circle fa-3x text-success"></i>
+                        </div>
+                        <h3 class="h2 fw-bold mb-1">{{ stats.approved_words_count }}</h3>
+                        <p class="text-muted mb-0">Approved</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6">
+                <div class="card border-0 shadow-sm h-100 stat-card">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-clock fa-3x text-warning"></i>
+                        </div>
+                        <h3 class="h2 fw-bold mb-1">{{ stats.pending_words_count }}</h3>
+                        <p class="text-muted mb-0">Pending Review</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6">
+                <div class="card border-0 shadow-sm h-100 stat-card">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-times-circle fa-3x text-danger"></i>
+                        </div>
+                        <h3 class="h2 fw-bold mb-1">{{ stats.rejected_words_count }}</h3>
+                        <p class="text-muted mb-0">Rejected</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6">
+                <div class="card border-0 shadow-sm h-100 stat-card">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-chart-bar fa-3x text-primary"></i>
+                        </div>
+                        <h3 class="h2 fw-bold mb-1">{{ stats.total_submissions }}</h3>
+                        <p class="text-muted mb-0">Total Submissions</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<section class="contributions-main">
+<!-- Word Submissions Section -->
+<section class="section">
     <div class="container">
-        
-        <!-- Statistics Cards -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon approved">✅</div>
-                <div class="stat-content">
-                    <div class="stat-number">{{ stats.approved_words_count }}</div>
-                    <div class="stat-label">Approved</div>
-                </div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon pending">⏳</div>
-                <div class="stat-content">
-                    <div class="stat-number">{{ stats.pending_words_count }}</div>
-                    <div class="stat-label">Pending Review</div>
-                </div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon rejected">❌</div>
-                <div class="stat-content">
-                    <div class="stat-number">{{ stats.rejected_words_count }}</div>
-                    <div class="stat-label">Rejected</div>
-                </div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon total">📊</div>
-                <div class="stat-content">
-                    <div class="stat-number">{{ stats.total_submissions }}</div>
-                    <div class="stat-label">Total Submissions</div>
-                </div>
-            </div>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="h3 fw-bold mb-0">Your Word Submissions</h2>
+            <a href="{% url 'submit_word' %}" class="btn btn-primary shadow-sm">
+                <i class="fas fa-plus me-2"></i> Submit New Word
+            </a>
         </div>
 
-        <!-- Submissions List -->
-        <div class="submissions-section">
-            <div class="section-header">
-                <h2>Your Submissions</h2>
-                <a href="{% url 'submit_word' %}" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> Submit New Word
-                </a>
-            </div>
+        {% if pending_words or approved_words or rejected_words %}
 
-            {% if pending_words %}
-                <div class="submissions-list">
-                    {% for submission in pending_words %}
-                        <div class="submission-card status-{{ submission.status|lower }}">
-                            <div class="submission-header">
-                                <div class="submission-title">
-                                    <h3>{{ submission.word }}</h3>
-                                    <span class="status-badge status-{{ submission.status|lower }}">
-                                        {{ submission.get_status_display }}
-                                    </span>
-                                </div>
-                                <div class="submission-date">
-                                    <i class="far fa-calendar"></i>
-                                    {{ submission.submitted_at|date:"M d, Y" }}
-                                </div>
-                            </div>
-
-                            <div class="submission-body">
-                                {% if submission.dialects %}
-                                    <div class="submission-detail">
-                                        <strong>Dialects:</strong> {{ submission.dialects }}
-                                    </div>
-                                {% endif %}
-
-                                <div class="submission-meanings">
-                                    <strong>Meanings:</strong>
-                                    <ul>
-                                        {% for meaning in submission.pending_meanings.all %}
-                                            <li>
-                                                <span class="pos-tag">{{ meaning.part_of_speech.name }}</span>
-                                                {{ meaning.meaning }}
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-
-                                {% if submission.status == 'APPROVED' and submission.approved_word %}
-                                    <div class="submission-success">
-                                        <i class="fas fa-check-circle"></i>
-                                        Your word has been published! 
-                                        <a href="{% url 'single-word' submission.approved_word.slug %}">View in dictionary</a>
-                                    </div>
-                                {% elif submission.status == 'REJECTED' %}
-                                    {% if submission.review_notes %}
-                                        <div class="submission-feedback">
-                                            <strong>Admin Feedback:</strong>
-                                            <p>{{ submission.review_notes }}</p>
-                                        </div>
-                                    {% endif %}
-                                {% elif submission.status == 'PENDING' %}
-                                    <div class="submission-pending">
-                                        <i class="fas fa-clock"></i>
-                                        Your submission is being reviewed by our team.
-                                    </div>
-                                {% endif %}
-                            </div>
-
-                            {% if submission.reviewed_at %}
-                                <div class="submission-footer">
-                                    <small>
-                                        Reviewed {{ submission.reviewed_at|date:"M d, Y" }}
-                                        {% if submission.reviewed_by %}
-                                            by {{ submission.reviewed_by.username }}
-                                        {% endif %}
+        <!-- Pending Words -->
+        {% if pending_words %}
+        <div class="mb-5">
+            <h4 class="h5 fw-bold mb-3 d-flex align-items-center">
+                <i class="fas fa-clock text-warning me-2"></i>
+                Pending Review
+                <span class="badge bg-warning text-dark ms-2">{{ pending_words|length }}</span>
+            </h4>
+            <div class="row g-4">
+                {% for submission in pending_words %}
+                <div class="col-12">
+                    <div class="card border-0 shadow-sm submission-card">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h4 class="fw-bold mb-2">{{ submission.word }}</h4>
+                                    <small class="text-muted">
+                                        <i class="far fa-calendar me-1"></i>
+                                        Submitted {{ submission.submitted_at|date:"M d, Y" }}
                                     </small>
                                 </div>
+                                <span class="badge rounded-pill px-3 py-2 bg-warning text-dark">
+                                    {{ submission.get_status_display }}
+                                </span>
+                            </div>
+                            {% if submission.dialects %}
+                            <div class="mb-3">
+                                <strong class="text-muted small">Dialects:</strong>
+                                <p class="mb-0">{{ submission.dialects }}</p>
+                            </div>
                             {% endif %}
+                            <div class="mb-3">
+                                <strong class="text-muted small">Meanings:</strong>
+                                <ul class="mb-0 mt-2">
+                                    {% for meaning in submission.pending_meanings.all %}
+                                    <li class="mb-1">
+                                        <span class="badge bg-light text-dark me-2">{{ meaning.part_of_speech.name }}</span>
+                                        {{ meaning.meaning }}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="alert alert-warning d-flex align-items-center mb-0">
+                                <i class="fas fa-clock me-2"></i>
+                                <div>Your submission is being reviewed by our team.</div>
+                            </div>
                         </div>
-                    {% endfor %}
+                    </div>
                 </div>
-            {% else %}
-                <div class="empty-state">
-                    <div class="empty-icon">📝</div>
-                    <h3>No Submissions Yet</h3>
-                    <p>You haven't submitted any words yet. Start contributing to the Igala dictionary!</p>
-                    <a href="{% url 'submit_word' %}" class="btn btn-primary btn-lg">
-                        <i class="fas fa-plus"></i> Submit Your First Word
-                    </a>
-                </div>
-            {% endif %}
-        </div>
-
-        <!-- Leaderboard CTA -->
-        {% if stats.approved_words_count > 0 %}
-            <div class="leaderboard-cta-box">
-                <div class="cta-content">
-                    <h3>🏆 You're making an impact!</h3>
-                    <p>You have {{ stats.approved_words_count }} approved contribution{{ stats.approved_words_count|pluralize }}. Check your ranking on the leaderboard!</p>
-                    <a href="{% url 'leaderboard' %}" class="btn btn-outline-primary">
-                        View Leaderboard
-                    </a>
-                </div>
+                {% endfor %}
             </div>
+        </div>
         {% endif %}
 
+        <!-- Approved Words -->
+        {% if approved_words %}
+        <div class="mb-5" data-collapsible>
+            <h4 class="h5 fw-bold mb-3 d-flex align-items-center">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                Approved
+                <span class="badge bg-success ms-2">{{ approved_words_count }}</span>
+            </h4>
+            <div class="row g-4">
+                {% for submission in approved_words %}
+                <div class="col-12{% if forloop.counter > 4 %} collapsible-item is-hidden{% endif %}">
+                    <div class="card border-0 shadow-sm submission-card">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h4 class="fw-bold mb-2">{{ submission.word }}</h4>
+                                    <small class="text-muted">
+                                        <i class="far fa-calendar me-1"></i>
+                                        Submitted {{ submission.submitted_at|date:"M d, Y" }}
+                                    </small>
+                                </div>
+                                <span class="badge rounded-pill px-3 py-2 bg-success">
+                                    {{ submission.get_status_display }}
+                                </span>
+                            </div>
+                            {% if submission.dialects %}
+                            <div class="mb-3">
+                                <strong class="text-muted small">Dialects:</strong>
+                                <p class="mb-0">{{ submission.dialects }}</p>
+                            </div>
+                            {% endif %}
+                            <div class="mb-3">
+                                <strong class="text-muted small">Meanings:</strong>
+                                <ul class="mb-0 mt-2">
+                                    {% for meaning in submission.pending_meanings.all %}
+                                    <li class="mb-1">
+                                        <span class="badge bg-light text-dark me-2">{{ meaning.part_of_speech.name }}</span>
+                                        {{ meaning.meaning }}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% if submission.approved_word %}
+                            <div class="alert alert-success d-flex align-items-center mb-0">
+                                <i class="fas fa-check-circle me-2"></i>
+                                <div>
+                                    Your word has been published!
+                                    <a href="{% url 'single-word' submission.approved_word.slug %}" class="alert-link fw-bold">View in dictionary</a>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if submission.reviewed_at %}
+                            <div class="border-top pt-3 mt-3">
+                                <small class="text-muted">
+                                    <i class="fas fa-user-check me-1"></i>
+                                    Reviewed {{ submission.reviewed_at|date:"M d, Y" }}
+                                </small>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% if approved_words_count > 4 %}
+            <div class="text-center mt-3">
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-collapsible-toggle>
+                    <i class="fas fa-chevron-down me-1"></i>
+                    View all ({{ approved_words_count }})
+                </button>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <!-- Rejected Words -->
+        {% if rejected_words %}
+        <div class="mb-5" data-collapsible>
+            <h4 class="h5 fw-bold mb-3 d-flex align-items-center">
+                <i class="fas fa-times-circle text-danger me-2"></i>
+                Rejected
+                <span class="badge bg-danger ms-2">{{ rejected_words_count }}</span>
+            </h4>
+            <div class="row g-4">
+                {% for submission in rejected_words %}
+                <div class="col-12{% if forloop.counter > 4 %} collapsible-item is-hidden{% endif %}">
+                    <div class="card border-0 shadow-sm submission-card">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h4 class="fw-bold mb-2">{{ submission.word }}</h4>
+                                    <small class="text-muted">
+                                        <i class="far fa-calendar me-1"></i>
+                                        Submitted {{ submission.submitted_at|date:"M d, Y" }}
+                                    </small>
+                                </div>
+                                <span class="badge rounded-pill px-3 py-2 bg-danger">
+                                    {{ submission.get_status_display }}
+                                </span>
+                            </div>
+                            {% if submission.dialects %}
+                            <div class="mb-3">
+                                <strong class="text-muted small">Dialects:</strong>
+                                <p class="mb-0">{{ submission.dialects }}</p>
+                            </div>
+                            {% endif %}
+                            <div class="mb-3">
+                                <strong class="text-muted small">Meanings:</strong>
+                                <ul class="mb-0 mt-2">
+                                    {% for meaning in submission.pending_meanings.all %}
+                                    <li class="mb-1">
+                                        <span class="badge bg-light text-dark me-2">{{ meaning.part_of_speech.name }}</span>
+                                        {{ meaning.meaning }}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% if submission.review_notes %}
+                            <div class="alert alert-danger mb-0">
+                                <strong>Admin Feedback:</strong>
+                                <p class="mb-0 mt-1">{{ submission.review_notes }}</p>
+                            </div>
+                            {% endif %}
+                            {% if submission.reviewed_at %}
+                            <div class="border-top pt-3 mt-3">
+                                <small class="text-muted">
+                                    <i class="fas fa-user-check me-1"></i>
+                                    Reviewed {{ submission.reviewed_at|date:"M d, Y" }}
+                                </small>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% if rejected_words_count > 4 %}
+            <div class="text-center mt-3">
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-collapsible-toggle>
+                    <i class="fas fa-chevron-down me-1"></i>
+                    View all ({{ rejected_words_count }})
+                </button>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% else %}
+        <!-- Empty State -->
+        <div class="text-center py-5">
+            <div class="mb-4">
+                <i class="fas fa-file-alt fa-5x text-muted opacity-25"></i>
+            </div>
+            <h3 class="h4 fw-bold mb-3">No Word Submissions Yet</h3>
+            <p class="text-muted mb-4">You haven't submitted any words yet. Start contributing to the Igala dictionary!</p>
+            <a href="{% url 'submit_word' %}" class="btn btn-primary btn-lg shadow-sm">
+                <i class="fas fa-plus me-2"></i> Submit Your First Word
+            </a>
+        </div>
+        {% endif %}
     </div>
 </section>
 
-{% include "footer.html" %}
+<!-- Example Contributions Section -->
+<section class="section bg-light">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="h3 fw-bold mb-1">Your Example Contributions</h2>
+                <p class="text-muted mb-0 small">Usage examples you've submitted for existing words</p>
+            </div>
+        </div>
+
+        {% if pending_examples or approved_examples or rejected_examples %}
+
+        <!-- Pending Examples -->
+        {% if pending_examples %}
+        <div class="mb-5">
+            <h4 class="h5 fw-bold mb-3 d-flex align-items-center">
+                <i class="fas fa-clock text-warning me-2"></i>
+                Pending Review
+                <span class="badge bg-warning text-dark ms-2">{{ pending_examples|length }}</span>
+            </h4>
+            <div class="row g-4">
+                {% for contribution in pending_examples %}
+                <div class="col-12">
+                    <div class="card border-0 shadow-sm submission-card">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <span class="badge bg-light text-dark border mb-2">
+                                        <i class="fas fa-quote-left me-1 opacity-50"></i> Example for
+                                    </span>
+                                    <h5 class="fw-bold mb-1">
+                                        <a href="{% url 'single-word' contribution.meaning.word.slug %}" class="text-decoration-none">
+                                            {{ contribution.meaning.word.word }}
+                                        </a>
+                                    </h5>
+                                    <small class="text-muted">
+                                        ({{ contribution.meaning.part_of_speech.name }}) {{ contribution.meaning.meaning|truncatewords:8 }}
+                                    </small>
+                                </div>
+                                <span class="badge rounded-pill px-3 py-2 bg-warning text-dark">
+                                    {{ contribution.get_status_display }}
+                                </span>
+                            </div>
+                            <div class="bg-light p-3 rounded-3 border-start border-4 border-primary mb-3">
+                                <p class="mb-1 text-primary fw-medium fst-italic">"{{ contribution.igala_example }}"</p>
+                                <p class="mb-0 text-muted small">{{ contribution.english_meaning }}</p>
+                            </div>
+                            <div class="text-muted small">
+                                <i class="far fa-calendar me-1"></i>
+                                Submitted {{ contribution.submitted_at|date:"M d, Y" }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Approved Examples -->
+        {% if approved_examples %}
+        <div class="mb-5" data-collapsible>
+            <h4 class="h5 fw-bold mb-3 d-flex align-items-center">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                Approved
+                <span class="badge bg-success ms-2">{{ approved_examples_count }}</span>
+            </h4>
+            <div class="row g-4">
+                {% for contribution in approved_examples %}
+                <div class="col-12{% if forloop.counter > 4 %} collapsible-item is-hidden{% endif %}">
+                    <div class="card border-0 shadow-sm submission-card">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <span class="badge bg-light text-dark border mb-2">
+                                        <i class="fas fa-quote-left me-1 opacity-50"></i> Example for
+                                    </span>
+                                    <h5 class="fw-bold mb-1">
+                                        <a href="{% url 'single-word' contribution.meaning.word.slug %}" class="text-decoration-none">
+                                            {{ contribution.meaning.word.word }}
+                                        </a>
+                                    </h5>
+                                    <small class="text-muted">
+                                        ({{ contribution.meaning.part_of_speech.name }}) {{ contribution.meaning.meaning|truncatewords:8 }}
+                                    </small>
+                                </div>
+                                <span class="badge rounded-pill px-3 py-2 bg-success">
+                                    {{ contribution.get_status_display }}
+                                </span>
+                            </div>
+                            <div class="bg-light p-3 rounded-3 border-start border-4 border-primary mb-3">
+                                <p class="mb-1 text-primary fw-medium fst-italic">"{{ contribution.igala_example }}"</p>
+                                <p class="mb-0 text-muted small">{{ contribution.english_meaning }}</p>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center text-muted small">
+                                <span>
+                                    <i class="far fa-calendar me-1"></i>
+                                    Submitted {{ contribution.submitted_at|date:"M d, Y" }}
+                                </span>
+                                {% if contribution.reviewed_at %}
+                                <span>
+                                    <i class="fas fa-user-check me-1"></i>
+                                    Reviewed {{ contribution.reviewed_at|date:"M d, Y" }}
+                                </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% if approved_examples_count > 4 %}
+            <div class="text-center mt-3">
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-collapsible-toggle>
+                    <i class="fas fa-chevron-down me-1"></i>
+                    View all ({{ approved_examples_count }})
+                </button>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <!-- Rejected Examples -->
+        {% if rejected_examples %}
+        <div class="mb-5" data-collapsible>
+            <h4 class="h5 fw-bold mb-3 d-flex align-items-center">
+                <i class="fas fa-times-circle text-danger me-2"></i>
+                Rejected
+                <span class="badge bg-danger ms-2">{{ rejected_examples_count }}</span>
+            </h4>
+            <div class="row g-4">
+                {% for contribution in rejected_examples %}
+                <div class="col-12{% if forloop.counter > 4 %} collapsible-item is-hidden{% endif %}">
+                    <div class="card border-0 shadow-sm submission-card">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <span class="badge bg-light text-dark border mb-2">
+                                        <i class="fas fa-quote-left me-1 opacity-50"></i> Example for
+                                    </span>
+                                    <h5 class="fw-bold mb-1">
+                                        <a href="{% url 'single-word' contribution.meaning.word.slug %}" class="text-decoration-none">
+                                            {{ contribution.meaning.word.word }}
+                                        </a>
+                                    </h5>
+                                    <small class="text-muted">
+                                        ({{ contribution.meaning.part_of_speech.name }}) {{ contribution.meaning.meaning|truncatewords:8 }}
+                                    </small>
+                                </div>
+                                <span class="badge rounded-pill px-3 py-2 bg-danger">
+                                    {{ contribution.get_status_display }}
+                                </span>
+                            </div>
+                            <div class="bg-light p-3 rounded-3 border-start border-4 border-primary mb-3">
+                                <p class="mb-1 text-primary fw-medium fst-italic">"{{ contribution.igala_example }}"</p>
+                                <p class="mb-0 text-muted small">{{ contribution.english_meaning }}</p>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center text-muted small">
+                                <span>
+                                    <i class="far fa-calendar me-1"></i>
+                                    Submitted {{ contribution.submitted_at|date:"M d, Y" }}
+                                </span>
+                                {% if contribution.reviewed_at %}
+                                <span>
+                                    <i class="fas fa-user-check me-1"></i>
+                                    Reviewed {{ contribution.reviewed_at|date:"M d, Y" }}
+                                </span>
+                                {% endif %}
+                            </div>
+                            {% if contribution.review_notes %}
+                            <div class="alert alert-danger mt-3 mb-0">
+                                <strong>Admin Feedback:</strong>
+                                <p class="mb-0 mt-1">{{ contribution.review_notes }}</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% if rejected_examples_count > 4 %}
+            <div class="text-center mt-3">
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-collapsible-toggle>
+                    <i class="fas fa-chevron-down me-1"></i>
+                    View all ({{ rejected_examples_count }})
+                </button>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% else %}
+        <!-- Empty State for Examples -->
+        <div class="card border-0 shadow-sm">
+            <div class="card-body text-center py-5">
+                <div class="mb-3">
+                    <i class="fas fa-quote-right fa-3x text-muted opacity-25"></i>
+                </div>
+                <h4 class="h5 fw-bold mb-2">No Example Contributions Yet</h4>
+                <p class="text-muted mb-3">You haven't submitted any usage examples yet. Browse the dictionary and add examples to help others learn!</p>
+                <a href="{% url 'words' %}" class="btn btn-outline-primary btn-sm">
+                    <i class="fas fa-book me-1"></i> Browse Dictionary
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Leaderboard CTA -->
+{% if stats.approved_words_count > 0 %}
+<section class="section">
+    <div class="container">
+        <div class="card border-0 shadow-sm leaderboard-cta">
+            <div class="card-body p-5 text-center">
+                <div class="mb-3">
+                    <i class="fas fa-trophy fa-4x text-warning"></i>
+                </div>
+                <h3 class="h4 fw-bold mb-3">You're making an impact!</h3>
+                <p class="text-muted mb-4">
+                    You have {{ stats.approved_words_count }} approved contribution{{ stats.approved_words_count|pluralize }}.
+                    Check your ranking on the leaderboard!
+                </p>
+                <a href="{% url 'leaderboard' %}" class="btn btn-outline-primary px-4 py-2 fw-bold">
+                    View Leaderboard
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<script src="{% static 'js/my-contributions.js' %}" defer></script>
 
 {% endblock content %}
-

@@ -2,28 +2,19 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db import transaction
-from .models import Words, PendingWord, PendingMeaning, PendingExample, ContributionStats
+from django.http import JsonResponse
+from django.urls import reverse
+from .models import Words, PendingWord, PendingMeaning, PendingExample, PendingExampleContribution, ContributionStats
 from .filters import WordsFilters
-from .forms import WordSubmissionForm, MeaningFormSet, ExampleFormSet
+from .forms import WordSubmissionForm, MeaningFormSet, ExampleInlineFormSet, ExampleContributionForm
 from main.utils import paginate_queryset, get_filtered_queryset, get_object_or_404
 from django.contrib.auth import get_user_model
 from django.db.models import Count
 
 
 def all_words(request):
-    """
-    View for displaying all words with pagination and filtering.
-    
-    Args:
-        request: Django request object
-        
-    Returns:
-        Rendered template with paginated and filtered words
-    """
     # Get all words ordered by word
     words = Words.objects.all().order_by('word')
-    
-    # Apply filters
     filtered_words, word_filter = get_filtered_queryset(words, WordsFilters, request)
     
     # Paginate results
@@ -40,32 +31,44 @@ def all_words(request):
 
 
 def singleword(request, slug):
-    """
-    View for displaying a single word's details.
-    
-    Args:
-        request: Django request object
-        slug: Slug of the word to display
-        
-    Returns:
-        Rendered template with single word details
-    """
     word = get_object_or_404(Words, slug=slug)
-    context = {'single_words': word}
+    example_form = None
+    
+    # Only show example contribution form to logged-in users
+    if request.user.is_authenticated:
+        if request.method == 'POST' and 'submit_example' in request.POST:
+            example_form = ExampleContributionForm(request.POST, word=word)
+            if example_form.is_valid():
+                # Validate that the meaning belongs to this word
+                meaning = example_form.cleaned_data['meaning']
+                if meaning.word_id != word.id:
+                    messages.error(request, 'Invalid meaning selected.')
+                else:
+                    # Create pending example contribution
+                    pending_example = example_form.save(commit=False)
+                    pending_example.submitted_by = request.user
+                    pending_example.save()
+                    messages.success(
+                        request,
+                        f'Thank you! Your usage example has been submitted for review.'
+                    )
+                    return redirect('single-word', slug=slug)
+            else:
+                messages.error(request, 'Please correct the errors below.')
+        else:
+            example_form = ExampleContributionForm(word=word)
+    
+    context = {
+        'single_words': word,
+        'example_form': example_form,
+    }
     return render(request, "dictionary/single_word.html", context)
 
 
 def leaderboard(request):
-    """
-    Display leaderboard based on approved contributions
-    """
-    # Get or create contribution stats for all users with contributions
     User = get_user_model()
-    
-    # Get all users who have made contributions
     contributors_data = []
     pending_words = PendingWord.objects.select_related('submitted_by').all()
-    
     user_ids = set(pending_words.values_list('submitted_by_id', flat=True))
     
     for user_id in user_ids:
@@ -91,14 +94,12 @@ def leaderboard(request):
 
 @login_required
 def submit_word(request):
-    """
-    View for users to submit new words
-    """
     if request.method == 'POST':
         word_form = WordSubmissionForm(request.POST, request.FILES)
         meaning_formset = MeaningFormSet(request.POST, prefix='meanings')
+        example_formset = ExampleInlineFormSet(request.POST, prefix='examples')
         
-        if word_form.is_valid() and meaning_formset.is_valid():
+        if word_form.is_valid() and meaning_formset.is_valid() and example_formset.is_valid():
             try:
                 with transaction.atomic():
                     # Create pending word
@@ -106,15 +107,35 @@ def submit_word(request):
                     pending_word.submitted_by = request.user
                     pending_word.save()
                     
-                    # Create pending meanings
+                    # Create pending meanings (keep order for example indexing)
+                    pending_meanings_list = []
                     for meaning_form in meaning_formset:
                         if meaning_form.cleaned_data and not meaning_form.cleaned_data.get('DELETE', False):
                             meaning_data = meaning_form.cleaned_data
-                            PendingMeaning.objects.create(
+                            pm = PendingMeaning.objects.create(
                                 pending_word=pending_word,
                                 meaning=meaning_data['meaning'],
                                 part_of_speech=meaning_data['part_of_speech']
                             )
+                            pending_meanings_list.append(pm)
+                    
+                    # Create pending examples (linked to meaning by index)
+                    for ex_form in example_formset:
+                        if not ex_form.cleaned_data or ex_form.cleaned_data.get('DELETE'):
+                            continue
+                        data = ex_form.cleaned_data
+                        igala = (data.get('igala_example') or '').strip()
+                        english = (data.get('english_meaning') or '').strip()
+                        if not igala and not english:
+                            continue
+                        idx = data.get('meaning_index', 0)
+                        if idx < 0 or idx >= len(pending_meanings_list):
+                            continue
+                        PendingExample.objects.create(
+                            pending_meaning=pending_meanings_list[idx],
+                            igala_example=igala or '(no Igala)',
+                            english_meaning=english or '(no English)',
+                        )
                     
                     # Update user stats
                     stats, created = ContributionStats.objects.get_or_create(user=request.user)
@@ -134,22 +155,35 @@ def submit_word(request):
     else:
         word_form = WordSubmissionForm()
         meaning_formset = MeaningFormSet(prefix='meanings')
+        example_formset = ExampleInlineFormSet(prefix='examples')
     
     context = {
         'word_form': word_form,
         'meaning_formset': meaning_formset,
+        'example_formset': example_formset,
     }
     return render(request, 'dictionary/submit_word.html', context)
 
 
 @login_required
 def my_contributions(request):
-    """
-    View for users to see their own contributions
-    """
-    pending_words = PendingWord.objects.filter(
+    # Word submissions split by status
+    base_words_qs = PendingWord.objects.filter(
         submitted_by=request.user
-    ).prefetch_related('pending_meanings').order_by('-submitted_at')
+    ).prefetch_related('pending_meanings')
+    
+    pending_words = base_words_qs.filter(status='PENDING').order_by('-submitted_at')
+    approved_words = base_words_qs.filter(status='APPROVED').order_by('-reviewed_at', '-submitted_at')
+    rejected_words = base_words_qs.filter(status='REJECTED').order_by('-reviewed_at', '-submitted_at')
+    
+    # Example contributions split by status
+    base_examples_qs = PendingExampleContribution.objects.filter(
+        submitted_by=request.user
+    ).select_related('meaning__word', 'meaning__part_of_speech')
+    
+    pending_examples = base_examples_qs.filter(status='PENDING').order_by('-submitted_at')
+    approved_examples = base_examples_qs.filter(status='APPROVED').order_by('-reviewed_at', '-submitted_at')
+    rejected_examples = base_examples_qs.filter(status='REJECTED').order_by('-reviewed_at', '-submitted_at')
     
     # Get stats
     stats, created = ContributionStats.objects.get_or_create(user=request.user)
@@ -157,8 +191,44 @@ def my_contributions(request):
         stats.update_stats()
     
     context = {
+        # Word submissions by status
         'pending_words': pending_words,
+        'approved_words': approved_words,
+        'rejected_words': rejected_words,
+        'approved_words_count': approved_words.count(),
+        'rejected_words_count': rejected_words.count(),
+        
+        # Example contributions by status
+        'pending_examples': pending_examples,
+        'approved_examples': approved_examples,
+        'rejected_examples': rejected_examples,
+        'approved_examples_count': approved_examples.count(),
+        'rejected_examples_count': rejected_examples.count(),
+        
+        # Overall stats
         'stats': stats,
     }
     return render(request, 'dictionary/my_contributions.html', context)
+
+
+def word_exists(request):
+    """
+    JSON endpoint to check if a word already exists in the approved dictionary.
+    Returns: { "exists": true/false, "word_url": string|null }
+    """
+    word = request.GET.get('word', '').strip()
     
+    if not word:
+        return JsonResponse({'exists': False, 'word_url': None})
+    
+    existing = Words.objects.filter(word__iexact=word).first()
+    
+    if existing:
+        word_url = reverse('single-word', kwargs={'slug': existing.slug})
+        return JsonResponse({
+            'exists': True,
+            'word_url': word_url,
+            'word': existing.word,
+        })
+    
+    return JsonResponse({'exists': False, 'word_url': None})

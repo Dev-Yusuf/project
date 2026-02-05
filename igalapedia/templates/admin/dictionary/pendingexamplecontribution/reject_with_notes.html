@@ -1,0 +1,45 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+    &rsaquo; <a href="{% url 'admin:dictionary_pendingexamplecontribution_changelist' %}">Pending example contributions</a>
+    &rsaquo; {{ title }}
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+
+<p>You are about to reject the following example contribution(s). Optionally add a reason below — it will be saved and included in the email sent to the contributor.</p>
+
+<ul>
+    {% for ex in pending_examples %}
+    <li>
+        <strong>"{{ ex.igala_example }}"</strong><br>
+        <small style="color: #666;">
+            For word: <em>{{ ex.meaning.word.word }}</em> | 
+            Meaning: ({{ ex.meaning.part_of_speech.name }}) {{ ex.meaning.meaning|truncatewords:8 }} |
+            Submitted by: {{ ex.submitted_by.username }}
+        </small>
+    </li>
+    {% endfor %}
+</ul>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="ids" value="{{ ids_param }}">
+    <div style="margin: 20px 0;">
+        <label for="id_review_notes" style="display: block; font-weight: 600; margin-bottom: 8px;">Rejection reason (optional)</label>
+        <textarea name="review_notes" id="id_review_notes" rows="5" style="width: 100%; max-width: 600px; padding: 8px;" placeholder="e.g. The example doesn't match the meaning. / Please provide a clearer translation. / The Igala sentence contains errors."></textarea>
+        <p class="help" style="color: #666; font-size: 12px; margin-top: 4px;">This text will be stored and sent to the contributor in the rejection email.</p>
+    </div>
+    <div>
+        <input type="submit" value="Reject and notify contributors" style="padding: 10px 20px; background: #ba2121; color: white; border: none; border-radius: 4px; cursor: pointer;">
+        <a href="{% url 'admin:dictionary_pendingexamplecontribution_changelist' %}" style="margin-left: 10px;">Cancel</a>
+    </div>
+</form>
+{% endblock %}

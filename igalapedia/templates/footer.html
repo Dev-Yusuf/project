@@ -1,43 +1,156 @@
 {% load static %}
 
-<footer class="footer">
-    <div class="footer-container">
-        <div class="footer-column logo-column">
-            <a href=" {% url "index" %} ">
-                <img src=" {% static 'images/igala-logo.png' %}" alt="IgalaAPI Logo" class="footer-logo">
-            </a>
+<footer style="background-color: #1a1a1a; color: white; padding: 4rem 0 2rem; margin-top: 4rem;">
+    <div class="container">
+        <div class="row gy-4 mb-5">
+            <!-- Brand Section -->
+            <div class="col-lg-4 col-md-6">
+                <a href="{% url 'index' %}" class="d-inline-block mb-3">
+                    <svg class="footer-logo" width="210" height="40" viewBox="0 0 420 80" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="IgalaHeritage logo">
+                        <g transform="translate(0,8)">
+                            <circle cx="32" cy="32" r="30" stroke="#ffffff" stroke-width="3" fill="none" />
+                            <circle cx="44" cy="22" r="7" fill="#FFC107" />
+                            <line x1="44" y1="8" x2="44" y2="2" stroke="#FFC107" stroke-width="2"/>
+                            <line x1="54" y1="12" x2="58" y2="8" stroke="#FFC107" stroke-width="2"/>
+                            <line x1="60" y1="22" x2="66" y2="22" stroke="#FFC107" stroke-width="2"/>
+                            <polygon points="20,30 32,20 44,30" fill="#ffffff" />
+                            <rect x="24" y="30" width="16" height="14" rx="2" fill="#059669" />
+                            <rect x="30" y="36" width="4" height="8" rx="1" fill="#ffffff" />
+                            <path d="M14 48 C20 46, 26 50, 32 48 C38 46, 44 50, 50 48" stroke="#059669" stroke-width="2" fill="none" />
+                        </g>
+                        <text x="80" y="52" font-family="Outfit, Inter, system-ui, sans-serif" font-size="32" font-weight="600" fill="#ffffff">
+                            Igala<tspan fill="#FFC107">Heritage</tspan>
+                        </text>
+                    </svg>
+                </a>
+                <p class="mb-4" style="color: rgba(255, 255, 255, 0.7); line-height: 1.6;">
+                    Preserving the Igala language and culture through technology, community, and open access to
+                    knowledge.
+                </p>
+                <div class="d-flex gap-3">
+                    <a href="https://github.com/Dev-Yusuf/project" target="_blank" class="text-white"
+                        style="opacity: 0.7; transition: all 0.2s;">
+                        <i class="fab fa-github fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-white" style="opacity: 0.7; transition: all 0.2s;">
+                        <i class="fab fa-twitter fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-white" style="opacity: 0.7; transition: all 0.2s;">
+                        <i class="fab fa-facebook fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-white" style="opacity: 0.7; transition: all 0.2s;">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Projects Links -->
+            <div class="col-lg-2 col-md-6 col-6">
+                <h5 class="fw-bold mb-3" style="color: #FFC107;">Projects</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <a href="{% url 'words' %}" class="text-decoration-none"
+                            style="color: rgba(255, 255, 255, 0.7); transition: all 0.2s;">
+                            Dictionary
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="{% url 'translator' %}" class="text-decoration-none"
+                            style="color: rgba(255, 255, 255, 0.7); transition: all 0.2s;">
+                            Translator
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="{% url 'api' %}" class="text-decoration-none"
+                            style="color: rgba(255, 255, 255, 0.7); transition: all 0.2s;">
+                            API
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="{% url 'leaderboard' %}" class="text-decoration-none"
+                            style="color: rgba(255, 255, 255, 0.7); transition: all 0.2s;">
+                            Leaderboard
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Company Links -->
+            <div class="col-lg-2 col-md-6 col-6">
+                <h5 class="fw-bold mb-3" style="color: #FFC107;">Company</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <a href="{% url 'about' %}" class="text-decoration-none"
+                            style="color: rgba(255, 255, 255, 0.7); transition: all 0.2s;">
+                            About Us
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="{% url 'pioneers' %}" class="text-decoration-none"
+                            style="color: rgba(255, 255, 255, 0.7); transition: all 0.2s;">
+                            Pioneers
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="text-decoration-none"
+                            style="color: rgba(255, 255, 255, 0.7); transition: all 0.2s;">
+                            Blog
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="text-decoration-none"
+                            style="color: rgba(255, 255, 255, 0.7); transition: all 0.2s;">
+                            Contact
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Newsletter Section -->
+            <div class="col-lg-4 col-md-6">
+                <h5 class="fw-bold mb-3" style="color: #FFC107;">Stay Updated</h5>
+                <p class="mb-3" style="color: rgba(255, 255, 255, 0.7);">
+                    Subscribe to our newsletter for the latest updates and features.
+                </p>
+                <form action="#" class="d-flex gap-2">
+                    <input type="email" class="form-control" placeholder="Enter your email"
+                        style="background-color: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: white; border-radius: var(--radius-md);">
+                    <button class="btn btn-primary px-4" type="button" style="border-radius: var(--radius-md);">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
         </div>
-        <div class="footer-column">
-            <h4>Projects</h4>
-            <ul>
-                <li><a href="{% url 'words' %}">Dictionary</a></li>
-                <li><a href="{% url 'translator' %}">Translator</a></li>
-                <li><a href="{% url 'api' %}">API</a></li>
-                <li><a href="{% url 'leaderboard' %}">Leaderboard</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h4>About Us</h4>
-            <ul>
-                <li><a href="{% url 'about' %}">About</a></li>
-                <li><a href="https://github.com/Dev-Yusuf/project" target="_blank">GitHub</a></li>
-                <li><a href="#" onclick="alert('Coming soon!'); return false;">Twitter</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h4>More</h4>
-            <ul>
-                <li><a href="#" onclick="alert('Coming soon!'); return false;">LinkedIn</a></li>
-                <li><a href="#" onclick="alert('Coming soon!'); return false;">YouTube</a></li>
-                <li><a href="{% url 'api' %}">API Docs</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h4>Legal</h4>
-            <ul>
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-            </ul>
+
+        <!-- Bottom Bar -->
+        <div class="border-top pt-4 text-center" style="border-color: rgba(255, 255, 255, 0.1) !important;">
+            <p class="mb-0" style="color: rgba(255, 255, 255, 0.5);">
+                &copy; {% now "Y" %} IgalaHeritage. All rights reserved. Made with <i class="fas fa-heart"
+                    style="color: #10b981;"></i> for the Igala community.
+            </p>
         </div>
     </div>
 </footer>
+
+<style>
+    footer a:hover {
+        color: #10b981 !important;
+        opacity: 1 !important;
+    }
+
+    footer .fab:hover,
+    footer .fas:hover {
+        transform: scale(1.1);
+    }
+
+    footer input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    footer input:focus {
+        background-color: rgba(255, 255, 255, 0.15);
+        border-color: #10b981;
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        outline: none;
+    }
+</style>
