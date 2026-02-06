@@ -6,6 +6,7 @@ from .models import Community, Pioneer
 from dictionary.models import Words, Example, ContributionStats
 from .utils import get_aggregated_counts, get_first_instance
 from .forms import CustomUserRegistrationForm, CustomLoginForm
+from django.contrib.auth import get_user_model
 
 
 def mainpage(request):
@@ -22,7 +23,6 @@ def mainpage(request):
     audio_count = Words.objects.exclude(pronunciation__isnull=True).exclude(pronunciation='').count()
     contributor_count = ContributionStats.objects.filter(approved_words_count__gt=0).count()
     if contributor_count == 0:
-        from django.contrib.auth import get_user_model
         User = get_user_model()
         contributor_count = User.objects.count()
 
