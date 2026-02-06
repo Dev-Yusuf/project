@@ -17,28 +17,28 @@ def send_welcome_email(user, request=None):
     if not user.email:
         return
 
-    # Build site URL for the "Visit Igalapedia" link
+    # Build site URL for the "Visit IgalaHeritage" link
     if request:
         from django.urls import reverse
         site_url = request.build_absolute_uri(reverse('index'))
     else:
-        site_url = getattr(settings, 'SITE_URL', 'https://igalapedia.org')
+        site_url = getattr(settings, 'SITE_URL', 'https://igalaheritage.org')
 
     context = {
         'username': user.get_full_name() or user.username,
         'site_url': site_url,
     }
 
-    subject = 'Welcome to Igalapedia!'
+    subject = 'Welcome to IgalaHeritage!'
     html_content = render_to_string('email/welcome.html', context)
     text_content = (
         f"Hello {context['username']},\n\n"
-        f"Welcome to Igalapedia — the community-driven platform for preserving and sharing "
+        f"Welcome to IgalaHeritage — the community-driven platform for preserving and sharing "
         f"the Igala language and culture.\n\n"
         f"Your account has been created successfully. You can now explore the dictionary, "
         f"submit new words, and track your contributions.\n\n"
-        f"Visit Igalapedia: {site_url}\n\n"
-        f"© Igalapedia. Preserving Igala heritage through technology."
+        f"Visit IgalaHeritage: {site_url}\n\n"
+        f"© IgalaHeritage. Preserving Igala heritage through technology."
     )
 
     msg = EmailMultiAlternatives(

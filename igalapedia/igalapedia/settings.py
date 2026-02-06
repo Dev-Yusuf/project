@@ -11,9 +11,15 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Load environment variables from .env
+load_dotenv(BASE_DIR / '.env')
 
 
 # Quick-start development settings - unsuitable for production
@@ -176,18 +182,18 @@ LOGIN_URL = 'login'  # Custom login page
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
 
-# Email configuration
-# Development: emails are printed to the console (runserver output)
-# Production: set EMAIL_BACKEND to 'django.core.mail.backends.smtp.EmailBackend'
-# and configure EMAIL_HOST, EMAIL_PORT, EMAIL_USE_TLS, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'Igalapedia <noreply@igalapedia.org>'
-SERVER_EMAIL = DEFAULT_FROM_EMAIL
+# Email configuration (Gmail SMTP)
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'IgalaHeritage0@gmail.com')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 
-# Optional: for production SMTP (e.g. Gmail, SendGrid)
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.example.com'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = 'your-email@example.com'
-# EMAIL_HOST_PASSWORD = 'your-app-password'
+if EMAIL_HOST_PASSWORD:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL = f'IgalaHeritage <{EMAIL_HOST_USER}>'
+    SERVER_EMAIL = DEFAULT_FROM_EMAIL
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    DEFAULT_FROM_EMAIL = 'IgalaHeritage <IgalaHeritage0@gmail.com>'
+    SERVER_EMAIL = DEFAULT_FROM_EMAIL

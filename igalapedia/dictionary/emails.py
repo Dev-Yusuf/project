@@ -1,10 +1,14 @@
 """
 Email sending utilities for contribution status (approved/rejected).
 """
+import logging
+
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.urls import reverse
+
+logger = logging.getLogger(__name__)
 
 
 def send_word_approved_email(user, word, pending_word, request=None):
@@ -18,6 +22,10 @@ def send_word_approved_email(user, word, pending_word, request=None):
         request: Optional HttpRequest for building absolute URLs.
     """
     if not user.email:
+        logger.warning(
+            'Skipping word approval email: user %s (pk=%s) has no email address',
+            user.username, user.pk
+        )
         return
 
     if request:
@@ -25,7 +33,7 @@ def send_word_approved_email(user, word, pending_word, request=None):
             reverse('single-word', kwargs={'slug': word.slug})
         )
     else:
-        base = getattr(settings, 'SITE_URL', 'https://igalapedia.org').rstrip('/')
+        base = getattr(settings, 'SITE_URL', 'https://igalaheritage.org').rstrip('/')
         word_url = f"{base}/dictionary/single-word/{word.slug}/"
 
     context = {
@@ -34,15 +42,15 @@ def send_word_approved_email(user, word, pending_word, request=None):
         'word_url': word_url,
     }
 
-    subject = f'Your word "{word.word}" has been approved — Igalapedia'
+    subject = f'Your word "{word.word}" has been approved — IgalaHeritage'
     html_content = render_to_string('email/word_approved.html', context)
     text_content = (
         f"Hello {context['username']},\n\n"
-        f"Great news! Your contribution has been approved and published to the Igalapedia dictionary.\n\n"
+        f"Great news! Your contribution has been approved and published to the IgalaHeritage dictionary.\n\n"
         f'Word: "{word.word}"\n\n'
         f"Thank you for helping preserve the Igala language. View it here: {word_url}\n\n"
         f"Keep contributing!\n\n"
-        f"© Igalapedia."
+        f"© IgalaHeritage."
     )
 
     msg = EmailMultiAlternatives(
@@ -52,7 +60,10 @@ def send_word_approved_email(user, word, pending_word, request=None):
         to=[user.email],
     )
     msg.attach_alternative(html_content, 'text/html')
-    msg.send(fail_silently=True)
+    try:
+        msg.send(fail_silently=not settings.DEBUG)
+    except Exception as e:
+        logger.exception('Failed to send word approval email to %s: %s', user.email, e)
 
 
 def send_word_rejected_email(user, pending_word, request=None):
@@ -65,12 +76,16 @@ def send_word_rejected_email(user, pending_word, request=None):
         request: Optional HttpRequest for building absolute URLs.
     """
     if not user.email:
+        logger.warning(
+            'Skipping word rejection email: user %s (pk=%s) has no email address',
+            user.username, user.pk
+        )
         return
 
     if request:
         submit_url = request.build_absolute_uri(reverse('submit_word'))
     else:
-        base = getattr(settings, 'SITE_URL', 'https://igalapedia.org').rstrip('/')
+        base = getattr(settings, 'SITE_URL', 'https://igalaheritage.org').rstrip('/')
         submit_url = f"{base}/dictionary/submit/"
 
     context = {
@@ -80,7 +95,7 @@ def send_word_rejected_email(user, pending_word, request=None):
         'submit_url': submit_url,
     }
 
-    subject = f'Update on your submission "{pending_word.word}" — Igalapedia'
+    subject = f'Update on your submission "{pending_word.word}" — IgalaHeritage'
     html_content = render_to_string('email/word_rejected.html', context)
     text_content = (
         f"Hello {context['username']},\n\n"
@@ -89,7 +104,7 @@ def send_word_rejected_email(user, pending_word, request=None):
     )
     if pending_word.review_notes:
         text_content += f"Feedback from our team:\n{pending_word.review_notes}\n\n"
-    text_content += f"You can submit a new or revised entry: {submit_url}\n\n© Igalapedia."
+    text_content += f"You can submit a new or revised entry: {submit_url}\n\n© IgalaHeritage."
 
     msg = EmailMultiAlternatives(
         subject=subject,
@@ -98,7 +113,10 @@ def send_word_rejected_email(user, pending_word, request=None):
         to=[user.email],
     )
     msg.attach_alternative(html_content, 'text/html')
-    msg.send(fail_silently=True)
+    try:
+        msg.send(fail_silently=not settings.DEBUG)
+    except Exception as e:
+        logger.exception('Failed to send word rejection email to %s: %s', user.email, e)
 
 
 def send_example_approved_email(user, meaning, word, request=None):
@@ -112,6 +130,10 @@ def send_example_approved_email(user, meaning, word, request=None):
         request: Optional HttpRequest for building absolute URLs.
     """
     if not user.email:
+        logger.warning(
+            'Skipping example approval email: user %s (pk=%s) has no email address',
+            user.username, user.pk
+        )
         return
 
     if request:
@@ -119,7 +141,7 @@ def send_example_approved_email(user, meaning, word, request=None):
             reverse('single-word', kwargs={'slug': word.slug})
         )
     else:
-        base = getattr(settings, 'SITE_URL', 'https://igalapedia.org').rstrip('/')
+        base = getattr(settings, 'SITE_URL', 'https://igalaheritage.org').rstrip('/')
         word_url = f"{base}/dictionary/single-word/{word.slug}/"
 
     context = {
@@ -129,16 +151,16 @@ def send_example_approved_email(user, meaning, word, request=None):
         'word_url': word_url,
     }
 
-    subject = f'Your usage example for "{word.word}" has been approved — Igalapedia'
+    subject = f'Your usage example for "{word.word}" has been approved — IgalaHeritage'
     html_content = render_to_string('email/example_approved.html', context)
     text_content = (
         f"Hello {context['username']},\n\n"
-        f"Great news! Your usage example contribution has been approved and added to the Igalapedia dictionary.\n\n"
+        f"Great news! Your usage example contribution has been approved and added to the IgalaHeritage dictionary.\n\n"
         f'Word: "{word.word}"\n'
         f'Meaning: {meaning.meaning}\n\n'
         f"Thank you for helping improve the dictionary. View it here: {word_url}\n\n"
         f"Keep contributing!\n\n"
-        f"© Igalapedia."
+        f"© IgalaHeritage."
     )
 
     msg = EmailMultiAlternatives(
@@ -148,7 +170,10 @@ def send_example_approved_email(user, meaning, word, request=None):
         to=[user.email],
     )
     msg.attach_alternative(html_content, 'text/html')
-    msg.send(fail_silently=True)
+    try:
+        msg.send(fail_silently=not settings.DEBUG)
+    except Exception as e:
+        logger.exception('Failed to send example approval email to %s: %s', user.email, e)
 
 
 def send_example_rejected_email(user, pending_example, request=None):
@@ -161,6 +186,10 @@ def send_example_rejected_email(user, pending_example, request=None):
         request: Optional HttpRequest for building absolute URLs.
     """
     if not user.email:
+        logger.warning(
+            'Skipping example rejection email: user %s (pk=%s) has no email address',
+            user.username, user.pk
+        )
         return
 
     word = pending_example.meaning.word
@@ -169,7 +198,7 @@ def send_example_rejected_email(user, pending_example, request=None):
             reverse('single-word', kwargs={'slug': word.slug})
         )
     else:
-        base = getattr(settings, 'SITE_URL', 'https://igalapedia.org').rstrip('/')
+        base = getattr(settings, 'SITE_URL', 'https://igalaheritage.org').rstrip('/')
         word_url = f"{base}/dictionary/single-word/{word.slug}/"
 
     context = {
@@ -180,7 +209,7 @@ def send_example_rejected_email(user, pending_example, request=None):
         'word_url': word_url,
     }
 
-    subject = f'Update on your example submission for "{word.word}" — Igalapedia'
+    subject = f'Update on your example submission for "{word.word}" — IgalaHeritage'
     html_content = render_to_string('email/example_rejected.html', context)
     text_content = (
         f"Hello {context['username']},\n\n"
@@ -190,7 +219,7 @@ def send_example_rejected_email(user, pending_example, request=None):
     )
     if pending_example.review_notes:
         text_content += f"Feedback from our team:\n{pending_example.review_notes}\n\n"
-    text_content += f"You can try submitting a revised example: {word_url}\n\n© Igalapedia."
+    text_content += f"You can try submitting a revised example: {word_url}\n\n© IgalaHeritage."
 
     msg = EmailMultiAlternatives(
         subject=subject,
@@ -199,4 +228,7 @@ def send_example_rejected_email(user, pending_example, request=None):
         to=[user.email],
     )
     msg.attach_alternative(html_content, 'text/html')
-    msg.send(fail_silently=True)
+    try:
+        msg.send(fail_silently=not settings.DEBUG)
+    except Exception as e:
+        logger.exception('Failed to send example rejection email to %s: %s', user.email, e)
