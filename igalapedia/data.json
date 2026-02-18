@@ -1,0 +1,2722 @@
+[
+{
+  "model": "main.community",
+  "pk": 1,
+  "fields": {
+    "social_link": "github.com",
+    "github_stars": 45,
+    "whatsapp_members": 49
+  }
+},
+{
+  "model": "main.pioneer",
+  "pk": 1,
+  "fields": {
+    "pioneer_name": "Yusuf",
+    "position": null,
+    "bio": null,
+    "profile_image": "images/yusuf.jpg",
+    "pioneer_social_link": "https://devyusuf.netlify.app"
+  }
+},
+{
+  "model": "main.pioneer",
+  "pk": 2,
+  "fields": {
+    "pioneer_name": "Yusuf Yahya",
+    "position": null,
+    "bio": null,
+    "profile_image": "images/yusuf_U6gZ1ub.jpg",
+    "pioneer_social_link": "https://devyusuf.netlify.app/"
+  }
+},
+{
+  "model": "main.pioneer",
+  "pk": 3,
+  "fields": {
+    "pioneer_name": "Akpai",
+    "position": "Linguist",
+    "bio": "lorem ipsum deloa  kks jksoakjf kj fjdf",
+    "profile_image": "pioneers/yusuf.jpg",
+    "pioneer_social_link": "https://devyusuf.netlify.app"
+  }
+},
+{
+  "model": "dictionary.partofspeech",
+  "pk": 1,
+  "fields": {
+    "name": "noun"
+  }
+},
+{
+  "model": "dictionary.partofspeech",
+  "pk": 2,
+  "fields": {
+    "name": "verb"
+  }
+},
+{
+  "model": "dictionary.partofspeech",
+  "pk": 3,
+  "fields": {
+    "name": "pronoun"
+  }
+},
+{
+  "model": "dictionary.partofspeech",
+  "pk": 4,
+  "fields": {
+    "name": "proverb"
+  }
+},
+{
+  "model": "dictionary.partofspeech",
+  "pk": 5,
+  "fields": {
+    "name": "adjective"
+  }
+},
+{
+  "model": "dictionary.partofspeech",
+  "pk": 6,
+  "fields": {
+    "name": "preposition"
+  }
+},
+{
+  "model": "dictionary.partofspeech",
+  "pk": 7,
+  "fields": {
+    "name": "None"
+  }
+},
+{
+  "model": "dictionary.partofspeech",
+  "pk": 8,
+  "fields": {
+    "name": "adverb"
+  }
+},
+{
+  "model": "dictionary.example",
+  "pk": 1,
+  "fields": {
+    "igala_example": "Aa cha alfabet igala ejodudu",
+    "english_meaning": "the first igala alphabet",
+    "audio": ""
+  }
+},
+{
+  "model": "dictionary.example",
+  "pk": 2,
+  "fields": {
+    "igala_example": "A-a bile ke cha abai?",
+    "english_meaning": "why did you do like this?",
+    "audio": ""
+  }
+},
+{
+  "model": "dictionary.example",
+  "pk": 3,
+  "fields": {
+    "igala_example": "amo oma igala chi Aaju ameh Oboni ma che",
+    "english_meaning": "the children of igala are all grand child of Ameh Oboni",
+    "audio": ""
+  }
+},
+{
+  "model": "dictionary.example",
+  "pk": 4,
+  "fields": {
+    "igala_example": "baba wa mi aba du ni oja",
+    "english_meaning": "our father banned daily contribution",
+    "audio": ""
+  }
+},
+{
+  "model": "dictionary.example",
+  "pk": 5,
+  "fields": {
+    "igala_example": "Ababale  john mi oko du tane",
+    "english_meaning": "Immediately, john dropped the money",
+    "audio": ""
+  }
+},
+{
+  "model": "dictionary.example",
+  "pk": 6,
+  "fields": {
+    "igala_example": "Abacha chi ujenwu ogbogaga ane igala",
+    "english_meaning": "Cassava is a very vital food in igala land",
+    "audio": ""
+  }
+},
+{
+  "model": "dictionary.example",
+  "pk": 7,
+  "fields": {
+    "igala_example": "loti obuka ke mu ujenwu duwa",
+    "english_meaning": "Go to the kitchen and bring food",
+    "audio": ""
+  }
+},
+{
+  "model": "dictionary.example",
+  "pk": 8,
+  "fields": {
+    "igala_example": "leti obuka ke mi akpete du wa",
+    "english_meaning": "Go to the kitchen and bring seat",
+    "audio": ""
+  }
+},
+{
+  "model": "dictionary.example",
+  "pk": 9,
+  "fields": {
+    "igala_example": "akpa ki che fufu",
+    "english_meaning": "white sky",
+    "audio": ""
+  }
+},
+{
+  "model": "dictionary.example",
+  "pk": 10,
+  "fields": {
+    "igala_example": "gefi obuka kemu ochubu duwa ka du ujenwu to",
+    "english_meaning": "check the kitchen and bring plate let use it to serve food",
+    "audio": ""
+  }
+},
+{
+  "model": "dictionary.example",
+  "pk": 11,
+  "fields": {
+    "igala_example": "Ohimini mi oma mi du le",
+    "english_meaning": "Ocean took my child away",
+    "audio": ""
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 1,
+  "fields": {
+    "word": "Aa",
+    "pronunciation": "",
+    "dialects": "akpotor",
+    "related_terms": "none",
+    "slug": "aa",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 2,
+  "fields": {
+    "word": "Aba",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": "Aba(father, pin)",
+    "slug": "aba",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 3,
+  "fields": {
+    "word": "Ababale",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": "erere (Immediately)",
+    "slug": "ababale",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 4,
+  "fields": {
+    "word": "Ababo",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": "erere",
+    "slug": "ababo",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 5,
+  "fields": {
+    "word": "Abacha",
+    "pronunciation": "word_sounds/abacha.mp4",
+    "dialects": null,
+    "related_terms": "abacha-ibegwu(wild cassava), abacha-odokpe(sweet cassava), abacha-ulogwu(bitter cassava)",
+    "slug": "abacha",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 6,
+  "fields": {
+    "word": "Abada",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abada",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 7,
+  "fields": {
+    "word": "Abadu",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abadu",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 8,
+  "fields": {
+    "word": "Aba-edo",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "aba-edo",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 9,
+  "fields": {
+    "word": "Abafu",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": "abe(Razor)",
+    "slug": "abafu",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 10,
+  "fields": {
+    "word": "Abaga",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abaga",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 11,
+  "fields": {
+    "word": "Abahi",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abahi",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 12,
+  "fields": {
+    "word": "Abai",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abai",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 13,
+  "fields": {
+    "word": "A-a",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "a-a",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 14,
+  "fields": {
+    "word": "Abaji",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abaji",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 15,
+  "fields": {
+    "word": "Abaji-ekpulu",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abaji-ekpulu",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 16,
+  "fields": {
+    "word": "Abaji-owala",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abaji-owala",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 17,
+  "fields": {
+    "word": "Abaji-ujeti",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abaji-ujeti",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 18,
+  "fields": {
+    "word": "Abajoi",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": "ererei",
+    "slug": "abajoi",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 19,
+  "fields": {
+    "word": "Abakagu",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abakagu",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 20,
+  "fields": {
+    "word": "Abakpa",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abakpa",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 21,
+  "fields": {
+    "word": "Abakpa-abenyika",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abakpa-abenyika",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 22,
+  "fields": {
+    "word": "Abakwane",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abakwane",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 23,
+  "fields": {
+    "word": "Abele",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abale",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 24,
+  "fields": {
+    "word": "Abale-abale",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abale-abale",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 25,
+  "fields": {
+    "word": "Abale-ochochi",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abale-ochochi",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 26,
+  "fields": {
+    "word": "Abananya",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abananya",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 27,
+  "fields": {
+    "word": "Abawohi",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abawohi",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 28,
+  "fields": {
+    "word": "Abe",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abe",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 29,
+  "fields": {
+    "word": "Abedo",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abedo",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 30,
+  "fields": {
+    "word": "Abee",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abee",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 31,
+  "fields": {
+    "word": "Abenejubie",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abenejubie",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 32,
+  "fields": {
+    "word": "Abenejura",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abenejura",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 33,
+  "fields": {
+    "word": "Abei",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abei",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 35,
+  "fields": {
+    "word": "Abeto",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": "Abeto(Branch)",
+    "slug": "abeto",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 36,
+  "fields": {
+    "word": "Abe-uloji",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abe-uloji",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 37,
+  "fields": {
+    "word": "Abede",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abede",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 38,
+  "fields": {
+    "word": "Abegini",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abegini",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 39,
+  "fields": {
+    "word": "Abegwu",
+    "pronunciation": "",
+    "dialects": "Igala-eju ogba",
+    "related_terms": "Ubegwu (the dead), abegwu( Ceremony)",
+    "slug": "abegwu",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 40,
+  "fields": {
+    "word": "Abelefu",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "abelefu",
+    "contributor": null
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 43,
+  "fields": {
+    "word": "oje",
+    "pronunciation": "",
+    "dialects": "Ankpa",
+    "related_terms": null,
+    "slug": "oje",
+    "contributor": 2
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 44,
+  "fields": {
+    "word": "okume",
+    "pronunciation": "",
+    "dialects": "Ankpa",
+    "related_terms": null,
+    "slug": "okume",
+    "contributor": 2
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 45,
+  "fields": {
+    "word": "okpa",
+    "pronunciation": "",
+    "dialects": "ankpa",
+    "related_terms": "ijagbo",
+    "slug": "okpa",
+    "contributor": 4
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 46,
+  "fields": {
+    "word": "akpabana",
+    "pronunciation": "",
+    "dialects": "idah",
+    "related_terms": "okpabana",
+    "slug": "akpabana",
+    "contributor": 7
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 47,
+  "fields": {
+    "word": "obuka",
+    "pronunciation": "",
+    "dialects": "idah",
+    "related_terms": null,
+    "slug": "obuka",
+    "contributor": 7
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 48,
+  "fields": {
+    "word": "akpa",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "akpa",
+    "contributor": 7
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 49,
+  "fields": {
+    "word": "ochubu",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": "ugba",
+    "slug": "ochubu",
+    "contributor": 8
+  }
+},
+{
+  "model": "dictionary.words",
+  "pk": 50,
+  "fields": {
+    "word": "ohimini",
+    "pronunciation": "",
+    "dialects": null,
+    "related_terms": null,
+    "slug": "ohimini",
+    "contributor": 8
+  }
+},
+{
+  "model": "dictionary.meaning",
+  "pk": 1,
+  "fields": {
+    "word": 1,
+    "meaning": "The first igala alphabet and also the first vowel sound in igala",
+    "part_of_speech": 7,
+    "examples": [
+      1
+    ]
+  }
+},
+{
+  "model": "dictionary.meaning",
+  "pk": 2,
+  "fields": {
+    "word": 13,
+    "meaning": "why",
+    "part_of_speech": 8,
+    "examples": [
+      2
+    ]
+  }
+},
+{
+  "model": "dictionary.meaning",
+  "pk": 3,
+  "fields": {
+    "word": 2,
+    "meaning": "to place a ban of something",
+    "part_of_speech": 2,
+    "examples": [
+      4
+    ]
+  }
+},
+{
+  "model": "dictionary.meaning",
+  "pk": 4,
+  "fields": {
+    "word": 3,
+    "meaning": "Immediately",
+    "part_of_speech": 2,
+    "examples": [
+      5
+    ]
+  }
+},
+{
+  "model": "dictionary.meaning",
+  "pk": 5,
+  "fields": {
+    "word": 5,
+    "meaning": "Cassava",
+    "part_of_speech": 1,
+    "examples": [
+      6
+    ]
+  }
+},
+{
+  "model": "dictionary.meaning",
+  "pk": 6,
+  "fields": {
+    "word": 43,
+    "meaning": "swallow",
+    "part_of_speech": 1,
+    "examples": []
+  }
+},
+{
+  "model": "dictionary.meaning",
+  "pk": 7,
+  "fields": {
+    "word": 45,
+    "meaning": "ujenwu",
+    "part_of_speech": 1,
+    "examples": []
+  }
+},
+{
+  "model": "dictionary.meaning",
+  "pk": 8,
+  "fields": {
+    "word": 46,
+    "meaning": "Thunder",
+    "part_of_speech": 1,
+    "examples": []
+  }
+},
+{
+  "model": "dictionary.meaning",
+  "pk": 9,
+  "fields": {
+    "word": 47,
+    "meaning": "Kitchen",
+    "part_of_speech": 1,
+    "examples": [
+      7,
+      8
+    ]
+  }
+},
+{
+  "model": "dictionary.meaning",
+  "pk": 10,
+  "fields": {
+    "word": 48,
+    "meaning": "sky",
+    "part_of_speech": 1,
+    "examples": [
+      9
+    ]
+  }
+},
+{
+  "model": "dictionary.meaning",
+  "pk": 11,
+  "fields": {
+    "word": 49,
+    "meaning": "Kitchen Plate",
+    "part_of_speech": 1,
+    "examples": [
+      10
+    ]
+  }
+},
+{
+  "model": "dictionary.meaning",
+  "pk": 12,
+  "fields": {
+    "word": 50,
+    "meaning": "Ocean",
+    "part_of_speech": 1,
+    "examples": [
+      11
+    ]
+  }
+},
+{
+  "model": "dictionary.pendingword",
+  "pk": 1,
+  "fields": {
+    "word": "okume",
+    "pronunciation_file": "",
+    "dialects": "Ankpa",
+    "related_terms": null,
+    "submitted_by": 2,
+    "submitted_at": "2025-10-21T18:15:39.011Z",
+    "status": "APPROVED",
+    "reviewed_by": 3,
+    "reviewed_at": "2025-10-21T18:34:34.387Z",
+    "review_notes": null,
+    "approved_word": 44
+  }
+},
+{
+  "model": "dictionary.pendingword",
+  "pk": 2,
+  "fields": {
+    "word": "oje",
+    "pronunciation_file": "",
+    "dialects": "Ankpa",
+    "related_terms": null,
+    "submitted_by": 2,
+    "submitted_at": "2025-10-21T18:31:38.564Z",
+    "status": "APPROVED",
+    "reviewed_by": 3,
+    "reviewed_at": "2025-10-21T18:34:34.269Z",
+    "review_notes": null,
+    "approved_word": 43
+  }
+},
+{
+  "model": "dictionary.pendingword",
+  "pk": 3,
+  "fields": {
+    "word": "okpa",
+    "pronunciation_file": "",
+    "dialects": "ankpa",
+    "related_terms": "ijagbo",
+    "submitted_by": 4,
+    "submitted_at": "2025-11-26T17:11:17.082Z",
+    "status": "APPROVED",
+    "reviewed_by": 5,
+    "reviewed_at": "2025-11-26T17:16:54.906Z",
+    "review_notes": null,
+    "approved_word": 45
+  }
+},
+{
+  "model": "dictionary.pendingword",
+  "pk": 4,
+  "fields": {
+    "word": "akpabana",
+    "pronunciation_file": "",
+    "dialects": "idah",
+    "related_terms": "okpabana",
+    "submitted_by": 7,
+    "submitted_at": "2026-01-30T16:21:19.525Z",
+    "status": "APPROVED",
+    "reviewed_by": 7,
+    "reviewed_at": "2026-01-30T16:24:37.129Z",
+    "review_notes": null,
+    "approved_word": 46
+  }
+},
+{
+  "model": "dictionary.pendingword",
+  "pk": 5,
+  "fields": {
+    "word": "obuka",
+    "pronunciation_file": "",
+    "dialects": "idah",
+    "related_terms": null,
+    "submitted_by": 7,
+    "submitted_at": "2026-01-30T17:00:27.839Z",
+    "status": "APPROVED",
+    "reviewed_by": 7,
+    "reviewed_at": "2026-01-30T17:01:20.959Z",
+    "review_notes": null,
+    "approved_word": 47
+  }
+},
+{
+  "model": "dictionary.pendingword",
+  "pk": 6,
+  "fields": {
+    "word": "abafu",
+    "pronunciation_file": "",
+    "dialects": "ankpa",
+    "related_terms": "abe",
+    "submitted_by": 7,
+    "submitted_at": "2026-01-30T20:30:38.315Z",
+    "status": "REJECTED",
+    "reviewed_by": 7,
+    "reviewed_at": "2026-01-30T20:33:04.298Z",
+    "review_notes": "we are rejecting the word because it already exist",
+    "approved_word": null
+  }
+},
+{
+  "model": "dictionary.pendingword",
+  "pk": 7,
+  "fields": {
+    "word": "akpa",
+    "pronunciation_file": "",
+    "dialects": null,
+    "related_terms": null,
+    "submitted_by": 7,
+    "submitted_at": "2026-01-30T20:40:24.726Z",
+    "status": "APPROVED",
+    "reviewed_by": 7,
+    "reviewed_at": "2026-01-30T20:40:38.978Z",
+    "review_notes": null,
+    "approved_word": 48
+  }
+},
+{
+  "model": "dictionary.pendingword",
+  "pk": 8,
+  "fields": {
+    "word": "abacha",
+    "pronunciation_file": "",
+    "dialects": null,
+    "related_terms": null,
+    "submitted_by": 7,
+    "submitted_at": "2026-01-31T12:31:00.725Z",
+    "status": "REJECTED",
+    "reviewed_by": 7,
+    "reviewed_at": "2026-01-31T12:32:28.619Z",
+    "review_notes": "Duplicate: The word \"abacha\" already exists in the dictionary.",
+    "approved_word": null
+  }
+},
+{
+  "model": "dictionary.pendingword",
+  "pk": 9,
+  "fields": {
+    "word": "ochubu",
+    "pronunciation_file": "",
+    "dialects": null,
+    "related_terms": "ugba",
+    "submitted_by": 8,
+    "submitted_at": "2026-02-05T22:57:41.542Z",
+    "status": "APPROVED",
+    "reviewed_by": 7,
+    "reviewed_at": "2026-02-05T22:59:45.600Z",
+    "review_notes": null,
+    "approved_word": 49
+  }
+},
+{
+  "model": "dictionary.pendingword",
+  "pk": 10,
+  "fields": {
+    "word": "ohimini",
+    "pronunciation_file": "",
+    "dialects": null,
+    "related_terms": null,
+    "submitted_by": 8,
+    "submitted_at": "2026-02-05T23:15:57.192Z",
+    "status": "APPROVED",
+    "reviewed_by": 7,
+    "reviewed_at": "2026-02-05T23:19:16.304Z",
+    "review_notes": null,
+    "approved_word": 50
+  }
+},
+{
+  "model": "dictionary.pendingword",
+  "pk": 11,
+  "fields": {
+    "word": "ichobi",
+    "pronunciation_file": "",
+    "dialects": null,
+    "related_terms": null,
+    "submitted_by": 8,
+    "submitted_at": "2026-02-05T23:22:18.162Z",
+    "status": "REJECTED",
+    "reviewed_by": 7,
+    "reviewed_at": "2026-02-05T23:23:11.214Z",
+    "review_notes": "we vetted the word and the alphabet is not right.",
+    "approved_word": null
+  }
+},
+{
+  "model": "dictionary.pendingmeaning",
+  "pk": 1,
+  "fields": {
+    "pending_word": 2,
+    "meaning": "swallow",
+    "part_of_speech": 1
+  }
+},
+{
+  "model": "dictionary.pendingmeaning",
+  "pk": 2,
+  "fields": {
+    "pending_word": 3,
+    "meaning": "ujenwu",
+    "part_of_speech": 1
+  }
+},
+{
+  "model": "dictionary.pendingmeaning",
+  "pk": 3,
+  "fields": {
+    "pending_word": 4,
+    "meaning": "Thunder",
+    "part_of_speech": 1
+  }
+},
+{
+  "model": "dictionary.pendingmeaning",
+  "pk": 4,
+  "fields": {
+    "pending_word": 6,
+    "meaning": "Razor",
+    "part_of_speech": 1
+  }
+},
+{
+  "model": "dictionary.pendingmeaning",
+  "pk": 5,
+  "fields": {
+    "pending_word": 7,
+    "meaning": "sky",
+    "part_of_speech": 1
+  }
+},
+{
+  "model": "dictionary.pendingmeaning",
+  "pk": 6,
+  "fields": {
+    "pending_word": 8,
+    "meaning": "cassava",
+    "part_of_speech": 1
+  }
+},
+{
+  "model": "dictionary.pendingmeaning",
+  "pk": 7,
+  "fields": {
+    "pending_word": 9,
+    "meaning": "Kitchen Plate",
+    "part_of_speech": 1
+  }
+},
+{
+  "model": "dictionary.pendingmeaning",
+  "pk": 8,
+  "fields": {
+    "pending_word": 10,
+    "meaning": "Ocean",
+    "part_of_speech": 1
+  }
+},
+{
+  "model": "dictionary.pendingmeaning",
+  "pk": 9,
+  "fields": {
+    "pending_word": 11,
+    "meaning": "Erosion",
+    "part_of_speech": 1
+  }
+},
+{
+  "model": "dictionary.pendingexample",
+  "pk": 1,
+  "fields": {
+    "pending_meaning": 4,
+    "igala_example": "ma abafu le duwa ku loji we",
+    "english_meaning": "bring the razor let me barb your hair"
+  }
+},
+{
+  "model": "dictionary.pendingexample",
+  "pk": 2,
+  "fields": {
+    "pending_meaning": 5,
+    "igala_example": "akpa ki che fufu",
+    "english_meaning": "white sky"
+  }
+},
+{
+  "model": "dictionary.pendingexample",
+  "pk": 3,
+  "fields": {
+    "pending_meaning": 7,
+    "igala_example": "gefi obuka kemu ochubu duwa ka du ujenwu to",
+    "english_meaning": "check the kitchen and bring plate let use it to serve food"
+  }
+},
+{
+  "model": "dictionary.pendingexample",
+  "pk": 4,
+  "fields": {
+    "pending_meaning": 8,
+    "igala_example": "Ohimini mi oma mi du le",
+    "english_meaning": "Ocean took my child away"
+  }
+},
+{
+  "model": "dictionary.pendingexample",
+  "pk": 5,
+  "fields": {
+    "pending_meaning": 9,
+    "igala_example": "ichobi, meda mi du",
+    "english_meaning": "erosion took away my shoe"
+  }
+},
+{
+  "model": "dictionary.contributionstats",
+  "pk": 1,
+  "fields": {
+    "user": 2,
+    "approved_words_count": 2,
+    "pending_words_count": 0,
+    "rejected_words_count": 0,
+    "total_submissions": 2,
+    "first_contribution": "2025-10-21T18:15:39.011Z",
+    "last_contribution": "2025-10-21T18:31:38.564Z"
+  }
+},
+{
+  "model": "dictionary.contributionstats",
+  "pk": 2,
+  "fields": {
+    "user": 3,
+    "approved_words_count": 0,
+    "pending_words_count": 0,
+    "rejected_words_count": 0,
+    "total_submissions": 0,
+    "first_contribution": null,
+    "last_contribution": null
+  }
+},
+{
+  "model": "dictionary.contributionstats",
+  "pk": 3,
+  "fields": {
+    "user": 4,
+    "approved_words_count": 1,
+    "pending_words_count": 0,
+    "rejected_words_count": 0,
+    "total_submissions": 1,
+    "first_contribution": "2025-11-26T17:11:17.082Z",
+    "last_contribution": "2025-11-26T17:11:17.082Z"
+  }
+},
+{
+  "model": "dictionary.contributionstats",
+  "pk": 4,
+  "fields": {
+    "user": 5,
+    "approved_words_count": 0,
+    "pending_words_count": 0,
+    "rejected_words_count": 0,
+    "total_submissions": 0,
+    "first_contribution": null,
+    "last_contribution": null
+  }
+},
+{
+  "model": "dictionary.contributionstats",
+  "pk": 5,
+  "fields": {
+    "user": 6,
+    "approved_words_count": 0,
+    "pending_words_count": 0,
+    "rejected_words_count": 0,
+    "total_submissions": 0,
+    "first_contribution": null,
+    "last_contribution": null
+  }
+},
+{
+  "model": "dictionary.contributionstats",
+  "pk": 6,
+  "fields": {
+    "user": 7,
+    "approved_words_count": 3,
+    "pending_words_count": 0,
+    "rejected_words_count": 2,
+    "total_submissions": 5,
+    "first_contribution": "2026-01-30T16:21:19.525Z",
+    "last_contribution": "2026-01-31T12:31:00.725Z"
+  }
+},
+{
+  "model": "dictionary.contributionstats",
+  "pk": 7,
+  "fields": {
+    "user": 8,
+    "approved_words_count": 2,
+    "pending_words_count": 0,
+    "rejected_words_count": 1,
+    "total_submissions": 3,
+    "first_contribution": "2026-02-05T22:57:41.542Z",
+    "last_contribution": "2026-02-05T23:22:18.162Z"
+  }
+},
+{
+  "model": "dictionary.contributionstats",
+  "pk": 8,
+  "fields": {
+    "user": 9,
+    "approved_words_count": 0,
+    "pending_words_count": 0,
+    "rejected_words_count": 0,
+    "total_submissions": 0,
+    "first_contribution": null,
+    "last_contribution": null
+  }
+},
+{
+  "model": "dictionary.pendingexamplecontribution",
+  "pk": 1,
+  "fields": {
+    "meaning": 9,
+    "igala_example": "leti obuka ke mi akpete du wa",
+    "english_meaning": "Go to the kitchen and bring seat",
+    "submitted_by": 7,
+    "submitted_at": "2026-01-30T20:25:06.038Z",
+    "status": "APPROVED",
+    "reviewed_by": 7,
+    "reviewed_at": "2026-01-30T20:25:53.005Z",
+    "review_notes": null,
+    "approved_example": 8
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2024-05-03T13:26:28.883Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "1",
+    "object_repr": "Aa",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2024-05-03T13:27:00.878Z",
+    "user": 1,
+    "content_type": 1,
+    "object_id": "1",
+    "object_repr": "noun",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2024-05-03T13:27:06.588Z",
+    "user": 1,
+    "content_type": 1,
+    "object_id": "2",
+    "object_repr": "verb",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2024-05-03T13:27:11.607Z",
+    "user": 1,
+    "content_type": 1,
+    "object_id": "3",
+    "object_repr": "pronoun",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2024-05-03T13:27:23.475Z",
+    "user": 1,
+    "content_type": 1,
+    "object_id": "4",
+    "object_repr": "proverb",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2024-05-03T13:27:30.575Z",
+    "user": 1,
+    "content_type": 1,
+    "object_id": "5",
+    "object_repr": "adjective",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2024-05-03T13:27:50.134Z",
+    "user": 1,
+    "content_type": 1,
+    "object_id": "6",
+    "object_repr": "preposition",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2024-05-03T13:29:17.823Z",
+    "user": 1,
+    "content_type": 2,
+    "object_id": "1",
+    "object_repr": "Aa cha alfabet igala ejodudu",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2024-05-03T13:32:08.600Z",
+    "user": 1,
+    "content_type": 1,
+    "object_id": "7",
+    "object_repr": "None",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2024-05-03T13:32:17.392Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "1",
+    "object_repr": "The first igala alphabet and also the first vowel sound in igala",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2024-05-03T13:54:59.965Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "2",
+    "object_repr": "Aba",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2024-05-03T14:01:21.287Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "2",
+    "object_repr": "Aba",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Related terms\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2024-05-03T14:02:34.547Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "3",
+    "object_repr": "Ababale",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2024-05-03T14:03:33.950Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "4",
+    "object_repr": "Ababo",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2024-05-03T14:03:56.459Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "5",
+    "object_repr": "Abacha",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2024-05-03T14:05:53.116Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "5",
+    "object_repr": "Abacha",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Related terms\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2024-05-03T14:06:16.348Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "6",
+    "object_repr": "Abada",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2024-05-03T14:06:52.956Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "7",
+    "object_repr": "Abadu",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2024-05-03T14:07:17.801Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "8",
+    "object_repr": "Aba-edo",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2024-05-03T14:07:29.605Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "9",
+    "object_repr": "Abafu",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2024-05-03T14:08:46.182Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "9",
+    "object_repr": "Abafu",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Related terms\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2024-05-03T14:09:21.528Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "10",
+    "object_repr": "Abaga",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2024-05-03T14:09:43.391Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "11",
+    "object_repr": "Abahi",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2024-05-03T14:09:59.064Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "12",
+    "object_repr": "Abai",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2024-05-03T14:11:17.914Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "13",
+    "object_repr": "A-a",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 26,
+  "fields": {
+    "action_time": "2024-05-03T14:13:02.573Z",
+    "user": 1,
+    "content_type": 2,
+    "object_id": "2",
+    "object_repr": "A-a bile cha abai?",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 27,
+  "fields": {
+    "action_time": "2024-05-03T14:15:10.231Z",
+    "user": 1,
+    "content_type": 2,
+    "object_id": "3",
+    "object_repr": "amo oma igala chi Aaju ameh Oboni ma che",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 28,
+  "fields": {
+    "action_time": "2024-05-03T14:18:38.422Z",
+    "user": 1,
+    "content_type": 2,
+    "object_id": "4",
+    "object_repr": "baba wa bi aba du ni oja",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 29,
+  "fields": {
+    "action_time": "2024-05-03T14:21:07.802Z",
+    "user": 1,
+    "content_type": 1,
+    "object_id": "8",
+    "object_repr": "adverb",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 30,
+  "fields": {
+    "action_time": "2024-05-03T14:21:22.241Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "2",
+    "object_repr": "why",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 31,
+  "fields": {
+    "action_time": "2024-05-03T14:22:00.797Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "3",
+    "object_repr": "to place a ban of something",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 32,
+  "fields": {
+    "action_time": "2024-05-03T14:22:48.622Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "4",
+    "object_repr": "Immediately",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 33,
+  "fields": {
+    "action_time": "2024-05-06T09:16:43.344Z",
+    "user": 1,
+    "content_type": 2,
+    "object_id": "2",
+    "object_repr": "A-a bile ke cha abai?",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Igala example\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 34,
+  "fields": {
+    "action_time": "2024-05-06T09:17:06.175Z",
+    "user": 1,
+    "content_type": 2,
+    "object_id": "4",
+    "object_repr": "baba wa mi aba du ni oja",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Igala example\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 35,
+  "fields": {
+    "action_time": "2024-05-06T09:18:55.800Z",
+    "user": 1,
+    "content_type": 2,
+    "object_id": "5",
+    "object_repr": "Ababale  john mi oko du tane",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 36,
+  "fields": {
+    "action_time": "2024-05-06T09:25:58.131Z",
+    "user": 1,
+    "content_type": 2,
+    "object_id": "6",
+    "object_repr": "Abacha chi ujenwu ogbogaga ane igala",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 37,
+  "fields": {
+    "action_time": "2024-05-06T10:19:20.503Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "5",
+    "object_repr": "Abacha",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 38,
+  "fields": {
+    "action_time": "2024-05-06T10:19:41.754Z",
+    "user": 1,
+    "content_type": 2,
+    "object_id": "6",
+    "object_repr": "Abacha chi ujenwu ogbogaga ane igala",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 39,
+  "fields": {
+    "action_time": "2024-05-06T10:21:25.318Z",
+    "user": 1,
+    "content_type": 2,
+    "object_id": "6",
+    "object_repr": "Abacha chi ujenwu ogbogaga ane igala",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 40,
+  "fields": {
+    "action_time": "2024-05-06T10:21:53.058Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "4",
+    "object_repr": "Immediately",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Examples\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 41,
+  "fields": {
+    "action_time": "2024-05-06T10:23:09.384Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "3",
+    "object_repr": "Ababale",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Related terms\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 42,
+  "fields": {
+    "action_time": "2024-05-06T10:24:22.493Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "5",
+    "object_repr": "Cassava",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 43,
+  "fields": {
+    "action_time": "2024-05-21T14:43:10.217Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "1",
+    "object_repr": "github.com",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 44,
+  "fields": {
+    "action_time": "2024-06-03T13:35:40.127Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "14",
+    "object_repr": "Abjai",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 45,
+  "fields": {
+    "action_time": "2024-06-03T13:37:26.498Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "15",
+    "object_repr": "Abaji-ekpulu",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 46,
+  "fields": {
+    "action_time": "2024-06-03T13:38:27.601Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "16",
+    "object_repr": "Abaji-owala",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 47,
+  "fields": {
+    "action_time": "2024-06-03T13:38:54.013Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "17",
+    "object_repr": "Abaji-ujeti",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 48,
+  "fields": {
+    "action_time": "2024-06-03T13:39:45.255Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "18",
+    "object_repr": "Abajoi",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 49,
+  "fields": {
+    "action_time": "2024-06-03T13:40:24.353Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "19",
+    "object_repr": "Abakagu",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 50,
+  "fields": {
+    "action_time": "2024-06-03T13:40:36.493Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "20",
+    "object_repr": "Abakpa",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 51,
+  "fields": {
+    "action_time": "2024-06-03T13:42:16.287Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "21",
+    "object_repr": "Abakpa-abenyika",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 52,
+  "fields": {
+    "action_time": "2024-06-03T13:42:43.036Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "22",
+    "object_repr": "Abakwane",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 53,
+  "fields": {
+    "action_time": "2024-06-03T13:42:50.659Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "23",
+    "object_repr": "Abele",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 54,
+  "fields": {
+    "action_time": "2024-06-03T13:43:22.039Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "24",
+    "object_repr": "Abale-abale",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 55,
+  "fields": {
+    "action_time": "2024-06-03T13:44:18.859Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "25",
+    "object_repr": "Abale-ochochi",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 56,
+  "fields": {
+    "action_time": "2024-06-03T13:45:24.977Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "26",
+    "object_repr": "Abananya",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 57,
+  "fields": {
+    "action_time": "2024-06-03T13:45:48.585Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "27",
+    "object_repr": "Abawohi",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 58,
+  "fields": {
+    "action_time": "2024-06-03T13:45:59.662Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "28",
+    "object_repr": "Abe",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 59,
+  "fields": {
+    "action_time": "2024-06-03T13:46:57.289Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "29",
+    "object_repr": "Abedo",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 60,
+  "fields": {
+    "action_time": "2024-06-03T13:47:27.014Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "30",
+    "object_repr": "Abee",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 61,
+  "fields": {
+    "action_time": "2024-06-03T13:51:22.966Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "31",
+    "object_repr": "Abenejubie",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 62,
+  "fields": {
+    "action_time": "2024-06-03T13:53:25.995Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "32",
+    "object_repr": "Abenejura",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 63,
+  "fields": {
+    "action_time": "2024-06-03T13:53:41.301Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "33",
+    "object_repr": "Abei",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 64,
+  "fields": {
+    "action_time": "2024-06-03T13:55:00.641Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "34",
+    "object_repr": "Abele",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 65,
+  "fields": {
+    "action_time": "2024-06-03T13:56:25.841Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "35",
+    "object_repr": "Abeto",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 66,
+  "fields": {
+    "action_time": "2024-06-03T13:56:47.765Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "36",
+    "object_repr": "Abe-uloji",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 67,
+  "fields": {
+    "action_time": "2024-06-03T13:57:09.340Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "37",
+    "object_repr": "Abede",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 68,
+  "fields": {
+    "action_time": "2024-06-03T13:57:33.921Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "38",
+    "object_repr": "Abegini",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 69,
+  "fields": {
+    "action_time": "2024-06-03T13:58:30.430Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "39",
+    "object_repr": "Abegwu",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 70,
+  "fields": {
+    "action_time": "2024-06-03T13:59:25.869Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "39",
+    "object_repr": "Abegwu",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Related terms\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 71,
+  "fields": {
+    "action_time": "2024-06-03T14:00:32.874Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "40",
+    "object_repr": "Abelefu",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 72,
+  "fields": {
+    "action_time": "2024-06-03T14:04:19.193Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "14",
+    "object_repr": "Abaji",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Word\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 73,
+  "fields": {
+    "action_time": "2025-02-10T10:57:24.350Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "41",
+    "object_repr": "Aliyu",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 74,
+  "fields": {
+    "action_time": "2025-02-10T10:58:20.630Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "42",
+    "object_repr": "Yusuf",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 75,
+  "fields": {
+    "action_time": "2025-02-11T16:00:37.348Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "42",
+    "object_repr": "Yusuf",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 76,
+  "fields": {
+    "action_time": "2025-02-11T16:00:37.368Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "41",
+    "object_repr": "Aliyu",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 77,
+  "fields": {
+    "action_time": "2025-10-21T18:35:03.647Z",
+    "user": 3,
+    "content_type": 13,
+    "object_id": "1",
+    "object_repr": "swallow (oje)",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 78,
+  "fields": {
+    "action_time": "2025-10-21T21:18:34.745Z",
+    "user": 3,
+    "content_type": 12,
+    "object_id": "1",
+    "object_repr": "Pioneer object (1)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 79,
+  "fields": {
+    "action_time": "2025-10-21T21:19:42.537Z",
+    "user": 3,
+    "content_type": 12,
+    "object_id": "1",
+    "object_repr": "Pioneer object (1)",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 80,
+  "fields": {
+    "action_time": "2025-10-21T21:20:14.208Z",
+    "user": 3,
+    "content_type": 12,
+    "object_id": "2",
+    "object_repr": "Pioneer object (2)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 81,
+  "fields": {
+    "action_time": "2025-10-21T21:21:03.533Z",
+    "user": 3,
+    "content_type": 12,
+    "object_id": "3",
+    "object_repr": "Pioneer object (3)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 82,
+  "fields": {
+    "action_time": "2025-10-21T21:55:20.448Z",
+    "user": 3,
+    "content_type": 12,
+    "object_id": "3",
+    "object_repr": "Akpai",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Position/Title\", \"Biography\", \"Profile image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 83,
+  "fields": {
+    "action_time": "2026-01-30T20:23:40.329Z",
+    "user": 7,
+    "content_type": 2,
+    "object_id": "7",
+    "object_repr": "loti obuka ke mu ujenwu duwa",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 84,
+  "fields": {
+    "action_time": "2026-01-30T20:23:47.078Z",
+    "user": 7,
+    "content_type": 3,
+    "object_id": "47",
+    "object_repr": "obuka",
+    "action_flag": 2,
+    "change_message": "[{\"added\": {\"name\": \"meaning\", \"object\": \"Kitchen\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 85,
+  "fields": {
+    "action_time": "2026-02-03T19:34:05.295Z",
+    "user": 7,
+    "content_type": 3,
+    "object_id": "5",
+    "object_repr": "Abacha",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Pronunciation\"]}}]"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$3JyeBDi9UEM9gmiFJWEvRb$LiY55gI3iWXJLcewmuiypgbeyat5Lqes1eZE16fqKAk=",
+    "last_login": "2025-02-10T08:59:32.205Z",
+    "is_superuser": true,
+    "username": "igalapedia",
+    "first_name": "",
+    "last_name": "",
+    "email": "igalapedia@email.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2024-05-03T13:23:03.286Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$ZUzXV8IDjtxwzU8dJVEgdQ$MT+OF9feTF7jQjpqHPEtWw1qwdfC6jtQvY6qKknHG+0=",
+    "last_login": "2025-10-21T18:36:06.367Z",
+    "is_superuser": false,
+    "username": "Akpai",
+    "first_name": "Yusuf",
+    "last_name": "Dauda",
+    "email": "legendakpai@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-10-21T18:13:45.054Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$tIh2clwaK02EyYQIpS7K8m$emyDrzX2StI7BBWqfG2NYXLhcWsqdk7MFlvJTZ0wefs=",
+    "last_login": "2025-10-21T21:10:25.317Z",
+    "is_superuser": true,
+    "username": "igala",
+    "first_name": "",
+    "last_name": "",
+    "email": "igala@email.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-10-21T18:33:15.665Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$7xNkR70rkXsw9adryhttwV$HQ6YxOqfSBEGAQLEfiRO5BWEIOqppDIyXsbUThyV0Gg=",
+    "last_login": "2025-11-26T17:17:32.535Z",
+    "is_superuser": false,
+    "username": "Ismail_Dicey",
+    "first_name": "Ismail",
+    "last_name": "Dicey",
+    "email": "devyusuf01@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-11-26T17:10:09.787Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$4KKjW0yBWx8gigg4eA39uO$afwb8s8laz88eyHGF6EJBQyjycTcZtTbyHC21ouZrZk=",
+    "last_login": "2025-11-26T17:13:49.080Z",
+    "is_superuser": true,
+    "username": "ismail",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-11-26T17:13:02.113Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$iJDiwrc5o4DAEJK7szuYhK$sfC7mUxQE3CV+BOq6r4aY2yI5MYITOTgGqrROTTE/P0=",
+    "last_login": "2025-12-06T14:18:33.041Z",
+    "is_superuser": false,
+    "username": "IbrahimAbdulrazak",
+    "first_name": "Ibrahim",
+    "last_name": "Yahaya",
+    "email": "ibrahimabdulrazak002@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T14:18:31.737Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$PD2ieo8yG65lbcZxPjMtSD$hwEIgCKUSDhocPWdQhvi1PO10eTku/tMNquq/9au/J8=",
+    "last_login": "2026-01-30T16:19:34.226Z",
+    "is_superuser": true,
+    "username": "akpai",
+    "first_name": "",
+    "last_name": "",
+    "email": "akpai@email.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-12-25T14:24:10.704Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 8,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$L2lEjg4TBMdqa4AnuEO50f$ofM80lP6edsWFyd+OkmsorA8hBqLidrCPOIDHOgJyoc=",
+    "last_login": "2026-02-05T22:50:46.559Z",
+    "is_superuser": false,
+    "username": "DevYusuf",
+    "first_name": "Dauda Yusuf",
+    "last_name": "Yahaya",
+    "email": "legendakpai@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-02-05T22:50:46.014Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 9,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$T0zMZPdEwD9OOf1OV1h4gy$vbIrSUuWGq7GQQcdpRsoW+kCOD/Alv2m5pl+uE0Jocw=",
+    "last_login": "2026-02-05T23:31:30.689Z",
+    "is_superuser": false,
+    "username": "critics",
+    "first_name": "Critics",
+    "last_name": "Diary",
+    "email": "criticsdiary@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-02-05T23:31:30.079Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "2dmcognnmpppkv3o66x9efhyk60njws3",
+  "fields": {
+    "session_data": ".eJxVjE0OwiAYBe_C2hAoCOLSvWdovj-kaiAp7cp4d23ShW7fzLyXGmFdyrh2mceJ1Vl5dfjdEOghdQN8h3prmlpd5gn1puiddn1tLM_L7v4dFOjlWzvinJwZjBFPIBnJRh_ZQso2xYAms8GEEYVCcmhPRxc4wUDiGF0G9f4AAXg46g:1vOJ92:kji6aiWYdWWnT7o1N658lJkNSGAnTH6nc78m66yx3a0",
+    "expire_date": "2025-12-10T17:17:32.539Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "375dc63v3s1y958w38gn9dcbhhdqp7sg",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCBDkzr0n3PQAYYpWpoUtqV8e7apAvd_vfef6nA21rC1mQJU1ZnZdTpd4ucHlJ3kO9cb7NOc12XKepd0QdtepyzPC-H-3dQuJVvjWDZMSSJBqUbeg8-A3bkPWfTk0EHaA0QomM7xESSCJ3PnuSKiUC9P7M_NqY:1s2suT:Z6pPQVRfrGCTTZeb8TyWqLrXYP3i-BUS-ocd4_kOKdg",
+    "expire_date": "2024-05-17T13:25:09.581Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "43wuynglotb7cfek4cd30fd39a44t6ww",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCBDkzr0n3PQAYYpWpoUtqV8e7apAvd_vfef6nA21rC1mQJU1ZnZdTpd4ucHlJ3kO9cb7NOc12XKepd0QdtepyzPC-H-3dQuJVvjWDZMSSJBqUbeg8-A3bkPWfTk0EHaA0QomM7xESSCJ3PnuSKiUC9P7M_NqY:1s9Qgz:Grs7azQDijC25CZuBRdOhJQR6-VdmkaIfHmrj2-RLCE",
+    "expire_date": "2024-06-04T14:42:17.407Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "5gi3kccxtrdkrwjh329lx9cuaxkitnw1",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGllh_aekzxmstb2LA8iR4qRC3B0ipYD2zcx7iYjbWuPWaYlTERdhxel3S5gf1HZQ7thus8xzW5cpyV2RB-1ynAs9r4f7d1Cx12_tmDSi1Y5Z26ICGWvYA1mfM7DxQ3LKq1LAnIPSKgWgASEDsVXMyYj3B-7jOB8:1vRt7J:4Xwz5VhwRef8xQRpIIdaetfbfv5M-A844s9MJHj4UBI",
+    "expire_date": "2025-12-20T14:18:33.054Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "7mjee68zhkmy1wrxm107hu3tjs7cr6c7",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSG8Cy7d-w1kZgCpGkhKuzL-uzbpQrf3nHNfLMK21riNvMQ5sTOb2Ol3Q6BHbjtId2i3zqm3dZmR7wo_6ODXnvLzcrh_BxVG_dY6EQYMUkvArH1wOVtPwScnvS5WuUkqJUoRxRYAQtIKPWljkjAqGM_eH_A6N90:1vYrjI:QdzF4krCLo4Z7cR3BoE8GtrSoZvbHIOwBhr_OIOCHP4",
+    "expire_date": "2026-01-08T20:14:36.724Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "b7ojqa9lgb5t27lp8xyezqw3xebsjd3n",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCBDkzr0n3PQAYYpWpoUtqV8e7apAvd_vfef6nA21rC1mQJU1ZnZdTpd4ucHlJ3kO9cb7NOc12XKepd0QdtepyzPC-H-3dQuJVvjWDZMSSJBqUbeg8-A3bkPWfTk0EHaA0QomM7xESSCJ3PnuSKiUC9P7M_NqY:1sM2AR:ou31t9Fz0qv-KhJMA8bgLFkZxr0acQLRd-3QwT5Vovw",
+    "expire_date": "2024-07-09T09:08:47.410Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "bspayuapssny89cldc4lx8fsq8s32y0c",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSG8Cy7d-w1kZgCpGkhKuzL-uzbpQrf3nHNfLMK21riNvMQ5sTOb2Ol3Q6BHbjtId2i3zqm3dZmR7wo_6ODXnvLzcrh_BxVG_dY6EQYMUkvArH1wOVtPwScnvS5WuUkqJUoRxRYAQtIKPWljkjAqGM_eH_A6N90:1vYmGm:Vu_akc5HA18GuTDXblbH5uMCUPVfoxbixKa2L3DBZMA",
+    "expire_date": "2026-01-08T14:24:48.948Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "mij4niwt908dmlifq774mmcafz31lmk9",
+  "fields": {
+    "session_data": ".eJxVjEEOgjAQRe_StWmGAlPq0j1nINOZ1qKmTSisjHcXEha6_e-9_1YTbWuathqWaRZ1VU5dfjdP_Az5APKgfC-aS16X2etD0SeteiwSXrfT_TtIVNNeW2JyDVgBNMZ10GLfoHcIRBx7Nt5CZ9vWShxi78XsNmCDIjBwROfU5wvM8Dd5:1vo8ow:BQp6kd1ST3EGP-9wuYfbs0tylaiW_VtZ-hbewnSM-uM",
+    "expire_date": "2026-02-19T23:31:34.517Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "puzbn0w4nuj8d5i3fec4bszd9babsakf",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSG8Cy7d-w1kZgCpGkhKuzL-uzbpQrf3nHNfLMK21riNvMQ5sTOb2Ol3Q6BHbjtId2i3zqm3dZmR7wo_6ODXnvLzcrh_BxVG_dY6EQYMUkvArH1wOVtPwScnvS5WuUkqJUoRxRYAQtIKPWljkjAqGM_eH_A6N90:1vjYK6:OiftLjxUN-GMXfb6KeITZyTQ43KpOl5sSF_IdQeOyU0",
+    "expire_date": "2026-02-07T07:44:46.501Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "qvi9ndh0wmu67wjfajxtgmqhb29ugfkh",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSG8Cy7d-w1kZgCpGkhKuzL-uzbpQrf3nHNfLMK21riNvMQ5sTOb2Ol3Q6BHbjtId2i3zqm3dZmR7wo_6ODXnvLzcrh_BxVG_dY6EQYMUkvArH1wOVtPwScnvS5WuUkqJUoRxRYAQtIKPWljkjAqGM_eH_A6N90:1vYmGp:9zpXnIASJ2jGOQ7uUas23C1quC8nQNRBqTYgFQuZZs0",
+    "expire_date": "2026-01-08T14:24:51.802Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "r5bzj6q5mb0qpi99i9knfac6vt9zobvc",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCBDkzr0n3PQAYYpWpoUtqV8e7apAvd_vfef6nA21rC1mQJU1ZnZdTpd4ucHlJ3kO9cb7NOc12XKepd0QdtepyzPC-H-3dQuJVvjWDZMSSJBqUbeg8-A3bkPWfTk0EHaA0QomM7xESSCJ3PnuSKiUC9P7M_NqY:1thPdc:gehQRzH3IP58ydHo4gb00MQqsVtR7UMe23OAEeA2JWU",
+    "expire_date": "2025-02-24T08:59:32.218Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "t5e93q4smi4ydlznkkmum7b14b35nw2c",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSG8Cy7d-w1kZgCpGkhKuzL-uzbpQrf3nHNfLMK21riNvMQ5sTOb2Ol3Q6BHbjtId2i3zqm3dZmR7wo_6ODXnvLzcrh_BxVG_dY6EQYMUkvArH1wOVtPwScnvS5WuUkqJUoRxRYAQtIKPWljkjAqGM_eH_A6N90:1vZ8LK:gCdc2m6J_7CfqDNLDfhRjgd9-BCR1EqGEn4bopMNCRs",
+    "expire_date": "2026-01-09T13:58:58.462Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "tmgj0lpvxow9p3m2nvvh9f3cgdgc3gcg",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pCBDkzr0n3PQAYYpWpoUtqV8e7apAvd_vfef6nA21rC1mQJU1ZnZdTpd4ucHlJ3kO9cb7NOc12XKepd0QdtepyzPC-H-3dQuJVvjWDZMSSJBqUbeg8-A3bkPWfTk0EHaA0QomM7xESSCJ3PnuSKiUC9P7M_NqY:1s3uLk:hYnm_1kEggex2Dw2R2_AZRs2IbqvbIzz_eZkQaHjutw",
+    "expire_date": "2024-05-20T09:09:32.729Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "u8enjyk5ez8zw5ntpp7tcf300wj0ecc6",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSG8Cy7d-w1kZgCpGkhKuzL-uzbpQrf3nHNfLMK21riNvMQ5sTOb2Ol3Q6BHbjtId2i3zqm3dZmR7wo_6ODXnvLzcrh_BxVG_dY6EQYMUkvArH1wOVtPwScnvS5WuUkqJUoRxRYAQtIKPWljkjAqGM_eH_A6N90:1vlrDa:D2PZRo0MgRwUxKKDTPP5FzAWCdKefGlmC5_w4XBqu-M",
+    "expire_date": "2026-02-13T16:19:34.236Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "zml1d8bl1a2be4mv1jp0jrz531o02urc",
+  "fields": {
+    "session_data": ".eJxVjEsOAiEQBe_C2hBooAWX7ucMpGnAGTWQzGdlvLtOMgvdvqp6LxFpW8e4LWWOUxYXYcTpd0vEj9J2kO_Ubl1yb-s8Jbkr8qCLHHouz-vh_h2MtIzfGm1QCtkRGY_Je-ZigayxCMoZnZ3S1gGArhpTtYwQ8My5ViBFIZB4fwC18DcB:1vBJcf:a8RY28n6FFXVC_bT9EG4W1EUz7w6SasIyi-J3TDWEzU",
+    "expire_date": "2025-11-04T21:10:25.328Z"
+  }
+}
+]

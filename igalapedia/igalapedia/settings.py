@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
-
+import dj_database_url
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,27 +25,21 @@ load_dotenv(BASE_DIR / '.env')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_+es)q^ebfr4m)1^=*p-o2s8)ek37yp#cp6&!-ld&s^&4#8q6l'
 
+SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG=True
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = [
     "*",
-     "72726b2eb762.ngrok-free.app",
 ]
-
-CSRF_TRUSTED_ORIGINS = [
-    'https://72726b2eb762.ngrok-free.app',
-]
-
 
 # Application definition
 
 INSTALLED_APPS = [
     'main',
     'dictionary',
+    'storages',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -103,20 +97,46 @@ WSGI_APPLICATION = 'igalapedia.wsgi.application'
 #     }
 # }
 
+DATABASES = {
+    "default": dj_database_url.parse(
+        os.environ.get("DATABASE_URL"),
+        conn_max_age=600,
+        ssl_require=True
+    )
+}
+
+# Supabase Storage (S3-compatible) for media files
+DEFAULT_FILE_STORAGE = "core.storage_backends.SupabaseMediaStorage"
+
+AWS_STORAGE_BUCKET_NAME = os.environ.get("SUPABASE_STORAGE_BUCKET", "media")
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+AWS_S3_ENDPOINT_URL = os.environ.get("AWS_S3_ENDPOINT_URL", "https://sbuhryoosnqycbaybjjx.storage.supabase.co/storage/v1/s3")
+AWS_S3_REGION_NAME = os.environ.get("AWS_S3_REGION_NAME", "eu-west-1")
+
+AWS_S3_ADDRESSING_STYLE = "path"
+AWS_DEFAULT_ACL = "public-read"
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_FILE_OVERWRITE = False
+
+# Public CDN URL for media (FileField.url comes from storage backend; this is fallback)
+MEDIA_URL = "https://sbuhryoosnqycbaybjjx.supabase.co/storage/v1/object/public/media/"
+MEDIA_ROOT = None  # Not used when using Supabase storage
+
 
 
 """
 DATABASES = {
-     'default': {
-         'ENGINE': 'django.db.backends.postgresql',
-         'NAME': 'IgalapediaDB',
-         'USER': 'postgres',
-         'PASSWORD': '09095564929.mi',
-         'HOST': 'localhost',
-         'PORT': '5432',
-     }
- }
-"""
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'igalaheritage_db',
+        'USER': 'postgres',
+        'PASSWORD':'09095564929.Mi',
+        'HOST': 'localhost',
+        'PORT': '5433',
+    }
+}
+
 
 DATABASES = {
     'default': {
@@ -124,7 +144,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+"""
 
 
 # Password validation
@@ -162,13 +182,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
-MEDIA_ROOT = BASE_DIR / 'media'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 

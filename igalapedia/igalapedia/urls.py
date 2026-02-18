@@ -25,6 +25,6 @@ urlpatterns = [
     path('dictionary/', include('dictionary.urls'), name='dictionary'),
 ]
 
-# Serve media files during development
-if settings.DEBUG:
+# Serve media files locally only when MEDIA_URL is a path (not used with Supabase storage)
+if settings.DEBUG and getattr(settings, "MEDIA_ROOT", None) and getattr(settings, "MEDIA_URL", "").startswith("/"):
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
