@@ -3,4 +3,4 @@ services:
     name: igalapedia
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn igalapedia.wsgi:application"
+    startCommand: "cd igalapedia && gunicorn igalapedia.wsgi:application"
