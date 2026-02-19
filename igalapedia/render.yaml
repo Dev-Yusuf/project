@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: igalapedia
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn igalapedia.wsgi:application"
