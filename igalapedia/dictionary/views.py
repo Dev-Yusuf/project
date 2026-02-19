@@ -88,7 +88,7 @@ def leaderboard(request):
         if created or stats.total_submissions == 0:
             stats.update_stats()
         
-        if stats.approved_words_count > 0:  # Only show users with approved contributions
+        if stats.approved_words_count > 0:  # Only show Users with approved contributions
             contributors_data.append({
                 'user': user,
                 'word_count': stats.approved_words_count,

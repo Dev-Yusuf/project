@@ -1,9 +1,12 @@
 """
 Email sending utilities for the main app.
 """
+import logging
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.conf import settings
+
+logger = logging.getLogger(__name__)
 
 
 def send_welcome_email(user, request=None):
@@ -48,4 +51,7 @@ def send_welcome_email(user, request=None):
         to=[user.email],
     )
     msg.attach_alternative(html_content, 'text/html')
-    msg.send(fail_silently=True)
+    try:
+        msg.send(fail_silently=True)
+    except BaseException:
+        logger.warning("Welcome email could not be sent (e.g. SMTP unavailable).", exc_info=True)

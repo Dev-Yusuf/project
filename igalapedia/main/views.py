@@ -1,3 +1,4 @@
+import logging
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -8,6 +9,8 @@ from dictionary.models import Words, Example, ContributionStats
 from .utils import get_aggregated_counts, get_first_instance
 from .forms import CustomUserRegistrationForm, CustomLoginForm
 from django.contrib.auth import get_user_model
+
+logger = logging.getLogger(__name__)
 
 
 def mainpage(request):
@@ -74,7 +77,6 @@ def register(request):
         if form.is_valid():
             try:
                 user = form.save()
-                # Create contribution stats for new user
                 ContributionStats.objects.create(user=user)
             except IntegrityError:
                 messages.error(
@@ -83,16 +85,33 @@ def register(request):
                 )
                 context = {'form': form, 'page_title': 'Register - Igalapedia'}
                 return render(request, 'main/register.html', context)
-            # Log the user in
-            login(request, user)
-            # Send welcome email (non-blocking; failures don't affect registration)
-            try:
-                from main.emails import send_welcome_email
-                send_welcome_email(user, request)
             except Exception:
-                pass
-            messages.success(request, f'Welcome to Igalapedia, {user.username}! Your account has been created successfully.')
-            return redirect('index')
+                logger.exception(
+                    "Registration: failed after user save (e.g. ContributionStats or DB)",
+                )
+                messages.info(
+                    request,
+                    'Something went wrong during registration. If you already have an account, try signing in.',
+                )
+                return redirect('login')
+            try:
+                login(request, user)
+                try:
+                    from main.emails import send_welcome_email
+                    send_welcome_email(user, request)
+                except BaseException:
+                    pass
+                messages.success(request, f'Welcome to Igalapedia, {user.username}! Your account has been created successfully.')
+                return redirect('index')
+            except Exception:
+                logger.exception(
+                    "Registration: failed during login/session/messages/redirect",
+                )
+                messages.success(
+                    request,
+                    'Your account was created successfully. Please sign in.',
+                )
+                return redirect('login')
         else:
             messages.error(request, 'Please check your credentials.')
     else:
