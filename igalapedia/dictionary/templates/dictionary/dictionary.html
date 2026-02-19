@@ -1,4 +1,5 @@
 {% extends 'main.html' %}
+{% load static %}
 {% block content %}
 
 <section class="section" style="padding-top: 120px;">
@@ -10,11 +11,8 @@
 
       <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
-          <form class="d-flex gap-2 p-2 bg-white rounded-pill shadow-sm border" method="GET">
+          <form id="dictionary-search-form" class="d-flex gap-2 p-2 bg-white rounded-pill shadow-sm border" method="GET">
             {{ word_filter.form.word }}
-            <!-- Assuming the form widget renders an input, we might need to style it via CSS if it renders raw HTML, 
-                             or if it is a Django form field we might need to add class in python or wrap it. 
-                             I'll assume it renders a standard input and style it via CSS targeting input inside this form. -->
             <button id="search-button" class="btn btn-primary rounded-pill px-4 fw-bold">Search</button>
           </form>
         </div>
@@ -22,32 +20,33 @@
     </div>
 
     <!-- Word Grid -->
-    <div class="row g-3">
-      {% for word in words %}
-      <div class="col-6 col-md-4 col-lg-3">
-        <a href="{% url 'single-word' word.slug %}" class="card h-100 text-decoration-none shadow-hover border-0"
-          style="background: var(--bg-card);">
-          <div class="card-body text-center d-flex flex-column align-items-center justify-content-center py-4">
-            <h3 class="h4 fw-bold mb-0 text-primary">{{word.word}}</h3>
-            <!-- Optional: If we had part of speech here it would be great, but keeping it simple -->
-            <div class="mt-2 text-muted small opacity-0">View Details</div>
-          </div>
-        </a>
-      </div>
-      {% empty %}
-      <div class="col-12 text-center py-5">
-        <div class="mb-3 text-muted">
-          <i class="fas fa-search fa-3x opacity-25"></i>
+    <div id="dictionary-word-grid" data-search-api-url="{% url 'dictionary_search_api' %}">
+      <div class="row g-3">
+        {% for word in words %}
+        <div class="col-6 col-md-4 col-lg-3">
+          <a href="{% url 'single-word' word.slug %}" class="card h-100 text-decoration-none shadow-hover border-0"
+            style="background: var(--bg-card);">
+            <div class="card-body text-center d-flex flex-column align-items-center justify-content-center py-4">
+              <h3 class="h4 fw-bold mb-0 text-primary">{{word.word}}</h3>
+              <div class="mt-2 text-muted small opacity-0">View Details</div>
+            </div>
+          </a>
         </div>
-        <h3 class="h5 text-muted">No words found matching your search.</h3>
-        <p class="text-muted small">Try checking the spelling or submitting a new word.</p>
-        <a href="{% url 'submit_word' %}" class="btn btn-outline-primary btn-sm mt-2">Submit a Word</a>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+          <div class="mb-3 text-muted">
+            <i class="fas fa-search fa-3x opacity-25"></i>
+          </div>
+          <h3 class="h5 text-muted">No words found matching your search.</h3>
+          <p class="text-muted small">Try checking the spelling or submitting a new word.</p>
+          <a href="{% url 'submit_word' %}" class="btn btn-outline-primary btn-sm mt-2">Submit a Word</a>
+        </div>
+        {% endfor %}
       </div>
-      {% endfor %}
     </div>
 
     <!-- Pagination -->
-    <div class="d-flex justify-content-center mt-5 align-items-center gap-3">
+    <div id="dictionary-pagination" class="d-flex justify-content-center mt-5 align-items-center gap-3">
       {% if current_page_holder.has_previous %}
       <a href="?page={{current_page_holder.previous_page_number}}"
         class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center"
@@ -111,4 +110,5 @@
   }
 </style>
 
+<script src="{% static 'js/dictionary-search.js' %}"></script>
 {% endblock content %}

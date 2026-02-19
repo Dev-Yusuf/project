@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.db import IntegrityError
 from .models import Community, Pioneer
 from dictionary.models import Words, Example, ContributionStats
 from .utils import get_aggregated_counts, get_first_instance
@@ -71,9 +72,17 @@ def register(request):
     if request.method == 'POST':
         form = CustomUserRegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            # Create contribution stats for new user
-            ContributionStats.objects.create(user=user)
+            try:
+                user = form.save()
+                # Create contribution stats for new user
+                ContributionStats.objects.create(user=user)
+            except IntegrityError:
+                messages.error(
+                    request,
+                    'An account with this username or email already exists.'
+                )
+                context = {'form': form, 'page_title': 'Register - Igalapedia'}
+                return render(request, 'main/register.html', context)
             # Log the user in
             login(request, user)
             # Send welcome email (non-blocking; failures don't affect registration)
@@ -85,7 +94,7 @@ def register(request):
             messages.success(request, f'Welcome to Igalapedia, {user.username}! Your account has been created successfully.')
             return redirect('index')
         else:
-            messages.error(request, 'Please correct the errors below.')
+            messages.error(request, 'Please check your credentials.')
     else:
         form = CustomUserRegistrationForm()
     

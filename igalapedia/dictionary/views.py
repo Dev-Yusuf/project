@@ -30,6 +30,17 @@ def all_words(request):
     return render(request, "dictionary/dictionary.html", context)
 
 
+def dictionary_search_api(request):
+    """JSON API for live search: words starting with q (prefix match), cap at 50."""
+    q = (request.GET.get('q') or '').strip()
+    if not q:
+        return JsonResponse({'words': []})
+    words = Words.objects.filter(word__istartswith=q).order_by('word')[:50]
+    return JsonResponse({
+        'words': [{'word': w.word, 'slug': w.slug} for w in words]
+    })
+
+
 def singleword(request, slug):
     word = get_object_or_404(Words, slug=slug)
     example_form = None
