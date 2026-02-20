@@ -208,6 +208,8 @@ LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
 
 # Email configuration (Gmail SMTP)
+# Production: set EMAIL_HOST_PASSWORD in Render env to a Gmail App Password (not your normal password).
+# Some hosts block outbound SMTP; if email still fails, use a transactional provider (SendGrid, Resend, etc.).
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'IgalaHeritage0@gmail.com')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 
@@ -216,6 +218,7 @@ if EMAIL_HOST_PASSWORD:
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
+    EMAIL_TIMEOUT = 10  # Fail fast so the request doesn't block (avoids worker timeout)
     DEFAULT_FROM_EMAIL = f'IgalaHeritage <{EMAIL_HOST_USER}>'
     SERVER_EMAIL = DEFAULT_FROM_EMAIL
 else:
