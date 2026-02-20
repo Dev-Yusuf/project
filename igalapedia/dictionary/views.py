@@ -96,7 +96,7 @@ def leaderboard(request):
                 'total_submissions': stats.total_submissions
             })
     
-    # Sort by approved word count
+    # Sort by approved word count bb85c26eac1fb94fdd4e8dc885063783
     contributors_data.sort(key=lambda x: x['word_count'], reverse=True)
     context = {'contributors': contributors_data}
     return render(request, 'dictionary/leaderboard.html', context)

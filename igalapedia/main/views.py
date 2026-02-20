@@ -96,11 +96,12 @@ def register(request):
                 return redirect('login')
             try:
                 login(request, user)
-                try:
-                    from main.emails import send_welcome_email
-                    send_welcome_email(user, request)
-                except BaseException:
-                    pass
+                # Welcome email disabled; will use another email platform later.
+                # try:
+                #     from main.emails import send_welcome_email
+                #     send_welcome_email(user, request)
+                # except BaseException:
+                #     pass
                 messages.success(request, f'Welcome to Igalapedia, {user.username}! Your account has been created successfully.')
                 return redirect('index')
             except Exception:
