@@ -1,0 +1,7 @@
+{"message": "register_post_valid", "data": {"step": "after_is_valid"}, "timestamp": 1771540164202, "hypothesisId": "H5"}
+{"message": "register_user_saved", "data": {"user_id": 14, "username": "dawud"}, "timestamp": 1771540164851, "hypothesisId": "H5"}
+{"message": "register_stats_created", "data": {}, "timestamp": 1771540165001, "hypothesisId": "H2"}
+{"message": "register_before_login", "data": {}, "timestamp": 1771540165002, "hypothesisId": "H1"}
+{"message": "register_login_done", "data": {}, "timestamp": 1771540165746, "hypothesisId": "H1"}
+{"message": "register_after_email", "data": {}, "timestamp": 1771540170271, "hypothesisId": "H4"}
+{"message": "register_before_redirect", "data": {}, "timestamp": 1771540170273, "hypothesisId": "H3"}
