@@ -1,0 +1,185 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="section blog-detail-section" style="padding-top: 120px;">
+  <div class="container">
+    <nav aria-label="breadcrumb" class="mb-4 blog-breadcrumb">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}" class="text-decoration-none">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'blog:blog_list' %}" class="text-decoration-none">Blog</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ post.title|truncatewords:5 }}</li>
+      </ol>
+    </nav>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        {% if post.cover_image %}
+        <div class="rounded-3 overflow-hidden mb-4 shadow-sm">
+          <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="w-100 blog-detail-cover" style="max-height: 400px; object-fit: cover;">
+        </div>
+        {% endif %}
+
+        <div class="mb-4">
+          <h1 class="display-5 fw-bold mb-3" style="color: var(--text-main);">{{ post.title }}</h1>
+          <div class="d-flex flex-wrap align-items-center gap-3 text-muted small mb-3">
+            <span class="d-inline-flex align-items-center gap-2">
+              <span class="blog-author-avatar" title="{{ post.author.username }}">{{ post.author.username|slice:":1"|upper }}</span>
+              {{ post.author.username }}
+            </span>
+            <span><i class="fas fa-calendar-alt me-1"></i>{% firstof post.published_at post.created_at as display_date %}{{ display_date|date:"F d, Y" }}</span>
+            <span><i class="fas fa-eye me-1"></i>{{ post.view_count|default:0 }} view{{ post.view_count|default:0|pluralize }}</span>
+            <span><i class="far fa-comment me-1"></i>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</span>
+          </div>
+
+          <div class="d-flex flex-wrap align-items-center gap-2">
+            {% if user.is_authenticated %}
+            <form class="blog-like-form d-inline" method="post" action="{% url 'blog:blog_like_toggle' post.slug %}" data-post-slug="{{ post.slug }}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill blog-like-btn {% if liked %}blog-liked{% endif %}" aria-label="{% if liked %}Unlike{% else %}Like{% endif %}">
+                <i class="{% if liked %}fas{% else %}far{% endif %} fa-heart me-1"></i>
+                <span class="blog-like-count">{{ post.likes.count }}</span>
+              </button>
+            </form>
+            {% else %}
+            <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-sm btn-outline-secondary rounded-pill">
+              <i class="far fa-heart me-1"></i>{{ post.likes.count }}
+            </a>
+            {% endif %}
+            <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Share</button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item blog-share-twitter" href="#" data-url="{{ request.build_absolute_uri }}" data-title="{{ post.title }}"><i class="fab fa-twitter me-2"></i>Twitter</a></li>
+                <li><a class="dropdown-item blog-share-facebook" href="#" data-url="{{ request.build_absolute_uri }}"><i class="fab fa-facebook me-2"></i>Facebook</a></li>
+                <li><a class="dropdown-item blog-share-copy" href="#" data-url="{{ request.build_absolute_uri }}"><i class="fas fa-link me-2"></i>Copy link</a></li>
+              </ul>
+            </div>
+            {% if user.is_authenticated and user != post.author %}
+            <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill" data-bs-toggle="modal" data-bs-target="#blogReportModal">Report</button>
+            {% endif %}
+            {% if user.is_authenticated and user == post.author %}
+            <a href="{% url 'blog:blog_edit' post.slug %}" class="btn btn-sm btn-outline-primary rounded-pill"><i class="fas fa-edit me-1"></i>Edit</a>
+            <form class="d-inline" method="post" action="{% url 'blog:blog_delete' post.slug %}" onsubmit="return confirm('Delete this post?');">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill">Delete</button>
+            </form>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="card border-0 shadow-sm blog-content-card mb-4">
+          <div class="card-body p-4 p-md-5">
+            <div class="prose blog-body">{{ post.body|safe }}</div>
+          </div>
+        </div>
+
+        <div class="mt-4 mb-5">
+          <a href="{% url 'blog:blog_list' %}" class="btn btn-outline-primary"><i class="fas fa-arrow-left me-2"></i>Back to Blog</a>
+        </div>
+
+        <!-- Comments -->
+        <div class="blog-comments-section">
+          <h4 class="h5 fw-bold mb-4" style="color: var(--text-main);"><i class="far fa-comments me-2"></i>Comments ({{ post.comments.count }})</h4>
+
+          {% if user.is_authenticated %}
+          <form method="post" action="{% url 'blog:blog_comment_add' post.slug %}" class="mb-4 blog-comment-form">
+            {% csrf_token %}
+            {{ comment_form.body }}
+            {% if comment_form.body.errors %}<div class="text-danger small mt-1">{{ comment_form.body.errors.0 }}</div>{% endif %}
+            <button type="submit" class="btn btn-primary rounded-pill mt-2">Post comment</button>
+          </form>
+          {% else %}
+          <p class="text-muted mb-4"><a href="{% url 'login' %}?next={{ request.path }}">Sign in</a> to comment.</p>
+          {% endif %}
+
+          <div class="blog-comments-list">
+            {% for comment in comments %}
+            <div class="blog-comment-card card border-0 shadow-sm mb-3" id="comment-{{ comment.id }}">
+              <div class="card-body p-3">
+                <div class="d-flex align-items-start gap-2">
+                  <span class="blog-comment-avatar">{{ comment.user.username|slice:":1"|upper }}</span>
+                  <div class="flex-grow-1">
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                      <span class="fw-bold" style="color: var(--text-main);">{{ comment.user.username }}</span>
+                      <span class="text-muted small">{{ comment.created_at|timesince }} ago</span>
+                    </div>
+                    <p class="mb-0 mt-1">{{ comment.body }}</p>
+                    {% if user.is_authenticated %}
+                    <button type="button" class="btn btn-link btn-sm p-0 mt-2 blog-reply-toggle" data-comment-id="{{ comment.id }}">Reply</button>
+                    {% endif %}
+                  </div>
+                </div>
+                {% if user.is_authenticated %}
+                <div class="blog-reply-form-wrap mt-3 ms-4" id="reply-form-{{ comment.id }}" style="display: none;">
+                  <form method="post" action="{% url 'blog:blog_comment_add' post.slug %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="parent" value="{{ comment.id }}">
+                    <textarea name="body" class="form-control form-control-sm mb-2" rows="2" placeholder="Write a reply..." required></textarea>
+                    <button type="submit" class="btn btn-sm btn-primary">Reply</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary blog-reply-cancel">Cancel</button>
+                  </form>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+            {% for reply in comment.replies.all %}
+            <div class="blog-comment-card blog-comment-reply card border-0 shadow-sm mb-3 ms-4" id="comment-{{ reply.id }}">
+              <div class="card-body p-3">
+                <div class="d-flex align-items-start gap-2">
+                  <span class="blog-comment-avatar blog-comment-avatar-sm">{{ reply.user.username|slice:":1"|upper }}</span>
+                  <div class="flex-grow-1">
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                      <span class="fw-bold" style="color: var(--text-main);">{{ reply.user.username }}</span>
+                      <span class="text-muted small">{{ reply.created_at|timesince }} ago</span>
+                    </div>
+                    <p class="mb-0 mt-1">{{ reply.body }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+            {% empty %}
+            <p class="text-muted">No comments yet. Be the first to share your thoughts.</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Report Modal -->
+{% if user.is_authenticated and user != post.author %}
+<div class="modal fade" id="blogReportModal" tabindex="-1" aria-labelledby="blogReportModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" action="{% url 'blog:blog_report' post.slug %}">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h5 class="modal-title" id="blogReportModalLabel">Report this post</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <label for="id_report_reason" class="form-label">Reason (optional)</label>
+          <textarea name="reason" id="id_report_reason" class="form-control" rows="3" placeholder="Describe why you're reporting this post..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-danger">Submit report</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock content %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'styles/blog.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/blog.js' %}"></script>
+{% endblock %}

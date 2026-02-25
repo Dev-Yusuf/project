@@ -195,6 +195,19 @@ def my_contributions(request):
     approved_examples = base_examples_qs.filter(status='APPROVED').order_by('-reviewed_at', '-submitted_at')
     rejected_examples = base_examples_qs.filter(status='REJECTED').order_by('-reviewed_at', '-submitted_at')
     
+    # History submissions (from history app)
+    pending_histories = []
+    approved_histories = []
+    rejected_histories = []
+    try:
+        from history.models import PendingHistory
+        base_histories_qs = PendingHistory.objects.filter(submitted_by=request.user).select_related('approved_article')
+        pending_histories = list(base_histories_qs.filter(status='PENDING').order_by('-submitted_at'))
+        approved_histories = list(base_histories_qs.filter(status='APPROVED').order_by('-reviewed_at', '-submitted_at'))
+        rejected_histories = list(base_histories_qs.filter(status='REJECTED').order_by('-reviewed_at', '-submitted_at'))
+    except Exception:
+        pass
+    
     # Get stats
     stats, created = ContributionStats.objects.get_or_create(user=request.user)
     if created:
@@ -214,6 +227,13 @@ def my_contributions(request):
         'rejected_examples': rejected_examples,
         'approved_examples_count': approved_examples.count(),
         'rejected_examples_count': rejected_examples.count(),
+        
+        # History submissions by status
+        'pending_histories': pending_histories,
+        'approved_histories': approved_histories,
+        'rejected_histories': rejected_histories,
+        'approved_histories_count': len(approved_histories),
+        'rejected_histories_count': len(rejected_histories),
         
         # Overall stats
         'stats': stats,

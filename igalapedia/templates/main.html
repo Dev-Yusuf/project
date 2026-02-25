@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>IgalaHeritage – Preserving the Igala Language &amp; Culture</title>
+  <title>{% block title %}{% if page_title %}{{ page_title }}{% else %}IgalaHeritage – Preserving the Igala Language &amp; Culture{% endif %}{% endblock %}</title>
   <meta name="description" content="IgalaHeritage is a community-driven platform for preserving and sharing the Igala language, dictionary, pronunciations, and culture for future generations.">
   <meta name="keywords" content="Igala, Igala language, Igala dictionary, Igala heritage, Igala culture, language preservation">
   <meta name="author" content="IgalaHeritage">
@@ -33,6 +33,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
   <!-- or -->
   <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  {% block extra_css %}{% endblock %}
 </head>
 
 <body>
@@ -50,4 +51,5 @@
     crossorigin="anonymous"></script>
   <script src="{% static 'js/audio-player.js' %}"></script>
   <script src="{% static 'js/password-toggle.js' %}"></script>
+  {% block extra_js %}{% endblock %}
 </body>

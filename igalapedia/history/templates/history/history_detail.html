@@ -1,0 +1,125 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="section history-detail-section" style="padding-top: 120px;">
+  <div class="container">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4 history-breadcrumb">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}" class="text-decoration-none">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'history_list' %}" class="text-decoration-none">History</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ article.title|truncatewords:5 }}</li>
+      </ol>
+    </nav>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <!-- Thumbnail -->
+        {% if article.thumbnail %}
+        <div class="rounded-3 overflow-hidden mb-4 shadow-sm">
+          <img src="{{ article.thumbnail.url }}" alt="{{ article.title }}" class="w-100 history-detail-thumb" style="max-height: 400px; object-fit: cover;">
+        </div>
+        {% endif %}
+
+        <!-- Sticky bar (language toggle on scroll) -->
+        <div id="history-sticky-bar" class="history-sticky-bar" aria-hidden="true">
+          <div class="history-sticky-bar-inner d-flex flex-wrap align-items-center justify-content-center gap-3">
+            <span class="text-muted small fw-bold text-uppercase history-sticky-label">Read in:</span>
+            <div class="history-toggle-pills" role="group" aria-label="Language">
+              <button type="button" id="sticky-toggle-english" class="history-pill history-pill-active">English</button>
+              <button type="button" id="sticky-toggle-igala" class="history-pill">Igala</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Title & Inline Toggle -->
+        <div class="mb-4" id="history-title-block">
+          <h1 class="display-5 fw-bold mb-4" style="color: var(--text-main);">{{ article.title }}</h1>
+
+          <div class="history-toggle-audio-row d-flex flex-wrap align-items-center gap-3 mb-4">
+            <!-- Language Toggle (pill style) -->
+            <div class="d-flex flex-wrap align-items-center gap-3">
+              <span class="text-muted small fw-bold text-uppercase history-toggle-label">Read in:</span>
+              <div class="history-toggle-pills" role="group" aria-label="Language">
+                <button type="button" id="toggle-english" class="history-pill history-pill-active" aria-pressed="true">English</button>
+                <button type="button" id="toggle-igala" class="history-pill" aria-pressed="false">Igala</button>
+              </div>
+            </div>
+
+            <!-- Audio (per language, toggled via CSS class) -->
+            {% if article.audio_english %}
+            <div class="history-audio-wrap d-flex align-items-center gap-2 flex-wrap" id="audio-english-wrap">
+              <span class="text-muted small">Listen (English):</span>
+              <audio controls class="history-audio-player" preload="metadata">
+                <source src="{{ article.audio_english.url }}" type="audio/mpeg">
+                Your browser does not support audio.
+              </audio>
+            </div>
+            {% endif %}
+            {% if article.audio_igala %}
+            <div class="history-audio-wrap history-audio-wrap-hidden d-flex align-items-center gap-2 flex-wrap" id="audio-igala-wrap">
+              <span class="text-muted small">Listen (Igala):</span>
+              <audio controls class="history-audio-player" preload="metadata">
+                <source src="{{ article.audio_igala.url }}" type="audio/mpeg">
+                Your browser does not support audio.
+              </audio>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Content Panels -->
+        <div class="card border-0 shadow-sm history-content-card">
+          <div class="card-body p-4 p-md-5">
+            <div id="content-english" class="history-content-panel">
+              {% if article.content_english %}
+              <div class="prose">{{ article.content_english|safe }}</div>
+              {% else %}
+              <p class="text-muted fst-italic">No English content available. Switch to Igala.</p>
+              {% endif %}
+            </div>
+            <div id="content-igala" class="history-content-panel history-content-panel-hidden">
+              {% if article.content_igala %}
+              <div class="prose">{{ article.content_igala|safe }}</div>
+              {% else %}
+              <p class="text-muted fst-italic">No Igala content available. Switch to English.</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Meta with contributor -->
+        <div class="mt-4 d-flex flex-wrap align-items-center gap-3 text-muted small">
+          {% if article.contributor %}
+          <span class="d-inline-flex align-items-center gap-2">
+            <span class="history-contributor-avatar" title="{{ article.contributor.username }}">
+              {{ article.contributor.username|slice:":1"|upper }}
+            </span>
+            <span>Contributed by {{ article.contributor.username }}</span>
+          </span>
+          {% endif %}
+          <span><i class="fas fa-eye me-1"></i>{{ article.view_count|default:0 }} view{{ article.view_count|default:0|pluralize }}</span>
+          <span><i class="fas fa-calendar-alt me-1"></i>{{ article.published_at|date:"F d, Y" }}</span>
+        </div>
+
+        <div class="mt-5">
+          <a href="{% url 'history_list' %}" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left me-2"></i>Back to History
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'styles/history.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/history-detail.js' %}"></script>
+{% endblock %}

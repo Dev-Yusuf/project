@@ -58,6 +58,17 @@
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-body text-center p-4">
                         <div class="mb-3">
+                            <i class="fas fa-landmark fa-3x" style="color: var(--accent-color);"></i>
+                        </div>
+                        <h3 class="h2 fw-bold mb-1">{{ stats.approved_histories_count|default:0 }}</h3>
+                        <p class="text-muted mb-0">Approved Histories</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
                             <i class="fas fa-chart-bar fa-3x" style="color: var(--primary-color);"></i>
                         </div>
                         <h3 class="h2 fw-bold mb-1">{{ stats.total_submissions }}</h3>
@@ -68,6 +79,70 @@
         </div>
     </div>
 </section>
+
+<!-- Recent History Section -->
+{% if recent_approved_histories or recent_rejected_histories %}
+<section class="section">
+    <div class="container">
+        <h2 class="h3 fw-bold mb-4">Recent History Submissions</h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-success bg-opacity-10 border-0">
+                        <h5 class="mb-0 text-success">
+                            <i class="fas fa-landmark me-2"></i>Approved Histories
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        {% if recent_approved_histories %}
+                        <ul class="list-group list-group-flush">
+                            {% for item in recent_approved_histories %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                {% if item.approved_article %}
+                                <a href="{% url 'history_detail' item.approved_article.slug %}" class="fw-medium text-decoration-none">{{ item.title }}</a>
+                                {% else %}
+                                <span class="fw-medium">{{ item.title }}</span>
+                                {% endif %}
+                                <small class="text-muted">{{ item.reviewed_at|date:"M d" }}</small>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% if stats.approved_histories_count > 4 %}
+                        <a href="{% url 'history_list' %}" class="btn btn-sm btn-outline-success mt-3">View all</a>
+                        {% endif %}
+                        {% else %}
+                        <p class="text-muted mb-0">No approved histories yet.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-danger bg-opacity-10 border-0">
+                        <h5 class="mb-0 text-danger">
+                            <i class="fas fa-times-circle me-2"></i>Rejected Histories
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        {% if recent_rejected_histories %}
+                        <ul class="list-group list-group-flush">
+                            {% for item in recent_rejected_histories %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <span class="fw-medium">{{ item.title }}</span>
+                                <small class="text-muted">{{ item.reviewed_at|date:"M d" }}</small>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        <p class="text-muted mb-0">No rejected histories.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
 
 <!-- Recent Activity Section -->
 {% if recent_approved or recent_rejected %}
@@ -153,6 +228,19 @@
                         </div>
                         <h5 class="fw-bold mb-2">Submit New Word</h5>
                         <p class="text-muted small mb-0">Contribute a new Igala word to the dictionary</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-3 col-sm-6">
+                <a href="{% url 'submit_history' %}" class="card border-0 shadow-sm h-100 text-decoration-none"
+                    style="transition: transform 0.2s;">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-landmark fa-3x" style="color: var(--accent-color);"></i>
+                        </div>
+                        <h5 class="fw-bold mb-2">Submit History</h5>
+                        <p class="text-muted small mb-0">Share Igala history for review and publishing</p>
                     </div>
                 </a>
             </div>

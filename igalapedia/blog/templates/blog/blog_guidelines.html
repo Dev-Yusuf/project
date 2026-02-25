@@ -1,0 +1,50 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="section blog-guidelines-section" style="padding-top: 120px; padding-bottom: 3rem;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card border-0 shadow-lg">
+          <div class="card-body p-4 p-md-5">
+            <div class="text-center mb-4">
+              <span class="badge rounded-pill px-3 py-2 mb-3 blog-badge">Community</span>
+              <h2 class="h3 fw-bold mb-2" style="color: var(--text-main);">Blog Community Guidelines</h2>
+              <p class="text-muted mb-0">Please read and acknowledge before posting.</p>
+            </div>
+
+            <div class="blog-guidelines-text mb-4 p-4 rounded-3" style="background: var(--bs-light);">
+              <ul class="mb-0">
+                <li>Be respectful. No hate speech, harassment, or personal attacks.</li>
+                <li>Stay on topic. Content should relate to Igala language, culture, or heritage.</li>
+                <li>No spam, advertising, or repetitive content.</li>
+                <li>Respect others’ views. Disagreement is fine; incivility is not.</li>
+                <li>Do not post content that violates the law or others’ rights.</li>
+              </ul>
+            </div>
+
+            <form method="post" class="blog-guidelines-form">
+              {% csrf_token %}
+              <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" name="agree" id="id_agree" required>
+                <label class="form-check-label" for="id_agree">I agree to the community guidelines and will follow them when posting.</label>
+              </div>
+              <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary rounded-pill px-4">I agree – Continue</button>
+                <a href="{% url 'blog:blog_list' %}" class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'styles/blog.css' %}">
+{% endblock %}

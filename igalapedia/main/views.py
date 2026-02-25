@@ -4,10 +4,12 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db import IntegrityError
+from django.http import JsonResponse
 from .models import Community, Pioneer
 from dictionary.models import Words, Example, ContributionStats
 from .utils import get_aggregated_counts, get_first_instance
 from .forms import CustomUserRegistrationForm, CustomLoginForm
+from .feeds_utils import get_feed_items
 from django.contrib.auth import get_user_model
 
 logger = logging.getLogger(__name__)
@@ -26,6 +28,12 @@ def mainpage(request):
     word_count = Words.objects.count()
     audio_count = Words.objects.exclude(pronunciation__isnull=True).exclude(pronunciation='').count()
     contributor_count = ContributionStats.objects.filter(approved_words_count__gt=0).count()
+    history_count = 0
+    try:
+        from history.models import HistoryArticle
+        history_count = HistoryArticle.objects.count()
+    except Exception:
+        pass
     if contributor_count == 0:
         User = get_user_model()
         contributor_count = User.objects.count()
@@ -34,6 +42,7 @@ def mainpage(request):
         'word_count': word_count,
         'audio_count': audio_count,
         'contributor_count': contributor_count,
+        'history_count': history_count,
         'community_stats': get_first_instance(Community),
         'pioneers': pioneers,
         'recent_words': recent_words,
@@ -175,6 +184,7 @@ def user_logout(request):
 def user_dashboard(request):
     """User dashboard showing contribution statistics"""
     from dictionary.models import PendingWord
+    from history.models import PendingHistory
     
     # Get or create user stats
     stats, created = ContributionStats.objects.get_or_create(user=request.user)
@@ -192,11 +202,24 @@ def user_dashboard(request):
         status='REJECTED'
     ).order_by('-reviewed_at')[:4]
     
+    # Fetch recent approved and rejected histories
+    recent_approved_histories = PendingHistory.objects.filter(
+        submitted_by=request.user,
+        status='APPROVED'
+    ).select_related('approved_article').order_by('-reviewed_at')[:4]
+    
+    recent_rejected_histories = PendingHistory.objects.filter(
+        submitted_by=request.user,
+        status='REJECTED'
+    ).order_by('-reviewed_at')[:4]
+    
     context = {
         'stats': stats,
         'recent_approved': recent_approved,
         'recent_rejected': recent_rejected,
-        'page_title': 'My Dashboard - Igalapedia'
+        'recent_approved_histories': recent_approved_histories,
+        'recent_rejected_histories': recent_rejected_histories,
+        'page_title': 'My Dashboard - IgalaHeritage'
     }
     return render(request, 'main/dashboard.html', context)
 
@@ -210,3 +233,39 @@ def pioneers_page(request):
         'page_title': 'Pioneers - Igalapedia'
     }
     return render(request, 'main/pioneers.html', context)
+
+
+def feed_page(request):
+    """Discovery feed: mixed content from dictionary and history."""
+    page_size = 12
+    items, has_more, total = get_feed_items(offset=0, limit=page_size)
+    context = {
+        'feed_items': items,
+        'has_more': has_more,
+        'total': total,
+        'page_size': page_size,
+        'page_title': 'Discover - IgalaHeritage',
+    }
+    return render(request, 'main/feed.html', context)
+
+
+def feed_api(request):
+    """JSON API for feed pagination (infinite scroll)."""
+    try:
+        offset = max(0, int(request.GET.get('offset', 0)))
+        limit = min(24, max(1, int(request.GET.get('limit', 12))))
+    except (TypeError, ValueError):
+        offset, limit = 0, 12
+    items, has_more, total = get_feed_items(offset=offset, limit=limit)
+    # Serialize for JSON (date to ISO string)
+    out = []
+    for it in items:
+        out.append({
+            'title': it['title'],
+            'excerpt': it['excerpt'],
+            'thumbnail_url': it['thumbnail_url'],
+            'url': it['url'],
+            'type': it['type'],
+            'date': it['date'].isoformat() if it.get('date') else None,
+        })
+    return JsonResponse({'items': out, 'has_more': has_more, 'total': total})

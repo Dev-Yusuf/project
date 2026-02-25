@@ -1,0 +1,83 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="section feed-section" style="padding-top: 120px;">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="badge rounded-pill px-3 py-2 mb-3 feed-badge">Discover</span>
+      <h1 class="display-4 fw-bold mb-3" style="color: var(--text-main);">Feed</h1>
+      <p class="text-muted lead mx-auto" style="max-width: 600px;">
+        Mixed content from the dictionary, blog, and Igala history. Scroll to load more.
+      </p>
+    </div>
+
+    <div id="feed-list" class="row g-4">
+      {% for item in feed_items %}
+      <div class="col-md-6 col-lg-4 feed-item-col">
+        <a href="{{ item.url }}" class="card h-100 text-decoration-none border-0 feed-card">
+          <div class="feed-card-image-wrap">
+            {% if item.thumbnail_url %}
+            <img src="{{ item.thumbnail_url }}" alt="{{ item.title }}" class="feed-card-img">
+            {% else %}
+            <div class="feed-card-placeholder d-flex align-items-center justify-content-center">
+                {% if item.type == 'word' %}
+              <i class="fas fa-book fa-3x"></i>
+              {% elif item.type == 'blog' %}
+              <i class="fas fa-newspaper fa-3x"></i>
+              {% else %}
+              <i class="fas fa-landmark fa-3x"></i>
+              {% endif %}
+            </div>
+            {% endif %}
+          </div>
+          <div class="card-body p-4">
+            <span class="badge feed-type-badge feed-type-{{ item.type }} mb-2">
+              {% if item.type == 'word' %}Dictionary{% elif item.type == 'blog' %}Blog{% else %}History{% endif %}
+            </span>
+            <h3 class="h5 fw-bold mb-2 feed-card-title">{{ item.title }}</h3>
+            <p class="text-muted small mb-0 feed-card-excerpt">{{ item.excerpt|truncatewords:15 }}</p>
+            {% if item.date %}
+            <p class="text-muted small mt-2 mb-0">{{ item.date|date:"M d, Y" }}</p>
+            {% endif %}
+          </div>
+        </a>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center py-5">
+        <div class="feed-empty-icon mb-3"><i class="fas fa-compass fa-4x"></i></div>
+        <h3 class="h5 text-muted">No content yet</h3>
+        <p class="text-muted small">Words, blog posts, and history articles will appear here.</p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div id="feed-sentinel" class="text-center py-4" style="min-height: 60px;">
+      {% if has_more %}
+      <div class="spinner-border text-primary" role="status" id="feed-loading" style="display: none;">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="text-muted small mb-0" id="feed-load-more-hint">Scroll down for more</p>
+      {% else %}
+      <p class="text-muted small mb-0" id="feed-end-message">You've seen everything</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'styles/feed.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  window.FEED_API_URL = "{% url 'feed_api' %}";
+  window.FEED_PAGE_SIZE = {{ page_size|default:12 }};
+  window.FEED_INITIAL_HAS_MORE = {{ has_more|yesno:"true,false" }};
+  window.FEED_OFFSET = {{ feed_items|length }};
+</script>
+<script src="{% static 'js/feed.js' %}"></script>
+{% endblock %}

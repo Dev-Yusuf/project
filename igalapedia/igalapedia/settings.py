@@ -45,6 +45,9 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS = [
     'main',
     'dictionary',
+    'history',
+    'blog',
+    'ckeditor',
     'storages',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -202,6 +205,22 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# CKEditor (rich text for history, blog)
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
+            ['Link', 'Unlink'],
+            ['Image'],
+            ['RemoveFormat', 'Source'],
+        ],
+        'height': 300,
+        'width': '100%',
+    },
+}
+
 # Authentication URLs
 LOGIN_URL = 'login'  # Custom login page
 LOGIN_REDIRECT_URL = 'index'
@@ -225,3 +244,20 @@ else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DEFAULT_FROM_EMAIL = 'IgalaHeritage <IgalaHeritage0@gmail.com>'
     SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
+# CKEditor (rich text for history, blog)
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
+            ['Link', 'Unlink'],
+            ['Image', 'Table'],
+            ['Format', 'Styles'],
+            ['RemoveFormat', 'Source'],
+        ],
+        'height': 300,
+        'width': '100%',
+    },
+}

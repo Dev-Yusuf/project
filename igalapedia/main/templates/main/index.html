@@ -53,6 +53,11 @@
                 <div class="h2 fw-bold mb-0" style="color: var(--text-main);">{{ contributor_count|default:"0" }}</div>
                 <div class="small text-muted text-uppercase fw-bold" style="letter-spacing: 1px;">Contributors</div>
             </div>
+            <div class="col-auto px-4 border-end border-light-subtle text-muted opacity-25">|</div>
+            <div class="col-auto text-center px-4">
+                <div class="h2 fw-bold mb-0" style="color: var(--text-main);">{{ history_count|default:"0" }}</div>
+                <div class="small text-muted text-uppercase fw-bold" style="letter-spacing: 1px;">History</div>
+            </div>
             <div class="col-auto px-4 border-end border-light-subtle d-none d-md-block"></div>
         </div>
     </div>
@@ -63,7 +68,7 @@
     <div class="container">
         <div class="row g-4">
             <!-- Card 1: Dictionary -->
-            <div class="col-md-4">
+            <div class="col-md-3 col-sm-6">
                 <div class="card h-100 p-4 border-0 shadow-hover"
                     style="background: linear-gradient(145deg, #ffffff, #f8fafc);">
                     <div class="mb-4">
@@ -83,7 +88,7 @@
             </div>
 
             <!-- Card 2: Contribute -->
-            <div class="col-md-4">
+            <div class="col-md-3 col-sm-6">
                 <div class="card h-100 p-4 border-0 shadow-hover"
                     style="background: linear-gradient(145deg, #ffffff, #f8fafc);">
                     <div class="mb-4">
@@ -103,7 +108,7 @@
             </div>
 
             <!-- Card 3: Learn -->
-            <div class="col-md-4">
+            <div class="col-md-3 col-sm-6">
                 <div class="card h-100 p-4 border-0 shadow-hover"
                     style="background: linear-gradient(145deg, #ffffff, #f8fafc);">
                     <div class="mb-4">
@@ -118,6 +123,64 @@
                     <a href="{% url 'translator' %}" class="fw-bold text-decoration-none mt-auto"
                         style="color: var(--accent-color);">
                         Try Tools <i class="fas fa-arrow-right ms-2 small"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 4: History -->
+            <div class="col-md-3 col-sm-6">
+                <div class="card h-100 p-4 border-0 shadow-hover"
+                    style="background: linear-gradient(145deg, #ffffff, #f8fafc);">
+                    <div class="mb-4">
+                        <span class="d-inline-flex align-items-center justify-content-center rounded-circle"
+                            style="width: 50px; height: 50px; background-color: rgba(245, 158, 11, 0.1); color: var(--secondary-color);">
+                            <i class="fas fa-landmark fa-lg"></i>
+                        </span>
+                    </div>
+                    <h3 class="h4 fw-bold mb-3">Igala History</h3>
+                    <p class="text-muted mb-4">Explore community-submitted articles on Igala heritage, traditions, and
+                        historical narratives in English and Igala.</p>
+                    <a href="{% url 'history_list' %}" class="fw-bold text-decoration-none mt-auto"
+                        style="color: var(--secondary-color);">
+                        Explore History <i class="fas fa-arrow-right ms-2 small"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 5: Blog -->
+            <div class="col-md-3 col-sm-6">
+                <div class="card h-100 p-4 border-0 shadow-hover"
+                    style="background: linear-gradient(145deg, #ffffff, #f8fafc);">
+                    <div class="mb-4">
+                        <span class="d-inline-flex align-items-center justify-content-center rounded-circle"
+                            style="width: 50px; height: 50px; background-color: rgba(99, 102, 241, 0.1); color: #6366f1;">
+                            <i class="fas fa-newspaper fa-lg"></i>
+                        </span>
+                    </div>
+                    <h3 class="h4 fw-bold mb-3">Community Blog</h3>
+                    <p class="text-muted mb-4">Read and share stories from the Igala community. Posts on language, culture, and heritage.</p>
+                    <a href="{% url 'blog:blog_list' %}" class="fw-bold text-decoration-none mt-auto"
+                        style="color: #6366f1;">
+                        Read Blog <i class="fas fa-arrow-right ms-2 small"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 6: Feeds -->
+            <div class="col-md-3 col-sm-6">
+                <div class="card h-100 p-4 border-0 shadow-hover"
+                    style="background: linear-gradient(145deg, #ffffff, #f8fafc);">
+                    <div class="mb-4">
+                        <span class="d-inline-flex align-items-center justify-content-center rounded-circle"
+                            style="width: 50px; height: 50px; background-color: rgba(16, 185, 129, 0.1); color: var(--accent-color);">
+                            <i class="fas fa-stream fa-lg"></i>
+                        </span>
+                    </div>
+                    <h3 class="h4 fw-bold mb-3">Discover</h3>
+                    <p class="text-muted mb-4">Mixed content from the dictionary, blog, and Igala history. Scroll to explore.</p>
+                    <a href="{% url 'feed' %}" class="fw-bold text-decoration-none mt-auto"
+                        style="color: var(--accent-color);">
+                        Browse Feed <i class="fas fa-arrow-right ms-2 small"></i>
                     </a>
                 </div>
             </div>

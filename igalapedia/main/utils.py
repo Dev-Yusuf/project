@@ -1,6 +1,17 @@
+import hashlib
+
 from django.db.models import Count, Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404
+
+def get_client_ip_hash(request):
+    """Return SHA256 hash of client IP for privacy-safe view tracking."""
+    ip = (
+        request.META.get('HTTP_X_FORWARDED_FOR', '').split(',')[0].strip()
+        or request.META.get('REMOTE_ADDR', '')
+    )
+    return hashlib.sha256(ip.encode()).hexdigest() if ip else ''
+
 
 def get_aggregated_counts(model, fields):
     """

@@ -3,78 +3,35 @@
 
 {% block content %}
 
-<!-- Link to external Leaderboard page CSS -->
 <link rel="stylesheet" href="{% static 'styles/leaderboard.css' %}">
 
 <section class="leaderboard-main" style="padding-top: 120px;">
     <div class="container">
+        <div class="leaderboard-header text-center mb-4">
+            <h1 class="leaderboard-title">Leaderboard</h1>
+            <p class="leaderboard-subtitle text-muted">Top contributors by approved words</p>
+        </div>
+
         {% if contributors %}
-            <!-- Top 3 Podium -->
-            {% if contributors|length >= 3 %}
-            <div class="podium-section">
-                <h2 class="podium-title">🌟 Top Contributors</h2>
-                <div class="podium-container">
-                    <!-- 2nd Place -->
-                    <div class="podium-card podium-second">
-                        <div class="podium-rank">2</div>
-                        <div class="podium-icon">🥈</div>
-                        <div class="podium-info">
-                            <h3>{{ contributors.1.user.get_full_name|default:contributors.1.user.username }}</h3>
-                            <p class="podium-count">{{ contributors.1.word_count }} words</p>
-                        </div>
-                    </div>
-
-                    <!-- 1st Place -->
-                    <div class="podium-card podium-first">
-                        <div class="podium-crown">👑</div>
-                        <div class="podium-rank">1</div>
-                        <div class="podium-icon">🥇</div>
-                        <div class="podium-info">
-                            <h3>{{ contributors.0.user.get_full_name|default:contributors.0.user.username }}</h3>
-                            <p class="podium-count">{{ contributors.0.word_count }} words</p>
-                        </div>
-                    </div>
-
-                    <!-- 3rd Place -->
-                    <div class="podium-card podium-third">
-                        <div class="podium-rank">3</div>
-                        <div class="podium-icon">🥉</div>
-                        <div class="podium-info">
-                            <h3>{{ contributors.2.user.get_full_name|default:contributors.2.user.username }}</h3>
-                            <p class="podium-count">{{ contributors.2.word_count }} words</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-
-            <!-- Full Leaderboard Table -->
             <div class="leaderboard-table-section">
-                <div class="table-header">
-                    <h2>All Contributors</h2>
-                    <div class="contributor-count">
-                        <i class="fas fa-users"></i>
-                        <span>{{ contributors|length }} Contributors</span>
-                    </div>
+                <div class="leaderboard-meta d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted small">{{ contributors|length }} contributor{{ contributors|length|pluralize }}</span>
                 </div>
 
                 <div class="leaderboard-table-container">
                     <table class="leaderboard-table">
                         <thead>
                             <tr>
-                                <th>Rank</th>
+                                <th>#</th>
                                 <th>Contributor</th>
-                                <th>Contributions</th>
-                                <th>Badge</th>
+                                <th>Words</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for contributor in contributors %}
                             <tr class="contributor-row {% if forloop.counter <= 3 %}top-three{% endif %}">
                                 <td class="rank-cell">
-                                    <span class="rank-number {% if forloop.counter <= 3 %}rank-highlight{% endif %}">
-                                        #{{ forloop.counter }}
-                                    </span>
+                                    <span class="rank-number">#{{ forloop.counter }}</span>
                                 </td>
                                 <td class="contributor-cell">
                                     <div class="contributor-info">
@@ -84,25 +41,7 @@
                                         <span class="contributor-name">{{ contributor.user.get_full_name|default:contributor.user.username }}</span>
                                     </div>
                                 </td>
-                                <td class="count-cell">
-                                    <span class="count-badge">{{ contributor.word_count }}</span>
-                                    <span class="count-label">words</span>
-                                </td>
-                                <td class="badge-cell">
-                                    {% if forloop.counter == 1 %}
-                                        <span class="achievement-badge gold">🏆 Champion</span>
-                                    {% elif forloop.counter == 2 %}
-                                        <span class="achievement-badge silver">⭐ Expert</span>
-                                    {% elif forloop.counter == 3 %}
-                                        <span class="achievement-badge bronze">🌟 Pro</span>
-                                    {% elif contributor.word_count >= 50 %}
-                                        <span class="achievement-badge green">✨ Active</span>
-                                    {% elif contributor.word_count >= 10 %}
-                                        <span class="achievement-badge blue">💫 Rising</span>
-                                    {% else %}
-                                        <span class="achievement-badge gray">🌱 Starter</span>
-                                    {% endif %}
-                                </td>
+                                <td class="count-cell">{{ contributor.word_count }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -110,34 +49,16 @@
                 </div>
             </div>
 
+            <p class="text-center mt-4 mb-0">
+                <a href="{% url 'submit_word' %}" class="leaderboard-cta-link">Want to contribute? Submit a word</a>
+            </p>
         {% else %}
-            <!-- Empty State -->
-            <div class="empty-state">
-                <div class="empty-icon">🎯</div>
-                <h2>No Contributors Yet</h2>
-                <p>Be the first to contribute to the Igalapedia dictionary and appear on the leaderboard!</p>
-                <a href="{% url 'submit_word' %}" class="primary-button">Submit a Word</a>
+            <div class="leaderboard-empty text-center py-5">
+                <h2 class="h4 fw-bold mb-2" style="color: var(--text-main);">No contributors yet</h2>
+                <p class="text-muted mb-4">Be the first to contribute.</p>
+                <a href="{% url 'submit_word' %}" class="btn btn-primary rounded-pill px-4">Submit a Word</a>
             </div>
         {% endif %}
-
-        <!-- Call to Action -->
-        <div class="leaderboard-cta">
-            <div class="cta-card">
-                <div class="cta-icon">🚀</div>
-                <div class="cta-content">
-                    <h3>Want to see your name here?</h3>
-                    <p>Join our community of contributors and help preserve the Igala language!</p>
-                    <div class="cta-buttons">
-                        <a href="{% url 'submit_word' %}" class="primary-button">
-                            Submit a Word
-                        </a>
-                        <a href="{% url 'about' %}" class="secondary-button">
-                            Learn More
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </section>
 

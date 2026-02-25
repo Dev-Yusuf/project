@@ -1,0 +1,117 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="section submit-history-section" style="padding-top: 120px; padding-bottom: 3rem;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card border-0 shadow-lg submit-history-card">
+          <div class="card-body p-4 p-md-5">
+            <div class="text-center mb-5">
+              <span class="badge rounded-pill px-3 py-2 mb-3 submit-history-badge">
+                Contribute
+              </span>
+              <h2 class="h3 fw-bold mb-2" style="color: var(--text-main);">Submit Igala History</h2>
+              <p class="text-muted mb-0">Share history that will be reviewed by our team before publishing.</p>
+            </div>
+
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show small" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <form method="post" enctype="multipart/form-data" class="submit-history-form">
+              {% csrf_token %}
+
+              <div class="mb-4">
+                <label for="id_title" class="form-label submit-history-label">Title *</label>
+                {{ form.title }}
+                {% if form.title.errors %}
+                <div class="text-danger small mt-1">{{ form.title.errors.0 }}</div>
+                {% endif %}
+              </div>
+
+              <div class="mb-4">
+                <label for="id_excerpt" class="form-label submit-history-label">Short Excerpt</label>
+                {{ form.excerpt }}
+                <div class="form-text">Brief summary for article cards. Up to 300 characters.</div>
+                {% if form.excerpt.errors %}
+                <div class="text-danger small mt-1">{{ form.excerpt.errors.0 }}</div>
+                {% endif %}
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label submit-history-label">Thumbnail Image</label>
+                <div class="submit-history-file-wrap">
+                  {{ form.thumbnail }}
+                </div>
+                <div class="form-text">Optional. Recommended size 800×450 px.</div>
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label submit-history-label">Content (English) *</label>
+                {{ form.content_english }}
+                {% if form.content_english.errors %}
+                <div class="text-danger small mt-1">{{ form.content_english.errors.0 }}</div>
+                {% endif %}
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label submit-history-label">Content (Igala)</label>
+                {{ form.content_igala }}
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label submit-history-label d-block mb-3">Audio (optional)</label>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="submit-history-file-wrap submit-history-audio-wrap">
+                      <label class="form-label small text-muted mb-1">English</label>
+                      {{ form.audio_english }}
+                    </div>
+                    <div class="form-text">MP3 preferred, max 10 MB.</div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="submit-history-file-wrap submit-history-audio-wrap">
+                      <label class="form-label small text-muted mb-1">Igala</label>
+                      {{ form.audio_igala }}
+                    </div>
+                    <div class="form-text">MP3 preferred, max 10 MB.</div>
+                  </div>
+                </div>
+              </div>
+
+              {% if form.non_field_errors %}
+              <div class="alert alert-danger small">{{ form.non_field_errors.0 }}</div>
+              {% endif %}
+
+              <button type="submit" class="btn btn-primary w-100 py-3 fw-bold mt-2 shadow-sm submit-history-btn">
+                Submit for Review
+              </button>
+            </form>
+
+            <div class="text-center mt-4">
+              <a href="{% url 'history_list' %}" class="text-muted small text-decoration-none">
+                <i class="fas fa-arrow-left me-1"></i>Back to History
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ form.media }}
+
+{% endblock content %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'styles/history.css' %}">
+{% endblock %}

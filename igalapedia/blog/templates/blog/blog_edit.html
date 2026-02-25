@@ -1,0 +1,78 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="section blog-edit-section" style="padding-top: 120px; padding-bottom: 3rem;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card border-0 shadow-lg blog-edit-card">
+          <div class="card-body p-4 p-md-5">
+            <div class="text-center mb-5">
+              <span class="badge rounded-pill px-3 py-2 mb-3 blog-badge">Edit</span>
+              <h2 class="h3 fw-bold mb-2" style="color: var(--text-main);">Edit Post</h2>
+              <p class="text-muted mb-0">Update your post.</p>
+            </div>
+
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show small" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <form method="post" enctype="multipart/form-data" class="blog-edit-form">
+              {% csrf_token %}
+
+              <div class="mb-4">
+                <label for="id_title" class="form-label blog-form-label">Title *</label>
+                {{ form.title }}
+                {% if form.title.errors %}<div class="text-danger small mt-1">{{ form.title.errors.0 }}</div>{% endif %}
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label blog-form-label">Cover image</label>
+                {% if post.cover_image %}
+                <div class="mb-2"><img src="{{ post.cover_image.url }}" alt="Current cover" class="rounded" style="max-height: 120px;"></div>
+                {% endif %}
+                <div class="blog-file-wrap">{{ form.cover_image }}</div>
+                <div class="form-text">Optional. Leave blank to keep current image.</div>
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label blog-form-label">Content *</label>
+                {{ form.body }}
+                {% if form.body.errors %}<div class="text-danger small mt-1">{{ form.body.errors.0 }}</div>{% endif %}
+              </div>
+
+              <div class="mb-4">
+                <label for="id_status" class="form-label blog-form-label">Publish as</label>
+                {{ form.status }}
+              </div>
+
+              {% if form.non_field_errors %}
+              <div class="alert alert-danger small">{{ form.non_field_errors.0 }}</div>
+              {% endif %}
+
+              <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary rounded-pill px-4">Save changes</button>
+                <a href="{% url 'blog:blog_detail' post.slug %}" class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ form.media }}
+
+{% endblock content %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'styles/blog.css' %}">
+{% endblock %}

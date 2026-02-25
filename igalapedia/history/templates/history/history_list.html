@@ -1,0 +1,126 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="section history-list-section" style="padding-top: 120px;">
+  <div class="container">
+    <!-- Header -->
+    <div class="text-center mb-5">
+      <span class="badge rounded-pill px-3 py-2 mb-3 history-badge">
+        Igala Heritage
+      </span>
+      <h1 class="display-4 fw-bold mb-3" style="color: var(--text-main);">Igala Histories</h1>
+      {% if user.is_authenticated %}
+      <a href="{% url 'submit_history' %}" class="btn btn-primary rounded-pill px-4 mt-3">
+        <i class="fas fa-plus me-2"></i>Submit History
+      </a>
+      {% endif %}
+    </div>
+
+    <!-- Card Grid -->
+    <div class="row g-4">
+      {% for article in articles %}
+      <div class="col-md-6 col-lg-4">
+        <a href="{% url 'history_detail' article.slug %}"
+          class="card h-100 text-decoration-none border-0 overflow-hidden history-card">
+          <div class="history-card-image-wrapper">
+            <div class="history-card-image"
+              style="height: 200px; background: linear-gradient(135deg, rgba(26,26,26,0.05) 0%, rgba(5,150,105,0.08) 100%); overflow: hidden;">
+              {% if article.thumbnail %}
+              <img src="{{ article.thumbnail.url }}" alt="{{ article.title }}"
+                class="w-100 h-100 object-fit-cover">
+              {% else %}
+              <div class="w-100 h-100 d-flex align-items-center justify-content-center history-card-placeholder">
+                <i class="fas fa-landmark fa-4x"></i>
+              </div>
+              {% endif %}
+            </div>
+            <div class="history-card-overlay"></div>
+          </div>
+          <div class="card-body p-4">
+            <h3 class="h5 fw-bold mb-2 history-card-title">{{ article.title }}</h3>
+            {% if article.excerpt %}
+            <p class="text-muted small mb-0 line-clamp-2">{{ article.excerpt }}</p>
+            {% else %}
+            <p class="text-muted small mb-0">Read more...</p>
+            {% endif %}
+            <div class="mt-3 d-flex flex-wrap align-items-center gap-2">
+              <span class="badge history-card-badge">
+                <i class="fas fa-calendar-alt me-1"></i>{{ article.published_at|date:"M d, Y" }}
+              </span>
+              {% if article.contributor %}
+              <span class="badge history-card-badge">
+                <i class="fas fa-user me-1"></i>{{ article.contributor.username }}
+              </span>
+              {% endif %}
+              <span class="badge history-card-badge"><i class="fas fa-eye me-1"></i>{{ article.view_count|default:0 }}</span>
+              {% if article.audio_english or article.audio_igala %}
+              <span class="badge history-card-badge history-card-badge-audio">
+                <i class="fas fa-headphones me-1"></i>Audio
+              </span>
+              {% endif %}
+            </div>
+          </div>
+        </a>
+      </div>
+      {% empty %}
+      <div class="col-12">
+        <div class="history-empty-state text-center py-5 px-3">
+          <div class="history-empty-icon mb-4">
+            <i class="fas fa-landmark"></i>
+          </div>
+          <h3 class="h4 fw-bold mb-2" style="color: var(--text-main);">No history articles yet</h3>
+          <p class="text-muted mb-4 mx-auto" style="max-width: 400px;">
+            Be the first to share Igala heritage. Submit an article for review and help preserve our history.
+          </p>
+          {% if user.is_authenticated %}
+          <a href="{% url 'submit_history' %}" class="btn btn-primary rounded-pill px-4">
+            <i class="fas fa-plus me-2"></i>Submit History
+          </a>
+          {% else %}
+          <a href="{% url 'login' %}" class="btn btn-outline-primary rounded-pill px-4">Sign in to Submit</a>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if page_obj.has_other_pages %}
+    <nav class="d-flex justify-content-center mt-5 align-items-center gap-3" aria-label="History pagination">
+      {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}"
+        class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center history-pagination-btn"
+        aria-label="Previous page">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+      {% else %}
+      <span class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center disabled history-pagination-btn" aria-hidden="true">
+        <i class="fas fa-arrow-left"></i>
+      </span>
+      {% endif %}
+      <span class="text-muted fw-bold small">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+      </span>
+      {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}"
+        class="btn btn-outline-primary rounded-circle d-flex align-items-center justify-content-center history-pagination-btn"
+        aria-label="Next page">
+        <i class="fas fa-arrow-right"></i>
+      </a>
+      {% else %}
+      <span class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center disabled history-pagination-btn" aria-hidden="true">
+        <i class="fas fa-arrow-right"></i>
+      </span>
+      {% endif %}
+    </nav>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock content %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'styles/history.css' %}">
+{% endblock %}

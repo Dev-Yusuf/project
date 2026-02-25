@@ -505,6 +505,188 @@
     </div>
 </section>
 
+<!-- History Submissions Section -->
+<section class="section">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="h3 fw-bold mb-1">Your History Submissions</h2>
+                <p class="text-muted mb-0 small">Igala history articles you've submitted for review</p>
+            </div>
+            <a href="{% url 'submit_history' %}" class="btn btn-primary shadow-sm">
+                <i class="fas fa-plus me-2"></i> Submit History
+            </a>
+        </div>
+
+        {% if pending_histories or approved_histories or rejected_histories %}
+
+        {% if pending_histories %}
+        <div class="mb-5">
+            <h4 class="h5 fw-bold mb-3 d-flex align-items-center">
+                <i class="fas fa-clock text-warning me-2"></i>
+                Pending Review
+                <span class="badge bg-warning text-dark ms-2">{{ pending_histories|length }}</span>
+            </h4>
+            <div class="row g-4">
+                {% for item in pending_histories %}
+                <div class="col-12">
+                    <div class="card border-0 shadow-sm submission-card">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h4 class="fw-bold mb-2">{{ item.title }}</h4>
+                                    <small class="text-muted">
+                                        <i class="far fa-calendar me-1"></i>
+                                        Submitted {{ item.submitted_at|date:"M d, Y" }}
+                                    </small>
+                                </div>
+                                <span class="badge rounded-pill px-3 py-2 bg-warning text-dark">
+                                    {{ item.get_status_display }}
+                                </span>
+                            </div>
+                            {% if item.excerpt %}
+                            <p class="text-muted small mb-3">{{ item.excerpt|truncatewords:20 }}</p>
+                            {% endif %}
+                            <div class="alert alert-warning d-flex align-items-center mb-0">
+                                <i class="fas fa-clock me-2"></i>
+                                <div>Your history submission is being reviewed by our team.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if approved_histories %}
+        <div class="mb-5" data-collapsible>
+            <h4 class="h5 fw-bold mb-3 d-flex align-items-center">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                Approved
+                <span class="badge bg-success ms-2">{{ approved_histories_count }}</span>
+            </h4>
+            <div class="row g-4">
+                {% for item in approved_histories %}
+                <div class="col-12{% if forloop.counter > 4 %} collapsible-item is-hidden{% endif %}">
+                    <div class="card border-0 shadow-sm submission-card">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h4 class="fw-bold mb-2">{{ item.title }}</h4>
+                                    <small class="text-muted">
+                                        <i class="far fa-calendar me-1"></i>
+                                        Submitted {{ item.submitted_at|date:"M d, Y" }}
+                                    </small>
+                                </div>
+                                <span class="badge rounded-pill px-3 py-2 bg-success">
+                                    {{ item.get_status_display }}
+                                </span>
+                            </div>
+                            {% if item.approved_article %}
+                            <div class="alert alert-success d-flex align-items-center mb-0">
+                                <i class="fas fa-check-circle me-2"></i>
+                                <div>
+                                    Your article has been published.
+                                    <a href="{% url 'history_detail' item.approved_article.slug %}" class="alert-link fw-bold">View article</a>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if item.reviewed_at %}
+                            <div class="border-top pt-3 mt-3">
+                                <small class="text-muted">
+                                    <i class="fas fa-user-check me-1"></i>
+                                    Reviewed {{ item.reviewed_at|date:"M d, Y" }}
+                                </small>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% if approved_histories_count > 4 %}
+            <div class="text-center mt-3">
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-collapsible-toggle>
+                    <i class="fas fa-chevron-down me-1"></i>
+                    View all ({{ approved_histories_count }})
+                </button>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if rejected_histories %}
+        <div class="mb-5" data-collapsible>
+            <h4 class="h5 fw-bold mb-3 d-flex align-items-center">
+                <i class="fas fa-times-circle text-danger me-2"></i>
+                Rejected
+                <span class="badge bg-danger ms-2">{{ rejected_histories_count }}</span>
+            </h4>
+            <div class="row g-4">
+                {% for item in rejected_histories %}
+                <div class="col-12{% if forloop.counter > 4 %} collapsible-item is-hidden{% endif %}">
+                    <div class="card border-0 shadow-sm submission-card">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h4 class="fw-bold mb-2">{{ item.title }}</h4>
+                                    <small class="text-muted">
+                                        <i class="far fa-calendar me-1"></i>
+                                        Submitted {{ item.submitted_at|date:"M d, Y" }}
+                                    </small>
+                                </div>
+                                <span class="badge rounded-pill px-3 py-2 bg-danger">
+                                    {{ item.get_status_display }}
+                                </span>
+                            </div>
+                            {% if item.rejection_notes %}
+                            <div class="alert alert-danger mb-0">
+                                <strong>Admin Feedback:</strong>
+                                <p class="mb-0 mt-1">{{ item.rejection_notes }}</p>
+                            </div>
+                            {% endif %}
+                            {% if item.reviewed_at %}
+                            <div class="border-top pt-3 mt-3">
+                                <small class="text-muted">
+                                    <i class="fas fa-user-check me-1"></i>
+                                    Reviewed {{ item.reviewed_at|date:"M d, Y" }}
+                                </small>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% if rejected_histories_count > 4 %}
+            <div class="text-center mt-3">
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-collapsible-toggle>
+                    <i class="fas fa-chevron-down me-1"></i>
+                    View all ({{ rejected_histories_count }})
+                </button>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="card border-0 shadow-sm">
+            <div class="card-body text-center py-5">
+                <div class="mb-3">
+                    <i class="fas fa-landmark fa-3x text-muted opacity-25"></i>
+                </div>
+                <h4 class="h5 fw-bold mb-2">No History Submissions Yet</h4>
+                <p class="text-muted mb-3">You haven't submitted any history articles yet. Share Igala heritage for review and publishing.</p>
+                <a href="{% url 'submit_history' %}" class="btn btn-outline-primary btn-sm">
+                    <i class="fas fa-plus me-1"></i> Submit History
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
 <!-- Leaderboard CTA -->
 {% if stats.approved_words_count > 0 %}
 <section class="section">

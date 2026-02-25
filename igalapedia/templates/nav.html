@@ -29,39 +29,26 @@
                     <a class="nav-link" href="{% url 'words' %}">Dictionary</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'leaderboard' %}">Leaderboard</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Contribute
-                    </a>
-                    <ul class="dropdown-menu border-0 shadow-lg" style="border-radius: var(--radius-md);">
-                        <li><a class="dropdown-item" href="{% url 'submit_word' %}">Submit a Word</a></li>
-                        <li><a class="dropdown-item" href="{% url 'my_contributions' %}">My Contributions</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Resources
-                    </a>
-                    <ul class="dropdown-menu border-0 shadow-lg" style="border-radius: var(--radius-md);">
-                        <li><a class="dropdown-item" href="{% url 'translator' %}">Translator</a></li>
-                        <li><a class="dropdown-item" href="{% url 'api' %}">API</a></li>
-                        <li><a class="dropdown-item" href="https://github.com/Dev-Yusuf/project"
-                                target="_blank">GitHub</a></li>
-                    </ul>
+                    <a class="nav-link" href="{% url 'history_list' %}">History</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'about' %}">About</a>
+                    <a class="nav-link" href="{% url 'feed' %}">Feeds</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'leaderboard' %}">Leaderboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'translator' %}">Translator</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'blog:blog_list' %}">Blog</a>
                 </li>
 
                 {% if user.is_authenticated %}
                 <li class="nav-item dropdown ms-lg-3">
-                    <a class="nav-link dropdown-toggle btn btn-sm btn-outline-primary px-3 rounded-pill" href="#"
-                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-user-circle me-1"></i> {{ user.username }}
+                    <a class="nav-link dropdown-toggle btn btn-sm btn-outline-primary px-2 py-2 rounded-pill" href="#"
+                        role="button" data-bs-toggle="dropdown" aria-expanded="false" title="{{ user.username }}">
+                        <i class="fas fa-user-circle"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg"
                         style="border-radius: var(--radius-md);">

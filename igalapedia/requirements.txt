@@ -11,3 +11,4 @@ gunicorn==23.0.0
 django-storages==1.14.4
 boto3==1.35.0
 Pillow==11.0.0
+django-ckeditor==6.7.0

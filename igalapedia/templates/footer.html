@@ -55,6 +55,24 @@
                         </a>
                     </li>
                     <li class="mb-2">
+                        <a href="{% url 'history_list' %}" class="text-decoration-none"
+                            style="color: rgba(255, 255, 255, 0.7); transition: all 0.2s;">
+                            History
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="{% url 'feed' %}" class="text-decoration-none"
+                            style="color: rgba(255, 255, 255, 0.7); transition: all 0.2s;">
+                            Feeds
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="{% url 'blog:blog_list' %}" class="text-decoration-none"
+                            style="color: rgba(255, 255, 255, 0.7); transition: all 0.2s;">
+                            Blog
+                        </a>
+                    </li>
+                    <li class="mb-2">
                         <a href="{% url 'translator' %}" class="text-decoration-none"
                             style="color: rgba(255, 255, 255, 0.7); transition: all 0.2s;">
                             Translator
@@ -92,7 +110,7 @@
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="#" class="text-decoration-none"
+                        <a href="{% url 'blog:blog_list' %}" class="text-decoration-none"
                             style="color: rgba(255, 255, 255, 0.7); transition: all 0.2s;">
                             Blog
                         </a>

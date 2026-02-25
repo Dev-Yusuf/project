@@ -23,6 +23,7 @@ class Words(models.Model):
     dialects = models.CharField(max_length=200, blank=True, null=True)
     related_terms = models.CharField(max_length=200, null=True, blank=True)
     slug = models.SlugField(unique=True, max_length=100, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     contributor = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
@@ -213,6 +214,7 @@ class ContributionStats(models.Model):
     pending_words_count = models.IntegerField(default=0)
     rejected_words_count = models.IntegerField(default=0)
     total_submissions = models.IntegerField(default=0)
+    approved_histories_count = models.IntegerField(default=0)
     
     # Timestamps
     first_contribution = models.DateTimeField(null=True, blank=True)

@@ -1,0 +1,224 @@
+/* Blog app – list, detail, create, edit, guidelines */
+
+.blog-list-section,
+.blog-detail-section,
+.blog-create-section,
+.blog-edit-section,
+.blog-guidelines-section {
+  background-color: var(--bg-body);
+  color: var(--text-main);
+}
+
+.blog-badge {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+/* ---------- List page ---------- */
+.blog-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.2s ease;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-card);
+}
+
+.blog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.12);
+  border-color: var(--accent-color);
+}
+
+.blog-card-image-wrapper {
+  position: relative;
+}
+
+.blog-card-placeholder {
+  color: var(--text-muted);
+  opacity: 0.25;
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.05) 0%, rgba(5, 150, 105, 0.08) 100%);
+}
+
+.blog-card-title {
+  color: var(--text-main);
+}
+
+.blog-card-badge {
+  background-color: var(--bg-card);
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
+  font-weight: 500;
+}
+
+.blog-list-section .line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blog-list-section .object-fit-cover {
+  object-fit: cover;
+}
+
+/* ---------- Detail page ---------- */
+.blog-breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+  color: var(--text-muted);
+}
+
+.blog-breadcrumb .breadcrumb-item.active {
+  color: var(--text-muted);
+}
+
+.blog-breadcrumb a {
+  color: var(--text-main);
+}
+
+.blog-breadcrumb a:hover {
+  color: var(--accent-color);
+}
+
+.blog-author-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.blog-content-card {
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-card);
+}
+
+.blog-detail-section .blog-body,
+.blog-detail-section .prose {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: var(--text-main);
+}
+
+.blog-detail-section .blog-body p,
+.blog-detail-section .prose p {
+  margin-bottom: 1.125rem;
+}
+
+.blog-detail-section .blog-body h2,
+.blog-detail-section .prose h2 {
+  font-size: 1.35rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.blog-detail-section .blog-body h3,
+.blog-detail-section .prose h3 {
+  font-size: 1.15rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.blog-detail-section .blog-body img,
+.blog-detail-section .prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  margin: 1rem 0;
+}
+
+.blog-detail-section .blog-body ul,
+.blog-detail-section .blog-body ol,
+.blog-detail-section .prose ul,
+.blog-detail-section .prose ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.blog-detail-section .blog-body li,
+.blog-detail-section .prose li {
+  margin-bottom: 0.35rem;
+}
+
+.blog-like-btn.blog-liked {
+  color: #dc3545;
+  border-color: #dc3545;
+}
+
+.blog-like-btn.blog-liked i {
+  color: #dc3545;
+}
+
+/* ---------- Comments ---------- */
+.blog-comment-avatar {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.blog-comment-avatar-sm {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  font-size: 0.8rem;
+}
+
+.blog-comment-reply {
+  border-left: 3px solid rgba(5, 150, 105, 0.3) !important;
+}
+
+/* ---------- Create / Edit / Guidelines ---------- */
+.blog-create-card,
+.blog-edit-card,
+.blog-guidelines-text {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+}
+
+.blog-form-label {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.blog-create-form .form-control,
+.blog-edit-form .form-control,
+.blog-guidelines-form .form-control {
+  border-radius: var(--radius-md);
+  border-color: var(--border-color);
+}
+
+.blog-create-form .form-control:focus,
+.blog-edit-form .form-control:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 0.2rem rgba(5, 150, 105, 0.15);
+}
+
+.blog-file-wrap input[type="file"] {
+  padding: 0.5rem;
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-body);
+  width: 100%;
+}
+
+.blog-file-wrap input[type="file"]:hover {
+  border-color: var(--accent-color);
+  background: rgba(5, 150, 105, 0.04);
+}

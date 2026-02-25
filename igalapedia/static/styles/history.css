@@ -1,0 +1,308 @@
+/* History app – list, detail, and submit pages */
+
+/* ---------- List page ---------- */
+.history-list-section {
+  background-color: var(--bg-body);
+  color: var(--text-main);
+}
+
+.history-badge {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.history-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.2s ease;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-card);
+}
+
+.history-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.15);
+  border-color: var(--accent-color);
+}
+
+.history-card-image-wrapper {
+  position: relative;
+}
+
+.history-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.2) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.history-card-placeholder {
+  color: var(--text-muted);
+  opacity: 0.25;
+}
+
+.history-card-title {
+  color: var(--text-main);
+}
+
+.history-card-badge {
+  background-color: var(--bg-card);
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
+  font-weight: 500;
+}
+
+.history-card-badge-audio {
+  color: var(--accent-color);
+  border-color: rgba(5, 150, 105, 0.3);
+}
+
+.history-list-section .line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.history-list-section .object-fit-cover {
+  object-fit: cover;
+}
+
+.history-empty-state {
+  border-radius: var(--radius-lg);
+}
+
+.history-empty-icon {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(255, 193, 7, 0.08) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-color);
+  font-size: 2.5rem;
+}
+
+.history-pagination-btn {
+  width: 40px;
+  height: 40px;
+}
+
+/* ---------- Detail page ---------- */
+.history-detail-section {
+  background-color: var(--bg-body);
+  color: var(--text-main);
+}
+
+.history-breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+  color: var(--text-muted);
+}
+
+.history-breadcrumb .breadcrumb-item.active {
+  color: var(--text-muted);
+}
+
+.history-breadcrumb a {
+  color: var(--text-main);
+}
+
+.history-breadcrumb a:hover {
+  color: var(--accent-color);
+}
+
+.history-toggle-pills {
+  display: inline-flex;
+  border-radius: 9999px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 2px;
+}
+
+.history-pill {
+  padding: 0.4rem 1rem;
+  border: none;
+  background: transparent;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.history-pill:hover {
+  color: var(--text-main);
+}
+
+.history-pill-active {
+  background: var(--accent-color);
+  color: white !important;
+}
+
+.history-toggle-label,
+.history-sticky-label {
+  letter-spacing: 0.05em;
+}
+
+.history-audio-wrap-hidden {
+  display: none !important;
+}
+
+.history-audio-player {
+  height: 36px;
+  min-width: 200px;
+  max-width: 100%;
+}
+
+@media (max-width: 576px) {
+  .history-audio-player {
+    min-width: 160px;
+  }
+}
+
+.history-content-panel-hidden {
+  display: none !important;
+}
+
+.history-content-card {
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-card);
+}
+
+.history-contributor-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.history-sticky-bar {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+
+.history-sticky-bar-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.history-sticky-bar-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.history-detail-section .prose {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: var(--text-main);
+}
+
+.history-detail-section .prose p {
+  margin-bottom: 1.125rem;
+}
+
+.history-detail-section .prose h2 {
+  font-size: 1.35rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.history-detail-section .prose h3 {
+  font-size: 1.15rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.history-detail-section .prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  margin: 1rem 0;
+}
+
+.history-detail-section .prose ul,
+.history-detail-section .prose ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.history-detail-section .prose li {
+  margin-bottom: 0.35rem;
+}
+
+/* ---------- Submit page ---------- */
+.submit-history-section {
+  background-color: var(--bg-body);
+}
+
+.submit-history-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+}
+
+.submit-history-badge {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.submit-history-label {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.submit-history-form .form-control {
+  border-radius: var(--radius-md);
+  border-color: var(--border-color);
+}
+
+.submit-history-form .form-control:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 0.2rem rgba(5, 150, 105, 0.15);
+}
+
+.submit-history-file-wrap input[type="file"] {
+  padding: 0.5rem;
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-body);
+  width: 100%;
+}
+
+.submit-history-file-wrap input[type="file"]:hover {
+  border-color: var(--accent-color);
+  background: rgba(5, 150, 105, 0.04);
+}
+
+.submit-history-audio-wrap input[type="file"] {
+  font-size: 0.875rem;
+}
+
+.submit-history-btn {
+  border-radius: var(--radius-md);
+}
