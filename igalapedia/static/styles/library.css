@@ -1,0 +1,54 @@
+.library-hero {
+  padding: 5rem 0 3rem;
+  background: linear-gradient(120deg, rgba(16, 185, 129, 0.1), rgba(245, 158, 11, 0.1));
+}
+
+.library-hero.small-hero {
+  padding: 3rem 0 2rem;
+}
+
+.library-card {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.library-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+}
+
+.icon-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.placeholder-card {
+  width: 100%;
+  min-height: 200px;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  border-radius: 12px;
+}
+
+.avatar-lg {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.callout {
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}

@@ -44,7 +44,7 @@
                 </div>
             </div>
 
-            <!-- Projects Links -->
+                        <!-- Projects Links -->
             <div class="col-lg-2 col-md-6 col-6">
                 <h5 class="fw-bold mb-3" style="color: #FFC107;">Projects</h5>
                 <ul class="list-unstyled">
@@ -58,6 +58,12 @@
                         <a href="{% url 'history_list' %}" class="text-decoration-none"
                             style="color: rgba(255, 255, 255, 0.7); transition: all 0.2s;">
                             History
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="{% url 'library:library_home' %}" class="text-decoration-none"
+                            style="color: rgba(255, 255, 255, 0.7); transition: all 0.2s;">
+                            Library
                         </a>
                     </li>
                     <li class="mb-2">
@@ -92,8 +98,7 @@
                     </li>
                 </ul>
             </div>
-
-            <!-- Company Links -->
+<!-- Company Links -->
             <div class="col-lg-2 col-md-6 col-6">
                 <h5 class="fw-bold mb-3" style="color: #FFC107;">Company</h5>
                 <ul class="list-unstyled">
@@ -172,3 +177,4 @@
         outline: none;
     }
 </style>
+

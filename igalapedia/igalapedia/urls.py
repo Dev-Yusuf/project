@@ -25,6 +25,7 @@ urlpatterns = [
     path('dictionary/', include('dictionary.urls'), name='dictionary'),
     path('history/', include('history.urls'), name='history'),
     path('blog/', include('blog.urls')),
+    path('library/', include('library.urls')),
 ]
 
 # Serve media files locally only when MEDIA_URL is a path (not used with Supabase storage)

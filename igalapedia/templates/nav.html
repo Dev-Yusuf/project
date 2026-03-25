@@ -32,6 +32,9 @@
                     <a class="nav-link" href="{% url 'history_list' %}">History</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'library:library_home' %}">Library</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'feed' %}">Feeds</a>
                 </li>
                 <li class="nav-item">
@@ -50,12 +53,14 @@
                         role="button" data-bs-toggle="dropdown" aria-expanded="false" title="{{ user.username }}">
                         <i class="fas fa-user-circle"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg"
+                                        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg"
                         style="border-radius: var(--radius-md);">
                         <li><a class="dropdown-item" href="{% url 'dashboard' %}"><i
                                     class="fas fa-tachometer-alt me-2 text-muted"></i> Dashboard</a></li>
                         <li><a class="dropdown-item" href="{% url 'my_contributions' %}"><i
                                     class="fas fa-list me-2 text-muted"></i> My Contributions</a></li>
+                        <li><a class="dropdown-item" href="{% url 'library:my_library_submissions' %}"><i
+                                    class="fas fa-book-open me-2 text-muted"></i> My Library Submissions</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -77,3 +82,7 @@
         </div>
     </div>
 </nav>
+
+
+
+

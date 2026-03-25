@@ -1,0 +1,204 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Hero -->
+<section style="padding: 160px 0 40px;">
+    <div class="container" style="max-width: 640px;">
+        <div class="mb-4">
+            <p style="font-size: 0.8rem; color: #9ca3af;">
+                <a href="{% url 'library:library_home' %}" class="text-decoration-none" style="color: #9ca3af;">Library</a>
+                <span class="mx-1">/</span>
+                <a href="{% url 'library:books_list' %}" class="text-decoration-none" style="color: #9ca3af;">Books</a>
+                <span class="mx-1">/</span>
+                <span style="color: #6b7280;">Submit</span>
+            </p>
+        </div>
+        <h1 style="font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: #1a1a1a; margin-bottom: 8px;">
+            Submit a Book
+        </h1>
+        <p style="font-size: 1rem; color: #6b7280; line-height: 1.7;">
+            Share Igala books with the community. Submissions are reviewed before publishing.
+        </p>
+    </div>
+</section>
+
+<!-- Messages -->
+{% if messages %}
+<section style="padding: 0 0 20px;">
+    <div class="container" style="max-width: 640px;">
+        {% for message in messages %}
+        <div style="padding: 14px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 500;
+            {% if message.tags == 'success' %}background: rgba(16, 185, 129, 0.08); color: #059669;
+            {% elif message.tags == 'error' %}background: rgba(239, 68, 68, 0.08); color: #dc2626;
+            {% else %}background: rgba(59, 130, 246, 0.08); color: #2563eb;{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<!-- Form -->
+<section style="padding: 0 0 80px;">
+    <div class="container" style="max-width: 640px;">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Title -->
+            <div class="mb-4">
+                <label class="form-field-label">Title *</label>
+                <input type="text" name="title" value="{{ form.title.value|default:'' }}" required
+                       class="form-field-input" placeholder="e.g. Igala-English Dictionary">
+                {% if form.title.errors %}<p class="form-field-error">{{ form.title.errors.0 }}</p>{% endif %}
+            </div>
+
+            <!-- Author -->
+            <div class="mb-4">
+                <label class="form-field-label">Author</label>
+                <input type="text" name="author" value="{{ form.author.value|default:'' }}"
+                       class="form-field-input" placeholder="e.g. Rev. J.S. Boston">
+                {% if form.author.errors %}<p class="form-field-error">{{ form.author.errors.0 }}</p>{% endif %}
+            </div>
+
+            <!-- Description -->
+            <div class="mb-4">
+                <label class="form-field-label">Description</label>
+                <textarea name="description" rows="5" class="form-field-input" placeholder="A brief summary of the book's content and significance..." style="resize: vertical;">{{ form.description.value|default:'' }}</textarea>
+                {% if form.description.errors %}<p class="form-field-error">{{ form.description.errors.0 }}</p>{% endif %}
+            </div>
+
+            <!-- Language + Year row -->
+            <div class="row g-3 mb-4">
+                <div class="col-sm-6">
+                    <label class="form-field-label">Language</label>
+                    <select name="language" class="form-field-input">
+                        <option value="ig" {% if form.language.value == "ig" %}selected{% endif %}>Igala</option>
+                        <option value="en" {% if form.language.value == "en" %}selected{% endif %}>English</option>
+                        <option value="bi" {% if form.language.value == "bi" %}selected{% endif %}>Bilingual</option>
+                        <option value="ot" {% if form.language.value == "ot" %}selected{% endif %}>Other</option>
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label class="form-field-label">Publication Year</label>
+                    <input type="number" name="publication_year" value="{{ form.publication_year.value|default:'' }}"
+                           class="form-field-input" placeholder="e.g. 1985">
+                    {% if form.publication_year.errors %}<p class="form-field-error">{{ form.publication_year.errors.0 }}</p>{% endif %}
+                </div>
+            </div>
+
+            <!-- Cover Image -->
+            <div class="mb-4">
+                <label class="form-field-label">Cover Image</label>
+                <div class="file-upload-area">
+                    <input type="file" name="cover_image" accept="image/*" id="cover-input"
+                           style="position: absolute; inset: 0; opacity: 0; cursor: pointer;">
+                    <p style="margin: 0; color: #9ca3af; font-size: 0.85rem;">
+                        <span style="color: #1a1a1a; font-weight: 600;">Choose a file</span> or drag and drop
+                    </p>
+                    <p style="margin: 4px 0 0; color: #bbb; font-size: 0.75rem;">PNG, JPG up to 5 MB</p>
+                </div>
+                {% if form.cover_image.errors %}<p class="form-field-error">{{ form.cover_image.errors.0 }}</p>{% endif %}
+            </div>
+
+            <!-- Book File (PDF) -->
+            <div class="mb-4">
+                <label class="form-field-label">Book File (PDF)</label>
+                <div class="file-upload-area">
+                    <input type="file" name="file" accept=".pdf" id="file-input"
+                           style="position: absolute; inset: 0; opacity: 0; cursor: pointer;">
+                    <p style="margin: 0; color: #9ca3af; font-size: 0.85rem;">
+                        <span style="color: #1a1a1a; font-weight: 600;">Choose a file</span> or drag and drop
+                    </p>
+                    <p style="margin: 4px 0 0; color: #bbb; font-size: 0.75rem;">PDF up to 20 MB</p>
+                </div>
+                {% if form.file.errors %}<p class="form-field-error">{{ form.file.errors.0 }}</p>{% endif %}
+            </div>
+
+            <!-- External URL -->
+            <div class="mb-4">
+                <label class="form-field-label">External URL</label>
+                <input type="url" name="external_url" value="{{ form.external_url.value|default:'' }}"
+                       class="form-field-input" placeholder="https://...">
+                <p style="margin: 6px 0 0; font-size: 0.75rem; color: #9ca3af;">If the book is hosted on another site, paste the link here.</p>
+                {% if form.external_url.errors %}<p class="form-field-error">{{ form.external_url.errors.0 }}</p>{% endif %}
+            </div>
+
+            <!-- Divider -->
+            <div style="border-top: 1px solid #f0f0f0; margin: 32px 0;"></div>
+
+            <!-- Submit -->
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="{% url 'library:books_list' %}" class="text-decoration-none" style="font-size: 0.9rem; color: #6b7280; font-weight: 600;">
+                    ← Cancel
+                </a>
+                <button type="submit"
+                        style="padding: 12px 32px; background: #1a1a1a; color: white; border: none; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: opacity 0.2s;">
+                    Submit Book
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+{% include "footer.html" %}
+
+<style>
+    .form-field-label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-weight: 700;
+        color: #9ca3af;
+    }
+    .form-field-input {
+        display: block;
+        width: 100%;
+        padding: 11px 16px;
+        background: #fafafa;
+        border: 1.5px solid transparent;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        color: #1a1a1a;
+        transition: all 0.2s;
+        outline: none;
+        -webkit-appearance: none;
+    }
+    .form-field-input:focus {
+        background: #fff;
+        border-color: #1a1a1a;
+    }
+    .form-field-input::placeholder {
+        color: #bbb;
+    }
+    .form-field-error {
+        margin: 6px 0 0;
+        font-size: 0.8rem;
+        color: #dc2626;
+    }
+    .file-upload-area {
+        position: relative;
+        padding: 28px 20px;
+        background: #fafafa;
+        border: 1.5px dashed #ddd;
+        border-radius: 10px;
+        text-align: center;
+        transition: all 0.2s;
+    }
+    .file-upload-area:hover {
+        background: #f3f4f6;
+        border-color: #bbb;
+    }
+    select.form-field-input {
+        padding-right: 36px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+    }
+    button[type="submit"]:hover {
+        opacity: 0.85;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Quiz Detail -->
+<section style="padding: 160px 0 40px;">
+    <div class="container" style="max-width: 640px;">
+        <div class="mb-4">
+            <p style="font-size: 0.8rem; color: #9ca3af;">
+                <a href="{% url 'library:library_home' %}" class="text-decoration-none" style="color: #9ca3af;">Library</a>
+                <span class="mx-1">/</span>
+                <a href="{% url 'library:games_home' %}" class="text-decoration-none" style="color: #9ca3af;">Games</a>
+                <span class="mx-1">/</span>
+                <span style="color: #6b7280;">{{ quiz.title }}</span>
+            </p>
+        </div>
+
+        <div class="d-flex gap-2 flex-wrap mb-3">
+            <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #10b981; background: rgba(16, 185, 129, 0.08); padding: 4px 12px; border-radius: 6px;">
+                {{ quiz.get_category_display }}
+            </span>
+            <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #6b7280; background: rgba(0,0,0,0.04); padding: 4px 12px; border-radius: 6px;">
+                {{ quiz.get_difficulty_display }}
+            </span>
+        </div>
+
+        <h1 style="font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: #1a1a1a; margin-bottom: 12px;">
+            {{ quiz.title }}
+        </h1>
+        <p style="font-size: 1rem; color: #6b7280; line-height: 1.7; margin-bottom: 8px;">
+            {{ quiz.description }}
+        </p>
+        <p style="font-size: 0.85rem; color: #9ca3af; margin-bottom: 32px;">
+            {{ question_count }} question{{ question_count|pluralize }}
+        </p>
+
+        <div class="d-flex gap-3 flex-wrap">
+            <a href="{% url 'library:quiz_play' quiz.slug %}"
+               style="display: inline-block; padding: 12px 32px; background: #1a1a1a; color: white; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: opacity 0.2s;">
+                Start Quiz
+            </a>
+            <a href="{% url 'library:games_home' %}"
+               style="display: inline-block; padding: 12px 28px; border: 1.5px solid #e5e7eb; color: #6b7280; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-decoration: none;">
+                ← Back
+            </a>
+        </div>
+    </div>
+</section>
+
+{% include "footer.html" %}
+{% endblock %}

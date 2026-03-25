@@ -1,0 +1,179 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Hero -->
+<section style="padding: 160px 0 40px;">
+    <div class="container" style="max-width: 640px;">
+        <div class="mb-4">
+            <p style="font-size: 0.8rem; color: #9ca3af;">
+                <a href="{% url 'library:library_home' %}" class="text-decoration-none" style="color: #9ca3af;">Library</a>
+                <span class="mx-1">/</span>
+                <a href="{% url 'library:hall_of_fame_list' %}" class="text-decoration-none" style="color: #9ca3af;">Hall of Fame</a>
+                <span class="mx-1">/</span>
+                <span style="color: #6b7280;">Nominate</span>
+            </p>
+        </div>
+        <h1 style="font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: #1a1a1a; margin-bottom: 8px;">
+            Nominate a Legend
+        </h1>
+        <p style="font-size: 1rem; color: #6b7280; line-height: 1.7;">
+            Honor an Igala icon by submitting their profile. Nominations are reviewed before publishing.
+        </p>
+    </div>
+</section>
+
+<!-- Messages -->
+{% if messages %}
+<section style="padding: 0 0 20px;">
+    <div class="container" style="max-width: 640px;">
+        {% for message in messages %}
+        <div style="padding: 14px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 500;
+            {% if message.tags == 'success' %}background: rgba(16, 185, 129, 0.08); color: #059669;
+            {% elif message.tags == 'error' %}background: rgba(239, 68, 68, 0.08); color: #dc2626;
+            {% else %}background: rgba(59, 130, 246, 0.08); color: #2563eb;{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<!-- Form -->
+<section style="padding: 0 0 80px;">
+    <div class="container" style="max-width: 640px;">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Name -->
+            <div class="mb-4">
+                <label class="form-field-label">Full Name *</label>
+                <input type="text" name="name" value="{{ form.name.value|default:'' }}" required
+                       class="form-field-input" placeholder="e.g. Attah Ayegba Om Idoko">
+                {% if form.name.errors %}<p class="form-field-error">{{ form.name.errors.0 }}</p>{% endif %}
+            </div>
+
+            <!-- Title/Role -->
+            <div class="mb-4">
+                <label class="form-field-label">Title / Role</label>
+                <input type="text" name="title_role" value="{{ form.title_role.value|default:'' }}"
+                       class="form-field-input" placeholder="e.g. Founder of the Igala Kingdom">
+                {% if form.title_role.errors %}<p class="form-field-error">{{ form.title_role.errors.0 }}</p>{% endif %}
+            </div>
+
+            <!-- Era -->
+            <div class="mb-4">
+                <label class="form-field-label">Era / Time Period</label>
+                <input type="text" name="era" value="{{ form.era.value|default:'' }}"
+                       class="form-field-input" placeholder="e.g. 15th Century">
+                {% if form.era.errors %}<p class="form-field-error">{{ form.era.errors.0 }}</p>{% endif %}
+            </div>
+
+            <!-- Bio -->
+            <div class="mb-4">
+                <label class="form-field-label">Biography</label>
+                <textarea name="bio" rows="6" class="form-field-input" placeholder="Tell us about this person's life, contributions, and significance to Igala heritage..." style="resize: vertical;">{{ form.bio.value|default:'' }}</textarea>
+                {% if form.bio.errors %}<p class="form-field-error">{{ form.bio.errors.0 }}</p>{% endif %}
+            </div>
+
+            <!-- Achievements -->
+            <div class="mb-4">
+                <label class="form-field-label">Key Achievements</label>
+                <textarea name="achievements" rows="4" class="form-field-input" placeholder="List their major accomplishments, one per line..." style="resize: vertical;">{{ form.achievements.value|default:'' }}</textarea>
+                {% if form.achievements.errors %}<p class="form-field-error">{{ form.achievements.errors.0 }}</p>{% endif %}
+            </div>
+
+            <!-- Profile Image -->
+            <div class="mb-4">
+                <label class="form-field-label">Profile Image</label>
+                <div class="file-upload-area">
+                    <input type="file" name="profile_image" accept="image/*"
+                           style="position: absolute; inset: 0; opacity: 0; cursor: pointer;">
+                    <p style="margin: 0; color: #9ca3af; font-size: 0.85rem;">
+                        <span style="color: #1a1a1a; font-weight: 600;">Choose a file</span> or drag and drop
+                    </p>
+                    <p style="margin: 4px 0 0; color: #bbb; font-size: 0.75rem;">PNG, JPG up to 5 MB</p>
+                </div>
+                {% if form.profile_image.errors %}<p class="form-field-error">{{ form.profile_image.errors.0 }}</p>{% endif %}
+            </div>
+
+            <!-- External Links -->
+            <div class="mb-4">
+                <label class="form-field-label">External Links</label>
+                <textarea name="external_links" rows="2" class="form-field-input" placeholder="Wikipedia, academic papers, etc. (one per line)" style="resize: vertical;">{{ form.external_links.value|default:'' }}</textarea>
+                <p style="margin: 6px 0 0; font-size: 0.75rem; color: #9ca3af;">Add any relevant links to learn more about this person.</p>
+                {% if form.external_links.errors %}<p class="form-field-error">{{ form.external_links.errors.0 }}</p>{% endif %}
+            </div>
+
+            <!-- Divider -->
+            <div style="border-top: 1px solid #f0f0f0; margin: 32px 0;"></div>
+
+            <!-- Submit -->
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="{% url 'library:hall_of_fame_list' %}" class="text-decoration-none" style="font-size: 0.9rem; color: #6b7280; font-weight: 600;">
+                    ← Cancel
+                </a>
+                <button type="submit"
+                        style="padding: 12px 32px; background: #1a1a1a; color: white; border: none; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: opacity 0.2s;">
+                    Submit Nomination
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+{% include "footer.html" %}
+
+<style>
+    .form-field-label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-weight: 700;
+        color: #9ca3af;
+    }
+    .form-field-input {
+        display: block;
+        width: 100%;
+        padding: 11px 16px;
+        background: #fafafa;
+        border: 1.5px solid transparent;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        color: #1a1a1a;
+        transition: all 0.2s;
+        outline: none;
+        -webkit-appearance: none;
+    }
+    .form-field-input:focus {
+        background: #fff;
+        border-color: #1a1a1a;
+    }
+    .form-field-input::placeholder {
+        color: #bbb;
+    }
+    .form-field-error {
+        margin: 6px 0 0;
+        font-size: 0.8rem;
+        color: #dc2626;
+    }
+    .file-upload-area {
+        position: relative;
+        padding: 28px 20px;
+        background: #fafafa;
+        border: 1.5px dashed #ddd;
+        border-radius: 10px;
+        text-align: center;
+        transition: all 0.2s;
+    }
+    .file-upload-area:hover {
+        background: #f3f4f6;
+        border-color: #bbb;
+    }
+    button[type="submit"]:hover {
+        opacity: 0.85;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Quiz Play -->
+<section style="padding: 160px 0 40px;">
+    <div class="container" style="max-width: 640px;">
+        <div class="mb-4">
+            <p style="font-size: 0.8rem; color: #9ca3af;">
+                <a href="{% url 'library:games_home' %}" class="text-decoration-none" style="color: #9ca3af;">Games</a>
+                <span class="mx-1">/</span>
+                <a href="{% url 'library:quiz_detail' quiz.slug %}" class="text-decoration-none" style="color: #9ca3af;">{{ quiz.title }}</a>
+                <span class="mx-1">/</span>
+                <span style="color: #6b7280;">Play</span>
+            </p>
+        </div>
+
+        <h1 style="font-size: clamp(1.8rem, 3vw, 2.2rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: #1a1a1a; margin-bottom: 32px;">
+            {{ quiz.title }}
+        </h1>
+    </div>
+</section>
+
+<!-- Questions -->
+<section style="padding: 0 0 80px;">
+    <div class="container" style="max-width: 640px;">
+        <form method="post">
+            {% csrf_token %}
+            {% for question in questions %}
+            <div style="background: #fafafa; border-radius: 16px; padding: 28px; margin-bottom: 16px;">
+                <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #9ca3af; margin-bottom: 10px;">
+                    Question {{ forloop.counter }} of {{ questions|length }}
+                </p>
+                <h3 style="font-size: 1.05rem; font-weight: 700; color: #1a1a1a; margin-bottom: 16px; line-height: 1.5;">
+                    {{ question.question_text }}
+                </h3>
+
+                {% if question.image %}
+                <img src="{{ question.image.url }}" alt="Question image" class="img-fluid rounded mb-3" style="max-height: 220px; border-radius: 10px;">
+                {% endif %}
+                {% if question.audio %}
+                <audio controls class="w-100 mb-3" style="border-radius: 8px;">
+                    <source src="{{ question.audio.url }}">
+                </audio>
+                {% endif %}
+
+                <div class="d-flex flex-column gap-2">
+                    {% for choice in question.choices.all %}
+                    <label class="quiz-choice">
+                        <input type="radio" name="q_{{ question.id }}" value="{{ choice.id }}" class="quiz-radio">
+                        <span class="quiz-choice-text">{{ choice.choice_text }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+
+            <div style="border-top: 1px solid #f0f0f0; padding-top: 28px; margin-top: 8px;">
+                <div class="d-flex justify-content-between align-items-center">
+                    <a href="{% url 'library:quiz_detail' quiz.slug %}" class="text-decoration-none" style="font-size: 0.9rem; color: #6b7280; font-weight: 600;">
+                        ← Cancel
+                    </a>
+                    <button type="submit"
+                            style="padding: 12px 32px; background: #1a1a1a; color: white; border: none; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: opacity 0.2s;">
+                        Submit Answers
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+{% include "footer.html" %}
+
+<style>
+    .quiz-choice {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: white;
+        border-radius: 10px;
+        padding: 14px 16px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        border: 1.5px solid transparent;
+    }
+    .quiz-choice:hover {
+        background: #f9fafb;
+    }
+    .quiz-radio {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 18px;
+        height: 18px;
+        border: 2px solid #d1d5db;
+        border-radius: 50%;
+        flex-shrink: 0;
+        transition: all 0.15s;
+        position: relative;
+    }
+    .quiz-radio:checked {
+        border-color: #1a1a1a;
+    }
+    .quiz-radio:checked::after {
+        content: '';
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #1a1a1a;
+    }
+    .quiz-choice:has(.quiz-radio:checked) {
+        border-color: #1a1a1a;
+        background: white;
+    }
+    .quiz-choice-text {
+        font-size: 0.9rem;
+        color: #1a1a1a;
+        line-height: 1.4;
+    }
+    button[type="submit"]:hover {
+        opacity: 0.85;
+    }
+</style>
+{% endblock %}

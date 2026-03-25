@@ -1,0 +1,143 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Hero -->
+<section style="padding: 160px 0 80px;">
+    <div class="container">
+        <div class="text-center" style="max-width: 680px; margin: 0 auto;">
+            <p class="text-uppercase fw-bold mb-3" style="letter-spacing: 3px; font-size: 0.75rem; color: #10b981;">
+                Library</p>
+            <h1
+                style="font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: #1a1a1a;">
+                Igala Library
+            </h1>
+            <p class="mt-3" style="font-size: 1.15rem; color: #6b7280; line-height: 1.7;">
+                Books, legends, and games.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Navigation Cards -->
+<section style="padding: 0 0 80px;">
+    <div class="container">
+        <div class="row g-4">
+
+            <!-- Books -->
+            <div class="col-md-4">
+                <a href="{% url 'library:books_list' %}" class="text-decoration-none d-block h-100">
+                    <div class="h-100"
+                        style="background: #fafafa; border-radius: 20px; padding: 48px 32px; transition: all 0.3s ease;">
+                        <p
+                            style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: #10b981; font-weight: 700; margin-bottom: 16px;">
+                            Collection</p>
+                        <h2 style="font-size: 1.5rem; font-weight: 700; color: #1a1a1a; margin-bottom: 12px;">Books</h2>
+                        <p style="color: #6b7280; line-height: 1.7; margin-bottom: 24px;">
+                            Explore Igala literature, stories, and learning resources curated by the community.
+                        </p>
+                        <span style="color: #10b981; font-weight: 600; font-size: 0.9rem;">
+                            Browse Books →
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Hall of Fame -->
+            <div class="col-md-4">
+                <a href="{% url 'library:hall_of_fame_list' %}" class="text-decoration-none d-block h-100">
+                    <div class="h-100"
+                        style="background: #fafafa; border-radius: 20px; padding: 48px 32px; transition: all 0.3s ease;">
+                        <p
+                            style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: #d9a406; font-weight: 700; margin-bottom: 16px;">
+                            Heritage</p>
+                        <h2 style="font-size: 1.5rem; font-weight: 700; color: #1a1a1a; margin-bottom: 12px;">Hall of
+                            Fame</h2>
+                        <p style="color: #6b7280; line-height: 1.7; margin-bottom: 24px;">
+                            Meet the legends and icons who shaped Igala history, culture, and leadership.
+                        </p>
+                        <span style="color: #d9a406; font-weight: 600; font-size: 0.9rem;">
+                            View Legends →
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Games -->
+            <div class="col-md-4">
+                <a href="{% url 'library:games_home' %}" class="text-decoration-none d-block h-100">
+                    <div class="h-100"
+                        style="background: #fafafa; border-radius: 20px; padding: 48px 32px; transition: all 0.3s ease;">
+                        <p
+                            style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: #1a1a1a; font-weight: 700; margin-bottom: 16px;">
+                            Interactive</p>
+                        <h2 style="font-size: 1.5rem; font-weight: 700; color: #1a1a1a; margin-bottom: 12px;">Games</h2>
+                        <p style="color: #6b7280; line-height: 1.7; margin-bottom: 24px;">
+                            Challenge yourself with quizzes and interactive learning experiences.
+                        </p>
+                        <span style="color: #1a1a1a; font-weight: 600; font-size: 0.9rem;">
+                            Play Now →
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Contribute -->
+<section style="padding: 80px 0; border-top: 1px solid #f0f0f0;">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-md-6">
+                <p class="text-uppercase fw-bold mb-2" style="letter-spacing: 3px; font-size: 0.7rem; color: #10b981;">
+                    Contribute</p>
+                <h2 style="font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; color: #1a1a1a;">Share your
+                    knowledge.</h2>
+                <p class="mt-3" style="color: #6b7280; line-height: 1.8;">
+                    Help preserve Igala heritage by submitting books or nominating legends for the Hall of Fame. All
+                    submissions are reviewed by our team.
+                </p>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex flex-column gap-3">
+                    <a href="{% url 'library:submit_book' %}" class="text-decoration-none d-block"
+                        style="background: #fafafa; border-radius: 16px; padding: 24px 28px; transition: all 0.3s ease;">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h4 style="font-size: 1rem; font-weight: 700; color: #1a1a1a; margin-bottom: 4px;">
+                                    Submit a Book</h4>
+                                <p style="font-size: 0.85rem; color: #6b7280; margin: 0;">Share Igala literature with
+                                    the community</p>
+                            </div>
+                            <span style="color: #9ca3af; font-size: 1.2rem;">→</span>
+                        </div>
+                    </a>
+                    <a href="{% url 'library:submit_hall_of_fame' %}" class="text-decoration-none d-block"
+                        style="background: #fafafa; border-radius: 16px; padding: 24px 28px; transition: all 0.3s ease;">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h4 style="font-size: 1rem; font-weight: 700; color: #1a1a1a; margin-bottom: 4px;">
+                                    Nominate a Legend</h4>
+                                <p style="font-size: 0.85rem; color: #6b7280; margin: 0;">Honor Igala icons for the Hall
+                                    of Fame</p>
+                            </div>
+                            <span style="color: #9ca3af; font-size: 1.2rem;">→</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include "footer.html" %}
+
+<style>
+    section div[style*="background: #fafafa"]:hover {
+        background: #f3f4f6 !important;
+        transform: translateY(-2px);
+    }
+</style>
+{% endblock %}

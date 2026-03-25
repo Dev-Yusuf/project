@@ -1,0 +1,199 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Book Detail -->
+<section style="padding: 140px 0 0;">
+    <div class="container">
+        <!-- Breadcrumb -->
+        <div class="mb-4">
+            <p style="font-size: 0.8rem; color: #9ca3af;">
+                <a href="{% url 'library:library_home' %}" class="text-decoration-none" style="color: #9ca3af;">Library</a>
+                <span class="mx-1">/</span>
+                <a href="{% url 'library:books_list' %}" class="text-decoration-none" style="color: #9ca3af;">Books</a>
+                <span class="mx-1">/</span>
+                <span style="color: #6b7280;">{{ book.title }}</span>
+            </p>
+        </div>
+
+        <!-- Hero: Cover + Metadata -->
+        <div class="row g-5 mb-5">
+            <!-- Cover -->
+            <div class="col-md-4 col-lg-3">
+                <div class="book-detail-cover-wrapper">
+                    {% if book.cover_image %}
+                    <img src="{{ book.cover_image.url }}" alt="{{ book.title }}" class="book-detail-cover">
+                    {% else %}
+                    <div class="book-detail-cover-placeholder">
+                        <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: #bbb;">No Cover</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Info -->
+            <div class="col-md-8 col-lg-9 d-flex flex-column justify-content-center">
+                <!-- Tags -->
+                <div class="d-flex gap-2 flex-wrap mb-3">
+                    <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #10b981; background: rgba(16, 185, 129, 0.08); padding: 4px 12px; border-radius: 6px;">
+                        {{ book.get_language_display }}
+                    </span>
+                    {% if book.publication_year %}
+                    <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #6b7280; background: rgba(0,0,0,0.04); padding: 4px 12px; border-radius: 6px;">
+                        {{ book.publication_year }}
+                    </span>
+                    {% endif %}
+                    {% if book.access_type == "open" %}
+                    <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #10b981; background: rgba(16, 185, 129, 0.08); padding: 4px 12px; border-radius: 6px;">
+                        Open Access
+                    </span>
+                    {% else %}
+                    <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #d9a406; background: rgba(255, 193, 7, 0.08); padding: 4px 12px; border-radius: 6px;">
+                        Request Access
+                    </span>
+                    {% endif %}
+                </div>
+
+                <h1 style="font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: #1a1a1a; margin-bottom: 6px;">
+                    {{ book.title }}
+                </h1>
+                <p style="font-size: 1rem; color: #9ca3af; margin-bottom: 28px;">
+                    {{ book.author|default:"Unknown author" }}
+                </p>
+
+                <!-- Action Buttons -->
+                <div class="d-flex gap-3 flex-wrap">
+                    {% if can_download %}
+                    <a href="{{ book.file.url }}" target="_blank"
+                       style="display: inline-block; padding: 12px 28px; background: #1a1a1a; color: white; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: opacity 0.2s;">
+                        Download PDF
+                    </a>
+                    {% elif book.access_type == "open" and book.external_url %}
+                    <a href="{{ book.external_url }}" target="_blank"
+                       style="display: inline-block; padding: 12px 28px; background: #1a1a1a; color: white; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-decoration: none;">
+                        Read Online ↗
+                    </a>
+                    {% elif book.access_type == "request" %}
+                        {% if has_requested %}
+                        <span style="display: inline-block; padding: 12px 28px; background: #f3f4f6; color: #6b7280; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: default;">
+                            Request Sent ✓
+                        </span>
+                        {% elif user.is_authenticated %}
+                        <button type="button" onclick="document.getElementById('request-form').style.display='block'; this.style.display='none';"
+                           style="display: inline-block; padding: 12px 28px; background: #1a1a1a; color: white; border: none; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer;">
+                            Request Access
+                        </button>
+                        {% else %}
+                        <a href="{% url 'login' %}?next={{ request.path }}"
+                           style="display: inline-block; padding: 12px 28px; background: #1a1a1a; color: white; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-decoration: none;">
+                            Log in to Request
+                        </a>
+                        {% endif %}
+                    {% endif %}
+
+                    <a href="{% url 'library:books_list' %}"
+                       style="display: inline-block; padding: 12px 28px; border: 1.5px solid #e5e7eb; color: #6b7280; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-decoration: none;">
+                        ← Back
+                    </a>
+                </div>
+
+                <!-- Inline Request Form (hidden by default) -->
+                {% if book.access_type == "request" and user.is_authenticated and not has_requested %}
+                <div id="request-form" style="display: none; margin-top: 24px; padding: 24px; background: #fafafa; border-radius: 14px; max-width: 480px;">
+                    <form method="post" action="{% url 'library:request_book_access' book.slug %}">
+                        {% csrf_token %}
+                        <p style="font-size: 0.85rem; color: #4b5563; margin-bottom: 16px;">
+                            Your request will be sent directly to the author. They will contact you at the email you provide.
+                        </p>
+                        <div class="mb-3">
+                            <label class="d-block mb-1" style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #9ca3af;">Your Email</label>
+                            <input type="email" name="email" required value="{{ user.email }}" class="form-control border-0 bg-white"
+                                   style="border-radius: 8px; padding: 10px 14px; font-size: 0.9rem;" placeholder="your@email.com">
+                        </div>
+                        <div class="mb-3">
+                            <label class="d-block mb-1" style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #9ca3af;">Message (Optional)</label>
+                            <textarea name="message" rows="2" class="form-control border-0 bg-white"
+                                      style="border-radius: 8px; padding: 10px 14px; font-size: 0.9rem; resize: none;" placeholder="Why you'd like to read this book..."></textarea>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button type="submit"
+                                    style="padding: 10px 24px; background: #1a1a1a; color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer;">
+                                Send Request
+                            </button>
+                            <button type="button" onclick="document.getElementById('request-form').style.display='none'; document.querySelector('[onclick]').style.display='inline-block';"
+                                    style="padding: 10px 24px; background: transparent; color: #6b7280; border: 1.5px solid #e5e7eb; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer;">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Messages -->
+{% if messages %}
+<section style="padding: 0 0 20px;">
+    <div class="container" style="max-width: 720px;">
+        {% for message in messages %}
+        <div style="padding: 14px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 500;
+            {% if message.tags == 'success' %}background: rgba(16, 185, 129, 0.08); color: #059669;
+            {% elif message.tags == 'error' %}background: rgba(239, 68, 68, 0.08); color: #dc2626;
+            {% else %}background: rgba(59, 130, 246, 0.08); color: #2563eb;{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<!-- Abstract / Description -->
+{% if book.description %}
+<section style="padding: 20px 0 80px; border-top: 1px solid #f0f0f0;">
+    <div class="container">
+        <div style="max-width: 720px;">
+            <p class="text-uppercase fw-bold mb-3" style="letter-spacing: 2px; font-size: 0.7rem; color: #9ca3af;">About This Book</p>
+            <div style="color: #4b5563; line-height: 2; font-size: 1rem;">
+                {{ book.description|linebreaksbr }}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% include "footer.html" %}
+
+<style>
+    .book-detail-cover-wrapper {
+        width: 100%;
+        aspect-ratio: 2 / 3;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #f3f4f6;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    .book-detail-cover {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    .book-detail-cover-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(145deg, #f0f0f0, #e5e5e5);
+    }
+
+    @media (max-width: 767.98px) {
+        .book-detail-cover-wrapper {
+            max-width: 220px;
+            margin: 0 auto;
+        }
+    }
+</style>
+{% endblock %}

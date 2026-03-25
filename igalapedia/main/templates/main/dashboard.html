@@ -3,342 +3,149 @@
 
 {% block content %}
 
-<!-- Dashboard Hero Section -->
-<section class="section"
-    style="padding-top: 120px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(255, 193, 7, 0.05) 100%);">
-    <div class="container">
-        <div class="text-center mb-5">
-            <span class="badge rounded-pill px-3 py-2 mb-3"
-                style="background-color: rgba(16, 185, 129, 0.1); color: var(--accent-color); font-weight: 600;">
-                My Dashboard
-            </span>
-            <h1 class="display-5 fw-bold mb-3">Welcome, {{ user.get_full_name|default:user.username }}!</h1>
-            <p class="text-muted lead">Track your contributions and see your impact on the Igalapedia dictionary.</p>
-        </div>
+<!-- Hero -->
+<section style="padding: 160px 0 40px;">
+    <div class="container" style="max-width: 900px;">
+        <p class="text-uppercase fw-bold mb-2" style="letter-spacing: 3px; font-size: 0.75rem; color: #10b981;">Dashboard</p>
+        <h1 style="font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: #1a1a1a; margin-bottom: 8px;">
+            Welcome, {{ user.get_full_name|default:user.username }}.
+        </h1>
+        <p style="font-size: 1rem; color: #6b7280; line-height: 1.7;">
+            Your contributions overview and quick actions.
+        </p>
+    </div>
+</section>
 
-        <!-- Statistics Cards -->
-        <div class="row g-4 mb-5">
-            <div class="col-md-3 col-sm-6">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-body text-center p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-check-circle fa-3x" style="color: var(--accent-color);"></i>
-                        </div>
-                        <h3 class="h2 fw-bold mb-1">{{ stats.approved_words_count }}</h3>
-                        <p class="text-muted mb-0">Approved Words</p>
-                    </div>
+<!-- Stats -->
+<section style="padding: 0 0 48px;">
+    <div class="container" style="max-width: 900px;">
+        <div class="row g-3">
+            <div class="col-6 col-md">
+                <div style="background: #fafafa; border-radius: 14px; padding: 24px 20px; text-align: center;">
+                    <p style="font-size: 2rem; font-weight: 800; color: #10b981; margin-bottom: 4px; line-height: 1;">{{ stats.approved_words_count }}</p>
+                    <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; color: #9ca3af; margin: 0;">Approved Words</p>
                 </div>
             </div>
-
-            <div class="col-md-3 col-sm-6">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-body text-center p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-clock fa-3x" style="color: var(--secondary-color);"></i>
-                        </div>
-                        <h3 class="h2 fw-bold mb-1">{{ stats.pending_words_count }}</h3>
-                        <p class="text-muted mb-0">Pending Review</p>
-                    </div>
+            <div class="col-6 col-md">
+                <div style="background: #fafafa; border-radius: 14px; padding: 24px 20px; text-align: center;">
+                    <p style="font-size: 2rem; font-weight: 800; color: #d9a406; margin-bottom: 4px; line-height: 1;">{{ stats.pending_words_count }}</p>
+                    <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; color: #9ca3af; margin: 0;">Pending</p>
                 </div>
             </div>
-
-            <div class="col-md-3 col-sm-6">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-body text-center p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-times-circle fa-3x" style="color: #ef4444;"></i>
-                        </div>
-                        <h3 class="h2 fw-bold mb-1">{{ stats.rejected_words_count }}</h3>
-                        <p class="text-muted mb-0">Rejected</p>
-                    </div>
+            <div class="col-6 col-md">
+                <div style="background: #fafafa; border-radius: 14px; padding: 24px 20px; text-align: center;">
+                    <p style="font-size: 2rem; font-weight: 800; color: #dc2626; margin-bottom: 4px; line-height: 1;">{{ stats.rejected_words_count }}</p>
+                    <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; color: #9ca3af; margin: 0;">Rejected</p>
                 </div>
             </div>
-
-            <div class="col-md-3 col-sm-6">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-body text-center p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-landmark fa-3x" style="color: var(--accent-color);"></i>
-                        </div>
-                        <h3 class="h2 fw-bold mb-1">{{ stats.approved_histories_count|default:0 }}</h3>
-                        <p class="text-muted mb-0">Approved Histories</p>
-                    </div>
+            <div class="col-6 col-md">
+                <div style="background: #fafafa; border-radius: 14px; padding: 24px 20px; text-align: center;">
+                    <p style="font-size: 2rem; font-weight: 800; color: #10b981; margin-bottom: 4px; line-height: 1;">{{ stats.approved_histories_count|default:0 }}</p>
+                    <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; color: #9ca3af; margin: 0;">Histories</p>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-body text-center p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-chart-bar fa-3x" style="color: var(--primary-color);"></i>
-                        </div>
-                        <h3 class="h2 fw-bold mb-1">{{ stats.total_submissions }}</h3>
-                        <p class="text-muted mb-0">Total Submissions</p>
-                    </div>
+            <div class="col-6 col-md">
+                <div style="background: #fafafa; border-radius: 14px; padding: 24px 20px; text-align: center;">
+                    <p style="font-size: 2rem; font-weight: 800; color: #1a1a1a; margin-bottom: 4px; line-height: 1;">{{ stats.total_submissions }}</p>
+                    <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; color: #9ca3af; margin: 0;">Total</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Recent History Section -->
+<!-- Quick Actions -->
+<section style="padding: 0 0 48px;">
+    <div class="container" style="max-width: 900px;">
+        <p class="text-uppercase fw-bold mb-3" style="letter-spacing: 2px; font-size: 0.7rem; color: #9ca3af;">Quick Actions</p>
+        <div class="d-flex flex-column gap-2">
+            <a href="{% url 'submit_word' %}" class="text-decoration-none d-block dash-action-row">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h4 style="font-size: 0.95rem; font-weight: 700; color: #1a1a1a; margin-bottom: 2px;">Submit New Word</h4>
+                        <p style="font-size: 0.8rem; color: #9ca3af; margin: 0;">Contribute a new Igala word to the dictionary</p>
+                    </div>
+                    <span style="color: #d1d5db; font-size: 1.2rem;">→</span>
+                </div>
+            </a>
+            <a href="{% url 'submit_history' %}" class="text-decoration-none d-block dash-action-row">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h4 style="font-size: 0.95rem; font-weight: 700; color: #1a1a1a; margin-bottom: 2px;">Submit History</h4>
+                        <p style="font-size: 0.8rem; color: #9ca3af; margin: 0;">Share Igala history for review and publishing</p>
+                    </div>
+                    <span style="color: #d1d5db; font-size: 1.2rem;">→</span>
+                </div>
+            </a>
+            <a href="{% url 'my_contributions' %}" class="text-decoration-none d-block dash-action-row">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h4 style="font-size: 0.95rem; font-weight: 700; color: #1a1a1a; margin-bottom: 2px;">My Contributions</h4>
+                        <p style="font-size: 0.8rem; color: #9ca3af; margin: 0;">See all your submitted words and their status</p>
+                    </div>
+                    <span style="color: #d1d5db; font-size: 1.2rem;">→</span>
+                </div>
+            </a>
+            <a href="{% url 'leaderboard' %}" class="text-decoration-none d-block dash-action-row">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h4 style="font-size: 0.95rem; font-weight: 700; color: #1a1a1a; margin-bottom: 2px;">Leaderboard</h4>
+                        <p style="font-size: 0.8rem; color: #9ca3af; margin: 0;">See where you rank among contributors</p>
+                    </div>
+                    <span style="color: #d1d5db; font-size: 1.2rem;">→</span>
+                </div>
+            </a>
+            <a href="{% url 'words' %}" class="text-decoration-none d-block dash-action-row">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h4 style="font-size: 0.95rem; font-weight: 700; color: #1a1a1a; margin-bottom: 2px;">Browse Dictionary</h4>
+                        <p style="font-size: 0.8rem; color: #9ca3af; margin: 0;">Explore the full Igala dictionary</p>
+                    </div>
+                    <span style="color: #d1d5db; font-size: 1.2rem;">→</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Recent History Submissions -->
 {% if recent_approved_histories or recent_rejected_histories %}
-<section class="section">
-    <div class="container">
-        <h2 class="h3 fw-bold mb-4">Recent History Submissions</h2>
-        <div class="row g-4">
-            <div class="col-md-6">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-header bg-success bg-opacity-10 border-0">
-                        <h5 class="mb-0 text-success">
-                            <i class="fas fa-landmark me-2"></i>Approved Histories
-                        </h5>
-                    </div>
-                    <div class="card-body">
-                        {% if recent_approved_histories %}
-                        <ul class="list-group list-group-flush">
-                            {% for item in recent_approved_histories %}
-                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                {% if item.approved_article %}
-                                <a href="{% url 'history_detail' item.approved_article.slug %}" class="fw-medium text-decoration-none">{{ item.title }}</a>
-                                {% else %}
-                                <span class="fw-medium">{{ item.title }}</span>
-                                {% endif %}
-                                <small class="text-muted">{{ item.reviewed_at|date:"M d" }}</small>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        {% if stats.approved_histories_count > 4 %}
-                        <a href="{% url 'history_list' %}" class="btn btn-sm btn-outline-success mt-3">View all</a>
-                        {% endif %}
+<section style="padding: 0 0 48px;">
+    <div class="container" style="max-width: 900px;">
+        <div style="border-top: 1px solid #f0f0f0; padding-top: 40px;">
+            <p class="text-uppercase fw-bold mb-3" style="letter-spacing: 2px; font-size: 0.7rem; color: #9ca3af;">Recent History Submissions</p>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <p style="font-size: 0.75rem; font-weight: 700; color: #10b981; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Approved</p>
+                    {% if recent_approved_histories %}
+                    {% for item in recent_approved_histories %}
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f5f5f5;">
+                        {% if item.approved_article %}
+                        <a href="{% url 'history_detail' item.approved_article.slug %}" class="text-decoration-none" style="font-size: 0.9rem; font-weight: 600; color: #1a1a1a;">{{ item.title }}</a>
                         {% else %}
-                        <p class="text-muted mb-0">No approved histories yet.</p>
+                        <span style="font-size: 0.9rem; font-weight: 600; color: #1a1a1a;">{{ item.title }}</span>
                         {% endif %}
+                        <span style="font-size: 0.75rem; color: #9ca3af;">{{ item.reviewed_at|date:"M d" }}</span>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-header bg-danger bg-opacity-10 border-0">
-                        <h5 class="mb-0 text-danger">
-                            <i class="fas fa-times-circle me-2"></i>Rejected Histories
-                        </h5>
-                    </div>
-                    <div class="card-body">
-                        {% if recent_rejected_histories %}
-                        <ul class="list-group list-group-flush">
-                            {% for item in recent_rejected_histories %}
-                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                <span class="fw-medium">{{ item.title }}</span>
-                                <small class="text-muted">{{ item.reviewed_at|date:"M d" }}</small>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        {% else %}
-                        <p class="text-muted mb-0">No rejected histories.</p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-{% endif %}
-
-<!-- Recent Activity Section -->
-{% if recent_approved or recent_rejected %}
-<section class="section">
-    <div class="container">
-        <h2 class="h3 fw-bold mb-4">Recent Activity</h2>
-        <div class="row g-4">
-            <!-- Recent Approved -->
-            <div class="col-md-6">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-header bg-success bg-opacity-10 border-0">
-                        <h5 class="mb-0 text-success">
-                            <i class="fas fa-check-circle me-2"></i>Recently Approved
-                        </h5>
-                    </div>
-                    <div class="card-body">
-                        {% if recent_approved %}
-                        <ul class="list-group list-group-flush">
-                            {% for item in recent_approved %}
-                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                <span class="fw-medium">{{ item.word }}</span>
-                                <small class="text-muted">{{ item.reviewed_at|date:"M d" }}</small>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        {% if stats.approved_words_count > 4 %}
-                        <a href="{% url 'my_contributions' %}" class="btn btn-sm btn-outline-success mt-3">
-                            View all ({{ stats.approved_words_count }})
-                        </a>
-                        {% endif %}
-                        {% else %}
-                        <p class="text-muted mb-0">No approved words yet.</p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Recent Rejected -->
-            <div class="col-md-6">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-header bg-danger bg-opacity-10 border-0">
-                        <h5 class="mb-0 text-danger">
-                            <i class="fas fa-times-circle me-2"></i>Recently Rejected
-                        </h5>
-                    </div>
-                    <div class="card-body">
-                        {% if recent_rejected %}
-                        <ul class="list-group list-group-flush">
-                            {% for item in recent_rejected %}
-                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                <span class="fw-medium">{{ item.word }}</span>
-                                <small class="text-muted">{{ item.reviewed_at|date:"M d" }}</small>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        {% if stats.rejected_words_count > 4 %}
-                        <a href="{% url 'my_contributions' %}" class="btn btn-sm btn-outline-danger mt-3">
-                            View all ({{ stats.rejected_words_count }})
-                        </a>
-                        {% endif %}
-                        {% else %}
-                        <p class="text-muted mb-0">No rejected words.</p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-{% endif %}
-
-<!-- Quick Actions Section -->
-<section class="section">
-    <div class="container">
-        <h2 class="h3 fw-bold mb-4">Quick Actions</h2>
-        <div class="row g-4 mb-5">
-            <div class="col-md-3 col-sm-6">
-                <a href="{% url 'submit_word' %}" class="card border-0 shadow-sm h-100 text-decoration-none"
-                    style="transition: transform 0.2s;">
-                    <div class="card-body text-center p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-plus-circle fa-3x" style="color: var(--accent-color);"></i>
-                        </div>
-                        <h5 class="fw-bold mb-2">Submit New Word</h5>
-                        <p class="text-muted small mb-0">Contribute a new Igala word to the dictionary</p>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-3 col-sm-6">
-                <a href="{% url 'submit_history' %}" class="card border-0 shadow-sm h-100 text-decoration-none"
-                    style="transition: transform 0.2s;">
-                    <div class="card-body text-center p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-landmark fa-3x" style="color: var(--accent-color);"></i>
-                        </div>
-                        <h5 class="fw-bold mb-2">Submit History</h5>
-                        <p class="text-muted small mb-0">Share Igala history for review and publishing</p>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-3 col-sm-6">
-                <a href="{% url 'my_contributions' %}" class="card border-0 shadow-sm h-100 text-decoration-none"
-                    style="transition: transform 0.2s;">
-                    <div class="card-body text-center p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-list-alt fa-3x" style="color: var(--secondary-color);"></i>
-                        </div>
-                        <h5 class="fw-bold mb-2">My Submissions</h5>
-                        <p class="text-muted small mb-0">See all your submitted words and their status</p>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-3 col-sm-6">
-                <a href="{% url 'leaderboard' %}" class="card border-0 shadow-sm h-100 text-decoration-none"
-                    style="transition: transform 0.2s;">
-                    <div class="card-body text-center p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-trophy fa-3x" style="color: #f59e0b;"></i>
-                        </div>
-                        <h5 class="fw-bold mb-2">Leaderboard</h5>
-                        <p class="text-muted small mb-0">See where you rank among contributors</p>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-3 col-sm-6">
-                <a href="{% url 'words' %}" class="card border-0 shadow-sm h-100 text-decoration-none"
-                    style="transition: transform 0.2s;">
-                    <div class="card-body text-center p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-book-open fa-3x" style="color: var(--primary-color);"></i>
-                        </div>
-                        <h5 class="fw-bold mb-2">Browse Dictionary</h5>
-                        <p class="text-muted small mb-0">Explore the Igala dictionary</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Achievement Section -->
-{% if stats.approved_words_count > 0 %}
-<section class="section bg-light">
-    <div class="container">
-        <h2 class="h3 fw-bold mb-4">Your Achievement</h2>
-        <div class="card border-0 shadow-sm">
-            <div class="card-body p-4">
-                <div class="d-flex align-items-center gap-4">
-                    {% if stats.approved_words_count >= 100 %}
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-crown fa-4x" style="color: #fbbf24;"></i>
-                    </div>
-                    <div>
-                        <h4 class="fw-bold mb-1">Legendary Contributor</h4>
-                        <p class="text-muted mb-0">You've contributed 100+ approved words! You're a pillar of the
-                            Igalapedia community.</p>
-                    </div>
-                    {% elif stats.approved_words_count >= 50 %}
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-trophy fa-4x" style="color: #f59e0b;"></i>
-                    </div>
-                    <div>
-                        <h4 class="fw-bold mb-1">Champion</h4>
-                        <p class="text-muted mb-0">You've contributed 50+ approved words! Keep up the excellent work!
-                        </p>
-                    </div>
-                    {% elif stats.approved_words_count >= 25 %}
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-star fa-4x" style="color: var(--accent-color);"></i>
-                    </div>
-                    <div>
-                        <h4 class="fw-bold mb-1">Expert Contributor</h4>
-                        <p class="text-muted mb-0">You've contributed 25+ approved words! You're making a real impact.
-                        </p>
-                    </div>
-                    {% elif stats.approved_words_count >= 10 %}
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-medal fa-4x" style="color: var(--secondary-color);"></i>
-                    </div>
-                    <div>
-                        <h4 class="fw-bold mb-1">Active Member</h4>
-                        <p class="text-muted mb-0">You've contributed 10+ approved words! You're on your way to
-                            greatness.</p>
-                    </div>
+                    {% endfor %}
+                    {% if stats.approved_histories_count > 4 %}
+                    <a href="{% url 'history_list' %}" class="text-decoration-none d-inline-block mt-3" style="font-size: 0.85rem; font-weight: 600; color: #10b981;">View all →</a>
+                    {% endif %}
                     {% else %}
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-seedling fa-4x" style="color: var(--accent-color);"></i>
+                    <p style="color: #9ca3af; font-size: 0.85rem;">No approved histories yet.</p>
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <p style="font-size: 0.75rem; font-weight: 700; color: #dc2626; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Rejected</p>
+                    {% if recent_rejected_histories %}
+                    {% for item in recent_rejected_histories %}
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f5f5f5;">
+                        <span style="font-size: 0.9rem; font-weight: 600; color: #1a1a1a;">{{ item.title }}</span>
+                        <span style="font-size: 0.75rem; color: #9ca3af;">{{ item.reviewed_at|date:"M d" }}</span>
                     </div>
-                    <div>
-                        <h4 class="fw-bold mb-1">Getting Started</h4>
-                        <p class="text-muted mb-0">Keep contributing to unlock more achievements!</p>
-                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <p style="color: #9ca3af; font-size: 0.85rem;">No rejected histories.</p>
                     {% endif %}
                 </div>
             </div>
@@ -347,43 +154,43 @@
 </section>
 {% endif %}
 
-<!-- Journey Timeline -->
-{% if stats.first_contribution %}
-<section class="section">
-    <div class="container">
-        <h2 class="h3 fw-bold mb-4">Your Journey</h2>
-        <div class="card border-0 shadow-sm">
-            <div class="card-body p-4">
-                <div class="row">
-                    <div class="col-md-6 mb-3 mb-md-0">
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="flex-shrink-0">
-                                <div class="rounded-circle d-flex align-items-center justify-content-center"
-                                    style="width: 50px; height: 50px; background-color: rgba(16, 185, 129, 0.1);">
-                                    <i class="fas fa-flag-checkered" style="color: var(--accent-color);"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <h5 class="fw-bold mb-1">First Contribution</h5>
-                                <p class="text-muted mb-0">{{ stats.first_contribution|date:"F d, Y" }}</p>
-                            </div>
-                        </div>
+<!-- Recent Word Activity -->
+{% if recent_approved or recent_rejected %}
+<section style="padding: 0 0 48px;">
+    <div class="container" style="max-width: 900px;">
+        <div style="border-top: 1px solid #f0f0f0; padding-top: 40px;">
+            <p class="text-uppercase fw-bold mb-3" style="letter-spacing: 2px; font-size: 0.7rem; color: #9ca3af;">Recent Word Activity</p>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <p style="font-size: 0.75rem; font-weight: 700; color: #10b981; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Approved</p>
+                    {% if recent_approved %}
+                    {% for item in recent_approved %}
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f5f5f5;">
+                        <span style="font-size: 0.9rem; font-weight: 600; color: #1a1a1a;">{{ item.word }}</span>
+                        <span style="font-size: 0.75rem; color: #9ca3af;">{{ item.reviewed_at|date:"M d" }}</span>
                     </div>
-                    {% if stats.last_contribution %}
-                    <div class="col-md-6">
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="flex-shrink-0">
-                                <div class="rounded-circle d-flex align-items-center justify-content-center"
-                                    style="width: 50px; height: 50px; background-color: rgba(255, 193, 7, 0.1);">
-                                    <i class="fas fa-calendar-check" style="color: var(--secondary-color);"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <h5 class="fw-bold mb-1">Latest Contribution</h5>
-                                <p class="text-muted mb-0">{{ stats.last_contribution|date:"F d, Y" }}</p>
-                            </div>
-                        </div>
+                    {% endfor %}
+                    {% if stats.approved_words_count > 4 %}
+                    <a href="{% url 'my_contributions' %}" class="text-decoration-none d-inline-block mt-3" style="font-size: 0.85rem; font-weight: 600; color: #10b981;">View all {{ stats.approved_words_count }} →</a>
+                    {% endif %}
+                    {% else %}
+                    <p style="color: #9ca3af; font-size: 0.85rem;">No approved words yet.</p>
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <p style="font-size: 0.75rem; font-weight: 700; color: #dc2626; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Rejected</p>
+                    {% if recent_rejected %}
+                    {% for item in recent_rejected %}
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f5f5f5;">
+                        <span style="font-size: 0.9rem; font-weight: 600; color: #1a1a1a;">{{ item.word }}</span>
+                        <span style="font-size: 0.75rem; color: #9ca3af;">{{ item.reviewed_at|date:"M d" }}</span>
                     </div>
+                    {% endfor %}
+                    {% if stats.rejected_words_count > 4 %}
+                    <a href="{% url 'my_contributions' %}" class="text-decoration-none d-inline-block mt-3" style="font-size: 0.85rem; font-weight: 600; color: #dc2626;">View all {{ stats.rejected_words_count }} →</a>
+                    {% endif %}
+                    {% else %}
+                    <p style="color: #9ca3af; font-size: 0.85rem;">No rejected words.</p>
                     {% endif %}
                 </div>
             </div>
@@ -391,11 +198,83 @@
     </div>
 </section>
 {% endif %}
+
+<!-- Achievement -->
+{% if stats.approved_words_count > 0 %}
+<section style="padding: 0 0 48px;">
+    <div class="container" style="max-width: 900px;">
+        <div style="border-top: 1px solid #f0f0f0; padding-top: 40px;">
+            <p class="text-uppercase fw-bold mb-3" style="letter-spacing: 2px; font-size: 0.7rem; color: #9ca3af;">Achievement</p>
+            <div style="background: #fafafa; border-radius: 16px; padding: 28px;">
+                {% if stats.approved_words_count >= 100 %}
+                <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #d9a406; margin-bottom: 8px;">Legendary</p>
+                <h3 style="font-size: 1.2rem; font-weight: 800; color: #1a1a1a; margin-bottom: 6px;">Legendary Contributor</h3>
+                <p style="font-size: 0.9rem; color: #6b7280; margin: 0; line-height: 1.6;">100+ approved words. You're a pillar of the IgalaHeritage community.</p>
+                {% elif stats.approved_words_count >= 50 %}
+                <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #d9a406; margin-bottom: 8px;">Champion</p>
+                <h3 style="font-size: 1.2rem; font-weight: 800; color: #1a1a1a; margin-bottom: 6px;">Champion</h3>
+                <p style="font-size: 0.9rem; color: #6b7280; margin: 0; line-height: 1.6;">50+ approved words. Keep up the excellent work.</p>
+                {% elif stats.approved_words_count >= 25 %}
+                <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #10b981; margin-bottom: 8px;">Expert</p>
+                <h3 style="font-size: 1.2rem; font-weight: 800; color: #1a1a1a; margin-bottom: 6px;">Expert Contributor</h3>
+                <p style="font-size: 0.9rem; color: #6b7280; margin: 0; line-height: 1.6;">25+ approved words. You're making a real impact.</p>
+                {% elif stats.approved_words_count >= 10 %}
+                <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #10b981; margin-bottom: 8px;">Active</p>
+                <h3 style="font-size: 1.2rem; font-weight: 800; color: #1a1a1a; margin-bottom: 6px;">Active Member</h3>
+                <p style="font-size: 0.9rem; color: #6b7280; margin: 0; line-height: 1.6;">10+ approved words. You're on your way to greatness.</p>
+                {% else %}
+                <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #10b981; margin-bottom: 8px;">Starter</p>
+                <h3 style="font-size: 1.2rem; font-weight: 800; color: #1a1a1a; margin-bottom: 6px;">Getting Started</h3>
+                <p style="font-size: 0.9rem; color: #6b7280; margin: 0; line-height: 1.6;">Keep contributing to unlock more achievements.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Journey -->
+{% if stats.first_contribution %}
+<section style="padding: 0 0 80px;">
+    <div class="container" style="max-width: 900px;">
+        <div style="border-top: 1px solid #f0f0f0; padding-top: 40px;">
+            <p class="text-uppercase fw-bold mb-3" style="letter-spacing: 2px; font-size: 0.7rem; color: #9ca3af;">Your Journey</p>
+            <div class="row g-3">
+                <div class="col-sm-6">
+                    <div style="background: #fafafa; border-radius: 14px; padding: 20px;">
+                        <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #10b981; margin-bottom: 8px;">First Contribution</p>
+                        <p style="font-size: 1rem; font-weight: 700; color: #1a1a1a; margin: 0;">{{ stats.first_contribution|date:"F d, Y" }}</p>
+                    </div>
+                </div>
+                {% if stats.last_contribution %}
+                <div class="col-sm-6">
+                    <div style="background: #fafafa; border-radius: 14px; padding: 20px;">
+                        <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #d9a406; margin-bottom: 8px;">Latest Contribution</p>
+                        <p style="font-size: 1rem; font-weight: 700; color: #1a1a1a; margin: 0;">{{ stats.last_contribution|date:"F d, Y" }}</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% include "footer.html" %}
 
 <style>
-    .card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+    .dash-action-row {
+        background: #fafafa;
+        border-radius: 14px;
+        padding: 18px 22px;
+        transition: all 0.2s ease;
+    }
+    .dash-action-row:hover {
+        background: #f3f4f6;
+        transform: translateY(-1px);
+    }
+    .dash-action-row:hover span:last-child {
+        color: #1a1a1a;
     }
 </style>
 

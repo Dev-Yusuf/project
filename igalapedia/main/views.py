@@ -34,6 +34,12 @@ def mainpage(request):
         history_count = HistoryArticle.objects.count()
     except Exception:
         pass
+    book_count = 0
+    try:
+        from library.models import Book
+        book_count = Book.objects.filter(status='published').count()
+    except Exception:
+        pass
     if contributor_count == 0:
         User = get_user_model()
         contributor_count = User.objects.count()
@@ -43,6 +49,7 @@ def mainpage(request):
         'audio_count': audio_count,
         'contributor_count': contributor_count,
         'history_count': history_count,
+        'book_count': book_count,
         'community_stats': get_first_instance(Community),
         'pioneers': pioneers,
         'recent_words': recent_words,

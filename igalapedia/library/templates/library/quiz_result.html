@@ -1,0 +1,99 @@
+{% extends "main.html" %}
+{% load static %}
+{% load library_extras %}
+
+{% block content %}
+<!-- Results Hero -->
+<section style="padding: 160px 0 40px;">
+    <div class="container" style="max-width: 640px;">
+        <div class="mb-4">
+            <p style="font-size: 0.8rem; color: #9ca3af;">
+                <a href="{% url 'library:games_home' %}" class="text-decoration-none" style="color: #9ca3af;">Games</a>
+                <span class="mx-1">/</span>
+                <a href="{% url 'library:quiz_detail' quiz.slug %}" class="text-decoration-none" style="color: #9ca3af;">{{ quiz.title }}</a>
+                <span class="mx-1">/</span>
+                <span style="color: #6b7280;">Results</span>
+            </p>
+        </div>
+
+        <h1 style="font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: #1a1a1a; margin-bottom: 16px;">
+            Results
+        </h1>
+
+        <!-- Score Card -->
+        <div style="background: #fafafa; border-radius: 16px; padding: 28px; margin-bottom: 24px; text-align: center;">
+            <p style="font-size: 3rem; font-weight: 800; color: #1a1a1a; margin-bottom: 4px; line-height: 1;">
+                {{ attempt.score }}<span style="font-size: 1.2rem; color: #9ca3af; font-weight: 600;">/{{ attempt.total_questions }}</span>
+            </p>
+            <p style="font-size: 0.85rem; color: #6b7280; margin: 0;">
+                {% widthratio attempt.score attempt.total_questions 100 %}% correct
+            </p>
+        </div>
+
+        <div class="d-flex gap-3 flex-wrap mb-5">
+            <a href="{% url 'library:quiz_play' quiz.slug %}"
+               style="display: inline-block; padding: 12px 28px; background: #1a1a1a; color: white; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-decoration: none;">
+                Play Again
+            </a>
+            <a href="{% url 'library:games_home' %}"
+               style="display: inline-block; padding: 12px 28px; border: 1.5px solid #e5e7eb; color: #6b7280; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-decoration: none;">
+                ← Back to Games
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Answer Review -->
+<section style="padding: 0 0 80px; border-top: 1px solid #f0f0f0;">
+    <div class="container" style="max-width: 640px; padding-top: 40px;">
+        <p class="text-uppercase fw-bold mb-4" style="letter-spacing: 2px; font-size: 0.7rem; color: #9ca3af;">Answer Review</p>
+
+        {% for question in questions %}
+        {% with answer=answer_map|dict_get:question.id %}
+        <div style="background: #fafafa; border-radius: 16px; padding: 24px; margin-bottom: 12px;">
+            <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #9ca3af; margin-bottom: 8px;">
+                Question {{ forloop.counter }}
+            </p>
+            <h3 style="font-size: 1rem; font-weight: 700; color: #1a1a1a; margin-bottom: 16px; line-height: 1.5;">
+                {{ question.question_text }}
+            </h3>
+
+            <div class="d-flex flex-column gap-2">
+                {% for choice in question.choices.all %}
+                <div style="padding: 12px 16px; border-radius: 10px; font-size: 0.9rem;
+                    {% if answer and choice.id == answer.selected_choice_id %}
+                        {% if answer.is_correct %}
+                            background: rgba(16, 185, 129, 0.08); border: 1.5px solid rgba(16, 185, 129, 0.3); color: #059669;
+                        {% else %}
+                            background: rgba(220, 38, 38, 0.06); border: 1.5px solid rgba(220, 38, 38, 0.2); color: #dc2626;
+                        {% endif %}
+                    {% elif choice.is_correct %}
+                        background: rgba(16, 185, 129, 0.06); border: 1.5px solid rgba(16, 185, 129, 0.15); color: #059669;
+                    {% else %}
+                        background: white; border: 1.5px solid transparent; color: #6b7280;
+                    {% endif %}
+                    ">
+                    {{ choice.choice_text }}
+                    {% if answer and choice.id == answer.selected_choice_id %}
+                        <span style="font-size: 0.75rem; font-weight: 600; opacity: 0.8;"> — Your answer</span>
+                    {% endif %}
+                    {% if choice.is_correct and answer and not answer.is_correct %}
+                        <span style="font-size: 0.75rem; font-weight: 600; opacity: 0.8;"> — Correct answer</span>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+
+            {% if question.explanation %}
+            <div style="margin-top: 12px; padding: 12px 16px; background: rgba(59, 130, 246, 0.05); border-radius: 10px;">
+                <p style="font-size: 0.8rem; color: #4b5563; margin: 0; line-height: 1.6;">{{ question.explanation }}</p>
+            </div>
+            {% endif %}
+        </div>
+        {% endwith %}
+        {% endfor %}
+    </div>
+</section>
+
+{% include "footer.html" %}
+{% endblock %}

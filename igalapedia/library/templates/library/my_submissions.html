@@ -1,0 +1,154 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Hero -->
+<section style="padding: 160px 0 40px;">
+    <div class="container" style="max-width: 800px;">
+        <div class="mb-4">
+            <p style="font-size: 0.8rem; color: #9ca3af;">
+                <a href="{% url 'library:library_home' %}" class="text-decoration-none" style="color: #9ca3af;">Library</a>
+                <span class="mx-1">/</span>
+                <span style="color: #6b7280;">My Submissions</span>
+            </p>
+        </div>
+        <h1 style="font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: #1a1a1a; margin-bottom: 8px;">
+            My Submissions
+        </h1>
+        <p style="font-size: 1rem; color: #6b7280; line-height: 1.7;">
+            Track the status of your book and Hall of Fame submissions.
+        </p>
+    </div>
+</section>
+
+<!-- Books Section -->
+<section style="padding: 0 0 48px;">
+    <div class="container" style="max-width: 800px;">
+        <p class="text-uppercase fw-bold mb-3" style="letter-spacing: 2px; font-size: 0.7rem; color: #10b981;">Books</p>
+
+        <div class="row g-3 mb-4">
+            <div class="col-4">
+                <div style="background: #fafafa; border-radius: 14px; padding: 20px; text-center;">
+                    <p style="font-size: 1.5rem; font-weight: 800; color: #d9a406; margin-bottom: 4px;">{{ pending_books|length }}</p>
+                    <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; color: #9ca3af; margin: 0;">Pending</p>
+                </div>
+            </div>
+            <div class="col-4">
+                <div style="background: #fafafa; border-radius: 14px; padding: 20px; text-center;">
+                    <p style="font-size: 1.5rem; font-weight: 800; color: #10b981; margin-bottom: 4px;">{{ approved_books|length }}</p>
+                    <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; color: #9ca3af; margin: 0;">Approved</p>
+                </div>
+            </div>
+            <div class="col-4">
+                <div style="background: #fafafa; border-radius: 14px; padding: 20px; text-center;">
+                    <p style="font-size: 1.5rem; font-weight: 800; color: #dc2626; margin-bottom: 4px;">{{ rejected_books|length }}</p>
+                    <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; color: #9ca3af; margin: 0;">Rejected</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Book submissions list -->
+        {% for book in pending_books %}
+        <div style="background: #fafafa; border-radius: 12px; padding: 16px 20px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <p style="font-weight: 600; color: #1a1a1a; margin-bottom: 2px; font-size: 0.9rem;">{{ book.title }}</p>
+                <p style="font-size: 0.75rem; color: #9ca3af; margin: 0;">{{ book.submitted_at|date:"M d, Y" }}</p>
+            </div>
+            <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: #d9a406; background: rgba(255, 193, 7, 0.08); padding: 4px 10px; border-radius: 6px;">Pending</span>
+        </div>
+        {% endfor %}
+        {% for book in approved_books %}
+        <div style="background: #fafafa; border-radius: 12px; padding: 16px 20px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <p style="font-weight: 600; color: #1a1a1a; margin-bottom: 2px; font-size: 0.9rem;">{{ book.title }}</p>
+                <p style="font-size: 0.75rem; color: #9ca3af; margin: 0;">{{ book.reviewed_at|date:"M d, Y" }}</p>
+            </div>
+            <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: #10b981; background: rgba(16, 185, 129, 0.08); padding: 4px 10px; border-radius: 6px;">Approved</span>
+        </div>
+        {% endfor %}
+        {% for book in rejected_books %}
+        <div style="background: #fafafa; border-radius: 12px; padding: 16px 20px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <p style="font-weight: 600; color: #1a1a1a; margin-bottom: 2px; font-size: 0.9rem;">{{ book.title }}</p>
+                <p style="font-size: 0.75rem; color: #9ca3af; margin: 0;">{{ book.reviewed_at|date:"M d, Y" }}</p>
+            </div>
+            <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: #dc2626; background: rgba(220, 38, 38, 0.08); padding: 4px 10px; border-radius: 6px;">Rejected</span>
+        </div>
+        {% endfor %}
+
+        {% if not pending_books and not approved_books and not rejected_books %}
+        <div style="text-center; padding: 40px 0;">
+            <p style="color: #9ca3af; font-size: 0.9rem;">No book submissions yet.</p>
+            <a href="{% url 'library:submit_book' %}" style="color: #10b981; font-weight: 600; font-size: 0.9rem; text-decoration: none;">Submit a Book →</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Hall of Fame Section -->
+<section style="padding: 0 0 80px;">
+    <div class="container" style="max-width: 800px;">
+        <div style="border-top: 1px solid #f0f0f0; padding-top: 40px;">
+            <p class="text-uppercase fw-bold mb-3" style="letter-spacing: 2px; font-size: 0.7rem; color: #d9a406;">Hall of Fame</p>
+
+            <div class="row g-3 mb-4">
+                <div class="col-4">
+                    <div style="background: #fafafa; border-radius: 14px; padding: 20px; text-center;">
+                        <p style="font-size: 1.5rem; font-weight: 800; color: #d9a406; margin-bottom: 4px;">{{ pending_profiles|length }}</p>
+                        <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; color: #9ca3af; margin: 0;">Pending</p>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div style="background: #fafafa; border-radius: 14px; padding: 20px; text-center;">
+                        <p style="font-size: 1.5rem; font-weight: 800; color: #10b981; margin-bottom: 4px;">{{ approved_profiles|length }}</p>
+                        <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; color: #9ca3af; margin: 0;">Approved</p>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div style="background: #fafafa; border-radius: 14px; padding: 20px; text-center;">
+                        <p style="font-size: 1.5rem; font-weight: 800; color: #dc2626; margin-bottom: 4px;">{{ rejected_profiles|length }}</p>
+                        <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; color: #9ca3af; margin: 0;">Rejected</p>
+                    </div>
+                </div>
+            </div>
+
+            {% for profile in pending_profiles %}
+            <div style="background: #fafafa; border-radius: 12px; padding: 16px 20px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <p style="font-weight: 600; color: #1a1a1a; margin-bottom: 2px; font-size: 0.9rem;">{{ profile.name }}</p>
+                    <p style="font-size: 0.75rem; color: #9ca3af; margin: 0;">{{ profile.submitted_at|date:"M d, Y" }}</p>
+                </div>
+                <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: #d9a406; background: rgba(255, 193, 7, 0.08); padding: 4px 10px; border-radius: 6px;">Pending</span>
+            </div>
+            {% endfor %}
+            {% for profile in approved_profiles %}
+            <div style="background: #fafafa; border-radius: 12px; padding: 16px 20px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <p style="font-weight: 600; color: #1a1a1a; margin-bottom: 2px; font-size: 0.9rem;">{{ profile.name }}</p>
+                    <p style="font-size: 0.75rem; color: #9ca3af; margin: 0;">{{ profile.reviewed_at|date:"M d, Y" }}</p>
+                </div>
+                <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: #10b981; background: rgba(16, 185, 129, 0.08); padding: 4px 10px; border-radius: 6px;">Approved</span>
+            </div>
+            {% endfor %}
+            {% for profile in rejected_profiles %}
+            <div style="background: #fafafa; border-radius: 12px; padding: 16px 20px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <p style="font-weight: 600; color: #1a1a1a; margin-bottom: 2px; font-size: 0.9rem;">{{ profile.name }}</p>
+                    <p style="font-size: 0.75rem; color: #9ca3af; margin: 0;">{{ profile.reviewed_at|date:"M d, Y" }}</p>
+                </div>
+                <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: #dc2626; background: rgba(220, 38, 38, 0.08); padding: 4px 10px; border-radius: 6px;">Rejected</span>
+            </div>
+            {% endfor %}
+
+            {% if not pending_profiles and not approved_profiles and not rejected_profiles %}
+            <div style="text-center; padding: 40px 0;">
+                <p style="color: #9ca3af; font-size: 0.9rem;">No Hall of Fame nominations yet.</p>
+                <a href="{% url 'library:submit_hall_of_fame' %}" style="color: #d9a406; font-weight: 600; font-size: 0.9rem; text-decoration: none;">Nominate a Legend →</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% include "footer.html" %}
+{% endblock %}

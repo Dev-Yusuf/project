@@ -1,0 +1,78 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Profile Detail -->
+<section style="padding: 140px 0 80px;">
+    <div class="container">
+        <!-- Breadcrumb -->
+        <div class="mb-5">
+            <p style="font-size: 0.8rem; color: #9ca3af;">
+                <a href="{% url 'library:library_home' %}" class="text-decoration-none" style="color: #9ca3af;">Library</a>
+                <span class="mx-1">/</span>
+                <a href="{% url 'library:hall_of_fame_list' %}" class="text-decoration-none" style="color: #9ca3af;">Hall of Fame</a>
+                <span class="mx-1">/</span>
+                <span style="color: #6b7280;">{{ profile.name }}</span>
+            </p>
+        </div>
+
+        <div class="row g-5">
+            <!-- Portrait -->
+            <div class="col-md-4 text-center text-md-start">
+                {% if profile.profile_image %}
+                <div style="width: 220px; height: 220px; border-radius: 50%; overflow: hidden; margin: 0 auto;">
+                    <img src="{{ profile.profile_image.url }}" alt="{{ profile.name }}"
+                         style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                {% else %}
+                <div class="d-flex align-items-center justify-content-center mx-auto"
+                     style="width: 220px; height: 220px; border-radius: 50%; background: #f3f4f6;">
+                    <span style="font-size: 5rem; font-weight: 700; color: #d1d5db;">{{ profile.name|first }}</span>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Info -->
+            <div class="col-md-8">
+                <h1 style="font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: #1a1a1a; margin-bottom: 4px;">
+                    {{ profile.name }}
+                </h1>
+                <p style="font-size: 1.05rem; color: #d9a406; font-weight: 600; margin-bottom: 8px;">
+                    {{ profile.title_role|default:"Igala Legend" }}
+                </p>
+
+                {% if profile.era %}
+                <p style="font-size: 0.9rem; color: #9ca3af; margin-bottom: 32px;">
+                    {{ profile.era }}
+                </p>
+                {% endif %}
+
+                <div style="color: #4b5563; line-height: 1.9; font-size: 1rem; margin-bottom: 32px;">
+                    {{ profile.bio|safe }}
+                </div>
+
+                {% if profile.achievements %}
+                <div style="margin-bottom: 32px; padding: 24px 28px; background: #fafafa; border-radius: 16px;">
+                    <p class="text-uppercase fw-bold mb-3" style="letter-spacing: 2px; font-size: 0.7rem; color: #d9a406;">Achievements</p>
+                    <div style="color: #4b5563; line-height: 1.9;">{{ profile.achievements|linebreaksbr }}</div>
+                </div>
+                {% endif %}
+
+                {% if profile.external_links %}
+                <div style="margin-bottom: 32px;">
+                    <p class="text-uppercase fw-bold mb-2" style="letter-spacing: 2px; font-size: 0.7rem; color: #9ca3af;">Links</p>
+                    <p style="color: #4b5563;">{{ profile.external_links }}</p>
+                </div>
+                {% endif %}
+
+                <a href="{% url 'library:hall_of_fame_list' %}"
+                   style="display: inline-block; padding: 12px 28px; border: 1.5px solid #e5e7eb; color: #6b7280; border-radius: 12px; font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: all 0.2s;">
+                    ← Back to Hall of Fame
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include "footer.html" %}
+{% endblock %}

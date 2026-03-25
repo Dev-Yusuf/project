@@ -44,8 +44,7 @@
             </div>
             <div class="col-auto px-4 border-end border-light-subtle text-muted opacity-25">|</div>
             <div class="col-auto text-center px-4">
-                <div class="h2 fw-bold mb-0" style="color: var(--text-main);">{{ audio_count|default:"0" }}
-                </div>
+                <div class="h2 fw-bold mb-0" style="color: var(--text-main);">{{ audio_count|default:"0" }}</div>
                 <div class="small text-muted text-uppercase fw-bold" style="letter-spacing: 1px;">Audio</div>
             </div>
             <div class="col-auto px-4 border-end border-light-subtle text-muted opacity-25">|</div>
@@ -57,6 +56,11 @@
             <div class="col-auto text-center px-4">
                 <div class="h2 fw-bold mb-0" style="color: var(--text-main);">{{ history_count|default:"0" }}</div>
                 <div class="small text-muted text-uppercase fw-bold" style="letter-spacing: 1px;">History</div>
+            </div>
+            <div class="col-auto px-4 border-end border-light-subtle text-muted opacity-25">|</div>
+            <div class="col-auto text-center px-4">
+                <div class="h2 fw-bold mb-0" style="color: var(--text-main);">{{ book_count|default:"0" }}</div>
+                <div class="small text-muted text-uppercase fw-bold" style="letter-spacing: 1px;">Books</div>
             </div>
             <div class="col-auto px-4 border-end border-light-subtle d-none d-md-block"></div>
         </div>
@@ -181,6 +185,25 @@
                     <a href="{% url 'feed' %}" class="fw-bold text-decoration-none mt-auto"
                         style="color: var(--accent-color);">
                         Browse Feed <i class="fas fa-arrow-right ms-2 small"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 7: Library -->
+            <div class="col-md-3 col-sm-6">
+                <div class="card h-100 p-4 border-0 shadow-hover"
+                    style="background: linear-gradient(145deg, #ffffff, #f8fafc);">
+                    <div class="mb-4">
+                        <span class="d-inline-flex align-items-center justify-content-center rounded-circle"
+                            style="width: 50px; height: 50px; background-color: rgba(16, 185, 129, 0.1); color: var(--accent-color);">
+                            <i class="fas fa-book-open fa-lg"></i>
+                        </span>
+                    </div>
+                    <h3 class="h4 fw-bold mb-3">Library</h3>
+                    <p class="text-muted mb-4">Access Igala books, legends, and educational games in one place.</p>
+                    <a href="{% url 'library:library_home' %}" class="fw-bold text-decoration-none mt-auto"
+                        style="color: var(--accent-color);">
+                        Explore Library <i class="fas fa-arrow-right ms-2 small"></i>
                     </a>
                 </div>
             </div>

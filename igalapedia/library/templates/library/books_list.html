@@ -1,0 +1,170 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Hero -->
+<section style="padding: 160px 0 60px;">
+    <div class="container">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-end gap-3 mb-5">
+            <div>
+                <p class="text-uppercase fw-bold mb-2" style="letter-spacing: 3px; font-size: 0.75rem; color: #10b981;">Library</p>
+                <h1 style="font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: #1a1a1a;">
+                    Books
+                </h1>
+            </div>
+            <a href="{% url 'library:submit_book' %}"
+               style="display: inline-block; padding: 10px 24px; background: #1a1a1a; color: white; border-radius: 10px; font-weight: 600; font-size: 0.85rem; text-decoration: none;">
+                Submit a Book
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Filters -->
+<section style="padding: 0 0 40px;">
+    <div class="container">
+        <form method="get" class="d-flex flex-wrap gap-3 align-items-end" style="padding: 20px 24px; background: #fafafa; border-radius: 14px;">
+            <div class="flex-grow-1" style="min-width: 160px;">
+                <label class="d-block mb-1" style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #9ca3af;">Author</label>
+                <input class="form-control border-0 bg-white" type="text" name="author" placeholder="Search by author" value="{{ filters.author }}"
+                       style="border-radius: 8px; padding: 9px 14px; font-size: 0.85rem;">
+            </div>
+            <div style="min-width: 130px;">
+                <label class="d-block mb-1" style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #9ca3af;">Language</label>
+                <select class="form-select border-0 bg-white" name="language" style="border-radius: 8px; padding: 9px 14px; font-size: 0.85rem;">
+                    <option value="">All</option>
+                    <option value="ig" {% if filters.language == "ig" %}selected{% endif %}>Igala</option>
+                    <option value="en" {% if filters.language == "en" %}selected{% endif %}>English</option>
+                    <option value="bi" {% if filters.language == "bi" %}selected{% endif %}>Bilingual</option>
+                    <option value="ot" {% if filters.language == "ot" %}selected{% endif %}>Other</option>
+                </select>
+            </div>
+            <div style="min-width: 100px;">
+                <label class="d-block mb-1" style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #9ca3af;">Year</label>
+                <select class="form-select border-0 bg-white" name="year" style="border-radius: 8px; padding: 9px 14px; font-size: 0.85rem;">
+                    <option value="">Any</option>
+                    {% for yr in years %}
+                    <option value="{{ yr }}" {% if filters.year == yr|stringformat:"s" %}selected{% endif %}>{{ yr }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <button class="btn px-4 fw-bold" type="submit"
+                        style="background: #1a1a1a; color: white; border-radius: 8px; padding: 9px 20px; font-size: 0.85rem;">
+                    Filter
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Book Grid — Bookstore Style -->
+<section style="padding: 0 0 80px;">
+    <div class="container">
+        <div class="row g-4">
+            {% for book in books %}
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                <a href="{% url 'library:book_detail' book.slug %}" class="text-decoration-none d-block book-card">
+                    <!-- Cover -->
+                    <div class="book-cover-wrapper">
+                        {% if book.cover_image %}
+                        <img src="{{ book.cover_image.url }}" alt="{{ book.title }}" class="book-cover">
+                        {% else %}
+                        <div class="book-cover-placeholder">
+                            <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: #bbb;">No Cover</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <!-- Info -->
+                    <div style="padding: 12px 4px 0;">
+                        <h3 class="book-title">{{ book.title }}</h3>
+                        <p class="book-author">{{ book.author|default:"Unknown" }}</p>
+                    </div>
+                </a>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center" style="padding: 80px 0;">
+                <h3 style="font-size: 1.2rem; font-weight: 700; color: #1a1a1a; margin-bottom: 8px;">No books found</h3>
+                <p style="color: #6b7280; font-size: 0.9rem;">Try adjusting the filters or check back later.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if books.has_other_pages %}
+        <div class="d-flex justify-content-center gap-2 mt-5">
+            {% if books.has_previous %}
+            <a href="?page={{ books.previous_page_number }}" class="text-decoration-none"
+               style="padding: 8px 18px; border-radius: 8px; background: #fafafa; color: #1a1a1a; font-weight: 600; font-size: 0.85rem;">
+                ← Previous
+            </a>
+            {% endif %}
+            <span style="padding: 8px 18px; border-radius: 8px; background: #1a1a1a; color: white; font-weight: 600; font-size: 0.85rem;">
+                {{ books.number }}
+            </span>
+            {% if books.has_next %}
+            <a href="?page={{ books.next_page_number }}" class="text-decoration-none"
+               style="padding: 8px 18px; border-radius: 8px; background: #fafafa; color: #1a1a1a; font-weight: 600; font-size: 0.85rem;">
+                Next →
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% include "footer.html" %}
+
+<style>
+    .book-card {
+        display: block;
+        transition: transform 0.25s ease;
+    }
+    .book-card:hover {
+        transform: translateY(-4px);
+    }
+    .book-cover-wrapper {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 2 / 3;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #f3f4f6;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        transition: box-shadow 0.25s ease;
+    }
+    .book-card:hover .book-cover-wrapper {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+    .book-cover {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    .book-cover-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(145deg, #f0f0f0, #e5e5e5);
+    }
+    .book-title {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 2px;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .book-author {
+        font-size: 0.75rem;
+        color: #9ca3af;
+        margin: 0;
+    }
+</style>
+{% endblock %}

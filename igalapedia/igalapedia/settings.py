@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'dictionary',
     'history',
     'blog',
+    'library',
     'ckeditor',
     'storages',
     'django.contrib.admin',
