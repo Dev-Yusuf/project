@@ -12,31 +12,31 @@
                 <span class="mx-1">/</span>
                 <a href="{% url 'library:quiz_detail' quiz.slug %}" class="text-decoration-none" style="color: #9ca3af;">{{ quiz.title }}</a>
                 <span class="mx-1">/</span>
-                <span style="color: #6b7280;">Results</span>
+                <span style="color: #65736a;">Results</span>
             </p>
         </div>
 
-        <h1 style="font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: #1a1a1a; margin-bottom: 16px;">
+        <h1 style="font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 500; line-height: 1.1; letter-spacing: -0.02em; color: #183d31; margin-bottom: 16px;">
             Results
         </h1>
 
         <!-- Score Card -->
-        <div style="background: #fafafa; border-radius: 16px; padding: 28px; margin-bottom: 24px; text-align: center;">
-            <p style="font-size: 3rem; font-weight: 800; color: #1a1a1a; margin-bottom: 4px; line-height: 1;">
+        <div style="background: #f3f6ed; border-radius: 8px; padding: 28px; margin-bottom: 24px; text-align: center;">
+            <p style="font-size: 3rem; font-weight: 500; color: #183d31; margin-bottom: 4px; line-height: 1;">
                 {{ attempt.score }}<span style="font-size: 1.2rem; color: #9ca3af; font-weight: 600;">/{{ attempt.total_questions }}</span>
             </p>
-            <p style="font-size: 0.85rem; color: #6b7280; margin: 0;">
+            <p style="font-size: 0.85rem; color: #65736a; margin: 0;">
                 {% widthratio attempt.score attempt.total_questions 100 %}% correct
             </p>
         </div>
 
         <div class="d-flex gap-3 flex-wrap mb-5">
             <a href="{% url 'library:quiz_play' quiz.slug %}"
-               style="display: inline-block; padding: 12px 28px; background: #1a1a1a; color: white; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-decoration: none;">
+               style="display: inline-block; padding: 12px 28px; background: #183d31; color: white; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-decoration: none;">
                 Play Again
             </a>
             <a href="{% url 'library:games_home' %}"
-               style="display: inline-block; padding: 12px 28px; border: 1.5px solid #e5e7eb; color: #6b7280; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-decoration: none;">
+               style="display: inline-block; padding: 12px 28px; border: 1.5px solid #e5e7eb; color: #65736a; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-decoration: none;">
                 ← Back to Games
             </a>
         </div>
@@ -50,11 +50,11 @@
 
         {% for question in questions %}
         {% with answer=answer_map|dict_get:question.id %}
-        <div style="background: #fafafa; border-radius: 16px; padding: 24px; margin-bottom: 12px;">
+        <div style="background: #f3f6ed; border-radius: 8px; padding: 24px; margin-bottom: 12px;">
             <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #9ca3af; margin-bottom: 8px;">
                 Question {{ forloop.counter }}
             </p>
-            <h3 style="font-size: 1rem; font-weight: 700; color: #1a1a1a; margin-bottom: 16px; line-height: 1.5;">
+            <h3 style="font-size: 1rem; font-weight: 700; color: #183d31; margin-bottom: 16px; line-height: 1.5;">
                 {{ question.question_text }}
             </h3>
 
@@ -70,7 +70,7 @@
                     {% elif choice.is_correct %}
                         background: rgba(16, 185, 129, 0.06); border: 1.5px solid rgba(16, 185, 129, 0.15); color: #059669;
                     {% else %}
-                        background: white; border: 1.5px solid transparent; color: #6b7280;
+                        background: white; border: 1.5px solid transparent; color: #65736a;
                     {% endif %}
                     ">
                     {{ choice.choice_text }}

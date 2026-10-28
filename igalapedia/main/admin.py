@@ -3,7 +3,6 @@ from . models import Community, Pioneer
 
 # Register your models here.
 admin.site.register(Community)
-
 @admin.register(Pioneer)
 class PioneerAdmin(admin.ModelAdmin):
     list_display = ('pioneer_name', 'position', 'pioneer_social_link', 'has_image')

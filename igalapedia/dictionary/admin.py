@@ -1,3 +1,6 @@
+import logging
+from functools import partial
+from django.db import transaction
 from django.contrib import admin
 from django.contrib import messages
 from django.utils.html import format_html
@@ -9,6 +12,8 @@ from .models import (
     PendingWord, PendingMeaning, PendingExample, PendingExampleContribution, ContributionStats
 )
 
+
+logger = logging.getLogger(__name__)
 
 # ========================================
 # ORIGINAL MODELS ADMIN
@@ -154,7 +159,7 @@ class PendingWordAdmin(admin.ModelAdmin):
                         pending_word.submitted_by, pending_word, request
                     )
                 except Exception:
-                    pass
+                    logger.exception('Could not schedule dictionary notification')
                 rejected_count += 1
 
             self.message_user(
@@ -231,37 +236,16 @@ class PendingWordAdmin(admin.ModelAdmin):
         for pending_word in queryset.filter(status='PENDING'):
             word = pending_word.approve(request.user)
             if word:
-                # Create meanings and examples
-                for pending_meaning in pending_word.pending_meanings.all():
-                    # Create official meaning
-                    meaning = Meaning.objects.create(
-                        word=word,
-                        meaning=pending_meaning.meaning,
-                        part_of_speech=pending_meaning.part_of_speech
-                    )
-                    
-                    # Create examples if any
-                    for pending_example in pending_meaning.pending_examples.all():
-                        example = Example.objects.create(
-                            igala_example=pending_example.igala_example,
-                            english_meaning=pending_example.english_meaning
-                        )
-                        meaning.examples.add(example)
-                
-                # Update contributor stats
-                stats, created = ContributionStats.objects.get_or_create(
-                    user=pending_word.submitted_by
-                )
-                stats.update_stats()
-                
                 # Send approval email to the contributor
                 try:
                     from dictionary.emails import send_word_approved_email
-                    send_word_approved_email(
-                        pending_word.submitted_by, word, pending_word, request
+                    transaction.on_commit(
+                        partial(send_word_approved_email, pending_word.submitted_by,
+                                word, pending_word, request),
+                        robust=True,
                     )
                 except Exception:
-                    pass
+                    logger.exception('Could not schedule dictionary notification')
                 
                 approved_count += 1
             else:
@@ -269,19 +253,16 @@ class PendingWordAdmin(admin.ModelAdmin):
                 pending_word.refresh_from_db()
                 if pending_word.status == 'REJECTED' and 'Duplicate' in (pending_word.review_notes or ''):
                     duplicate_count += 1
-                    # Update contributor stats
-                    stats, created = ContributionStats.objects.get_or_create(
-                        user=pending_word.submitted_by
-                    )
-                    stats.update_stats()
                     # Send rejection email for duplicate
                     try:
                         from dictionary.emails import send_word_rejected_email
-                        send_word_rejected_email(
-                            pending_word.submitted_by, pending_word, request
+                        transaction.on_commit(
+                            partial(send_word_rejected_email, pending_word.submitted_by,
+                                    pending_word, request),
+                            robust=True,
                         )
                     except Exception:
-                        pass
+                        logger.exception('Could not schedule dictionary notification')
         
         # Build result message
         msg_parts = []
@@ -435,7 +416,7 @@ class PendingExampleContributionAdmin(admin.ModelAdmin):
                         pending_example.submitted_by, pending_example, request
                     )
                 except Exception:
-                    pass
+                    logger.exception('Could not schedule dictionary notification')
                 rejected_count += 1
 
             self.message_user(
@@ -517,7 +498,7 @@ class PendingExampleContributionAdmin(admin.ModelAdmin):
                         request
                     )
                 except Exception:
-                    pass
+                    logger.exception('Could not schedule dictionary notification')
                 approved_count += 1
 
         self.message_user(request, f'{approved_count} example contribution(s) approved successfully.')

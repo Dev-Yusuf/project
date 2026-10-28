@@ -1,4 +1,5 @@
 {% extends 'main.html' %}
+{% load content_safety %}
 {% load static %}
 
 {% block content %}
@@ -75,14 +76,14 @@
           <div class="card-body p-4 p-md-5">
             <div id="content-english" class="history-content-panel">
               {% if article.content_english %}
-              <div class="prose">{{ article.content_english|safe }}</div>
+              <div class="prose">{{ article.content_english|sanitized_html }}</div>
               {% else %}
               <p class="text-muted fst-italic">No English content available. Switch to Igala.</p>
               {% endif %}
             </div>
             <div id="content-igala" class="history-content-panel history-content-panel-hidden">
               {% if article.content_igala %}
-              <div class="prose">{{ article.content_igala|safe }}</div>
+              <div class="prose">{{ article.content_igala|sanitized_html }}</div>
               {% else %}
               <p class="text-muted fst-italic">No Igala content available. Switch to English.</p>
               {% endif %}
@@ -114,6 +115,7 @@
   </div>
 </section>
 
+{% include 'footer.html' %}
 {% endblock content %}
 
 {% block extra_css %}

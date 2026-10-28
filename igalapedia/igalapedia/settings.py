@@ -12,8 +12,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+from urllib.parse import quote, urlsplit
 import dj_database_url
 from dotenv import load_dotenv
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,22 +34,39 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
-DEBUG = os.environ.get("DEBUG", "False") == "True"
+ON_RENDER = os.environ.get('RENDER', '').lower() == 'true'
+DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true' and not ON_RENDER
+if ON_RENDER and (not SECRET_KEY or len(SECRET_KEY) < 50 or len(set(SECRET_KEY)) < 5
+                  or SECRET_KEY.startswith('django-insecure-')):
+    raise ImproperlyConfigured('Set a strong SECRET_KEY in the Render environment.')
 
-ALLOWED_HOSTS = [
-    ".onrender.com",
-    "localhost",
-    "127.0.0.1",
-]
+SECURE_SSL_REDIRECT = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+SECURE_HSTS_SECONDS = 3600 if not DEBUG else 0
+# Enable these only after all subdomains have been verified to use HTTPS.
+SECURE_HSTS_INCLUDE_SUBDOMAINS = os.environ.get('HSTS_INCLUDE_SUBDOMAINS', 'False').lower() == 'true'
+SECURE_HSTS_PRELOAD = False
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+if os.environ.get('RENDER_EXTERNAL_HOSTNAME'):
+    ALLOWED_HOSTS.append(os.environ['RENDER_EXTERNAL_HOSTNAME'])
+ALLOWED_HOSTS += [host.strip() for host in os.environ.get('ALLOWED_HOSTS', '').split(',') if host.strip()]
+# Existing Render deployments without an external hostname still work.
+if ON_RENDER and not os.environ.get('RENDER_EXTERNAL_HOSTNAME'):
+    ALLOWED_HOSTS.append('.onrender.com')
+CSRF_TRUSTED_ORIGINS += [origin.strip() for origin in os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',') if origin.strip()]
 
 # Application definition
 
 INSTALLED_APPS = [
+    'core',
     'main',
     'dictionary',
     'history',
     'blog',
     'library',
+    'music',
     'ckeditor',
     'storages',
     'django.contrib.admin',
@@ -96,16 +115,7 @@ WSGI_APPLICATION = 'igalapedia.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'igalapediaDB',
-#         'USER': 'igalapedia',
-#         'PASSWORD': '09095564929.Mi',
-#         'HOST': 'database-1.cveeiymw8cr9.eu-north-1.rds.amazonaws.com',
-#         'PORT': '5432',
-#     }
-# }
+# Database credentials are supplied through DATABASE_URL only.
 
 DATABASES = {
     "default": dj_database_url.parse(
@@ -115,13 +125,30 @@ DATABASES = {
     )
 }
 
+# Supabase's transaction pooler cannot preserve cursors across transactions.
+database = DATABASES['default']
+if (database.get('HOST', '').endswith('.pooler.supabase.com')
+        and str(database.get('PORT', '')) == '6543'):
+    database['DISABLE_SERVER_SIDE_CURSORS'] = True
+    database['CONN_MAX_AGE'] = 0
+
 # Supabase Storage (S3-compatible) for media files
 DEFAULT_FILE_STORAGE = "core.storage_backends.SupabaseMediaStorage"
 
 AWS_STORAGE_BUCKET_NAME = os.environ.get("SUPABASE_STORAGE_BUCKET", "media")
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-AWS_S3_ENDPOINT_URL = os.environ.get("AWS_S3_ENDPOINT_URL", "https://sbuhryoosnqycbaybjjx.storage.supabase.co/storage/v1/s3")
+SUPABASE_URL = os.environ.get('SUPABASE_URL', '').rstrip('/')
+AWS_S3_ENDPOINT_URL = os.environ.get(
+    'AWS_S3_ENDPOINT_URL', f'{SUPABASE_URL}/storage/v1/s3' if SUPABASE_URL else '',
+)
+if not SUPABASE_URL and AWS_S3_ENDPOINT_URL:
+    endpoint = urlsplit(AWS_S3_ENDPOINT_URL)
+    SUPABASE_URL = f'{endpoint.scheme}://{endpoint.netloc.replace(".storage.supabase.co", ".supabase.co")}'
+SUPABASE_PUBLIC_MEDIA_URL = os.environ.get(
+    'SUPABASE_PUBLIC_MEDIA_URL',
+    f'{SUPABASE_URL}/storage/v1/object/public/{quote(AWS_STORAGE_BUCKET_NAME, safe="")}/' if SUPABASE_URL else '',
+)
 AWS_S3_REGION_NAME = os.environ.get("AWS_S3_REGION_NAME", "eu-west-1")
 
 AWS_S3_ADDRESSING_STYLE = "path"
@@ -130,31 +157,17 @@ AWS_QUERYSTRING_AUTH = False
 AWS_S3_FILE_OVERWRITE = False
 
 # Public CDN URL for media (FileField.url comes from storage backend; this is fallback)
-MEDIA_URL = "https://sbuhryoosnqycbaybjjx.supabase.co/storage/v1/object/public/media/"
+MEDIA_URL = SUPABASE_PUBLIC_MEDIA_URL or '/media/'
 MEDIA_ROOT = None  # Not used when using Supabase storage
 
+# Separate, PRIVATE bucket. Never fall back to the public media bucket for songs.
+MUSIC_STORAGE_BUCKET = os.environ.get('MUSIC_STORAGE_BUCKET', '')
+MUSIC_AUDIO_STORAGE = 'music.storage.PrivateMusicStorage'
+MUSIC_MAX_UPLOAD_BYTES = 25 * 1024 * 1024
+MUSIC_PLAYBACK_URL_SECONDS = 3600
 
 
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'igalaheritage_db',
-        'USER': 'postgres',
-        'PASSWORD':'09095564929.Mi',
-        'HOST': 'localhost',
-        'PORT': '5433',
-    }
-}
 
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-"""
 
 
 # Password validation
@@ -205,22 +218,6 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# CKEditor (rich text for history, blog)
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'Custom',
-        'toolbar_Custom': [
-            ['Bold', 'Italic', 'Underline'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
-            ['Link', 'Unlink'],
-            ['Image'],
-            ['RemoveFormat', 'Source'],
-        ],
-        'height': 300,
-        'width': '100%',
-    },
-}
 
 # Authentication URLs
 LOGIN_URL = 'login'  # Custom login page

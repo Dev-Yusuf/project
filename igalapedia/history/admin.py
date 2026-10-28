@@ -1,14 +1,17 @@
+from core.forms import SanitizedRichTextModelForm
+import logging
 from django.contrib import admin
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.html import format_html
 from .models import PendingHistory, HistoryArticle, ArticleView
-from dictionary.models import ContributionStats
+logger = logging.getLogger(__name__)
 
 
 @admin.register(HistoryArticle)
 class HistoryArticleAdmin(admin.ModelAdmin):
+    form = SanitizedRichTextModelForm
     list_display = ['title', 'contributor', 'published_at']
     list_filter = ['published_at']
     search_fields = ['title', 'excerpt']
@@ -24,6 +27,7 @@ class ArticleViewAdmin(admin.ModelAdmin):
 
 @admin.register(PendingHistory)
 class PendingHistoryAdmin(admin.ModelAdmin):
+    form = SanitizedRichTextModelForm
     list_display = [
         'title',
         'submitted_by',
@@ -53,29 +57,12 @@ class PendingHistoryAdmin(admin.ModelAdmin):
         approved_count = 0
         for sub in pending:
             try:
-                article = HistoryArticle.objects.create(
-                    title=sub.title,
-                    excerpt=sub.excerpt or '',
-                    thumbnail=sub.thumbnail,
-                    content_english=sub.content_english or '',
-                    content_igala=sub.content_igala or '',
-                    audio_english=sub.audio_english,
-                    audio_igala=sub.audio_igala,
-                    contributor=sub.submitted_by,
-                )
-                sub.status = 'APPROVED'
-                sub.reviewed_by = request.user
-                sub.reviewed_at = timezone.now()
-                sub.approved_article = article
-                sub.save()
-
-                stats, _ = ContributionStats.objects.get_or_create(user=sub.submitted_by)
-                stats.approved_histories_count = (stats.approved_histories_count or 0) + 1
-                stats.save()
-
+                if sub.approve(request.user) is None:
+                    continue
                 approved_count += 1
             except Exception as e:
-                self.message_user(request, f'Failed to approve "{sub.title}": {e}', messages.ERROR)
+                logger.exception('History approval failed for submission %s', sub.pk)
+                self.message_user(request, f'Could not approve "{sub.title}". No partial changes were saved.', messages.ERROR)
 
         if approved_count:
             self.message_user(request, f'{approved_count} history article(s) approved.', messages.SUCCESS)

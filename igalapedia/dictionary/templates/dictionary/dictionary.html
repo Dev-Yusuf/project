@@ -1,114 +1,41 @@
 {% extends 'main.html' %}
 {% load static %}
+{% block title %}Igala Dictionary{% if current_page_holder.number > 1 %} · Page {{ current_page_holder.number }}{% endif %} · IgalaHeritage{% endblock %}
+{% block body_class %}archive-page dictionary-page{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'styles/dictionary-browse.css' %}">{% endblock %}
 {% block content %}
-
-<section class="section" style="padding-top: 120px;">
+<section class="lexicon" data-dictionary>
   <div class="container">
-    <!-- Header & Search -->
-    <div class="text-center mb-5">
-      <h1 class="display-4 fw-bold mb-3" style="color: var(--text-main);">Igala Dictionary</h1>
-      <p class="text-muted mb-4 lead">Explore our extensive collection of Igala words and meanings.</p>
-
-      <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-          <form id="dictionary-search-form" class="d-flex gap-2 p-2 bg-white rounded-pill shadow-sm border" method="GET">
-            {{ word_filter.form.word }}
-            <button id="search-button" class="btn btn-primary rounded-pill px-4 fw-bold">Search</button>
-          </form>
-        </div>
+    <header class="lexicon-hero">
+      <div class="lexicon-heading"><h1>Dictionary.</h1></div>
+      <div class="lexicon-search-area">
+        <label for="id_word" class="visually-hidden">Igala word</label>
+        <form id="dictionary-search-form" method="get" role="search" aria-label="Search dictionary">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="1.5"/><path d="m16 16 5 5" stroke="currentColor" stroke-width="1.5"/></svg>
+          <input id="id_word" name="word" type="search" value="{{ query }}" placeholder="Search an Igala word…" maxlength="100" autocomplete="off" spellcheck="false">
+          <button type="submit" aria-label="Search dictionary">Search <span aria-hidden="true">↗</span></button>
+        </form>
+        <div class="lexicon-search-meta"><a href="{% url 'submit_word' %}">Contribute a word <span aria-hidden="true">↗</span></a></div>
       </div>
-    </div>
-
-    <!-- Word Grid -->
-    <div id="dictionary-word-grid" data-search-api-url="{% url 'dictionary_search_api' %}">
-      <div class="row g-3">
-        {% for word in words %}
-        <div class="col-6 col-md-4 col-lg-3">
-          <a href="{% url 'single-word' word.slug %}" class="card h-100 text-decoration-none shadow-hover border-0"
-            style="background: var(--bg-card);">
-            <div class="card-body text-center d-flex flex-column align-items-center justify-content-center py-4">
-              <h3 class="h4 fw-bold mb-0 text-primary">{{word.word}}</h3>
-              <div class="mt-2 text-muted small opacity-0">View Details</div>
-            </div>
-          </a>
-        </div>
-        {% empty %}
-        <div class="col-12 text-center py-5">
-          <div class="mb-3 text-muted">
-            <i class="fas fa-search fa-3x opacity-25"></i>
-          </div>
-          <h3 class="h5 text-muted">No words found matching your search.</h3>
-          <p class="text-muted small">Try checking the spelling or submitting a new word.</p>
-          <a href="{% url 'submit_word' %}" class="btn btn-outline-primary btn-sm mt-2">Submit a Word</a>
-        </div>
-        {% endfor %}
+    </header>
+    <div class="lexicon-layout">
+      <aside class="lexicon-sidebar" aria-label="Featured word">
+        {% if featured_word %}
+        <a href="{% url 'single-word' featured_word.slug %}" class="lexicon-feature">
+          <div class="lexicon-feature-top"><span>FEATURED WORD</span><span aria-hidden="true">↗</span></div>
+          <div class="lexicon-feature-letter" aria-hidden="true">{{ featured_word.word|first }}</div>
+          <h2>{{ featured_word.word }}</h2>
+          {% with definition=featured_word.meanings.all|first %}{% if definition %}{% if definition.part_of_speech.name != "None" %}<span class="lexicon-feature-pos">{{ definition.part_of_speech.name }}</span>{% endif %}<p>{{ definition.meaning|truncatewords:18 }}</p>{% endif %}{% endwith %}
+        </a>
+        {% endif %}
+      </aside>
+      <div class="lexicon-browser">
+        <p id="dictionary-status" class="visually-hidden" role="status" aria-live="polite"></p>
+        <div id="dictionary-results" data-base-url="{% url 'words' %}">{% include 'dictionary/_browse_results.html' %}</div>
       </div>
-    </div>
-
-    <!-- Pagination -->
-    <div id="dictionary-pagination" class="d-flex justify-content-center mt-5 align-items-center gap-3">
-      {% if current_page_holder.has_previous %}
-      <a href="?page={{current_page_holder.previous_page_number}}"
-        class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center"
-        style="width: 40px; height: 40px;">
-        <i class="fas fa-arrow-left"></i>
-      </a>
-      {% else %}
-      <button class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center disabled"
-        style="width: 40px; height: 40px; opacity: 0.5;">
-        <i class="fas fa-arrow-left"></i>
-      </button>
-      {% endif %}
-
-      <span class="text-muted fw-bold">
-        Page {{ current_page_holder.number }} of {{ current_page_holder.paginator.num_pages }}
-      </span>
-
-      {% if current_page_holder.has_next %}
-      <a href="?page={{current_page_holder.next_page_number}}"
-        class="btn btn-outline-primary rounded-circle d-flex align-items-center justify-content-center"
-        style="width: 40px; height: 40px;">
-        <i class="fas fa-arrow-right"></i>
-      </a>
-      {% else %}
-      <button class="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center disabled"
-        style="width: 40px; height: 40px; opacity: 0.5;">
-        <i class="fas fa-arrow-right"></i>
-      </button>
-      {% endif %}
     </div>
   </div>
 </section>
-
-<style>
-  /* Custom styles for the search input rendered by Django form */
-  form input[type="text"] {
-    border: none !important;
-    box-shadow: none !important;
-    flex-grow: 1;
-    padding-left: 1rem;
-    background: transparent;
-    outline: none;
-  }
-
-  form input[type="text"]:focus {
-    outline: none;
-  }
-
-  .shadow-hover {
-    transition: all 0.2s ease;
-  }
-
-  .shadow-hover:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  }
-
-  .shadow-hover:hover .opacity-0 {
-    opacity: 0.7 !important;
-    transition: opacity 0.2s ease;
-  }
-</style>
-
-<script src="{% static 'js/dictionary-search.js' %}"></script>
-{% endblock content %}
+{% include 'footer.html' %}
+{% endblock %}
+{% block extra_js %}<script src="{% static 'js/dictionary-search.js' %}?v=20261026-2"></script>{% endblock %}

@@ -1,3 +1,4 @@
+from core.validators import validate_image_upload, validate_audio_upload
 from django.db import models, transaction
 from django.conf import settings
 from django.utils.text import slugify
@@ -16,11 +17,11 @@ class PendingHistory(models.Model):
 
     title = models.CharField(max_length=200)
     excerpt = models.CharField(max_length=300, blank=True)
-    thumbnail = models.ImageField(upload_to='history_thumbnails/', blank=True, null=True)
+    thumbnail = models.ImageField(validators=[validate_image_upload], upload_to='history_thumbnails/', blank=True, null=True)
     content_english = RichTextField(blank=True)
     content_igala = RichTextField(blank=True)
-    audio_english = models.FileField(upload_to='history_audio/', blank=True, null=True)
-    audio_igala = models.FileField(upload_to='history_audio/', blank=True, null=True)
+    audio_english = models.FileField(validators=[validate_audio_upload], upload_to='history_audio/', blank=True, null=True)
+    audio_igala = models.FileField(validators=[validate_audio_upload], upload_to='history_audio/', blank=True, null=True)
 
     submitted_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -57,17 +58,40 @@ class PendingHistory(models.Model):
         return f"{self.title} - {self.get_status_display()}"
 
 
+    @transaction.atomic
+    def approve(self, reviewer):
+        from dictionary.models import ContributionStats
+        type(self).objects.select_for_update().get(pk=self.pk)
+        self.refresh_from_db()
+        if self.status != 'PENDING':
+            return None
+        article = HistoryArticle.objects.create(
+            title=self.title, excerpt=self.excerpt or '', thumbnail=self.thumbnail,
+            content_english=self.content_english or '', content_igala=self.content_igala or '',
+            audio_english=self.audio_english, audio_igala=self.audio_igala,
+            contributor=self.submitted_by,
+        )
+        self.status = 'APPROVED'
+        self.reviewed_by = reviewer
+        self.reviewed_at = timezone.now()
+        self.approved_article = article
+        self.save()
+        stats, _ = ContributionStats.objects.get_or_create(user=self.submitted_by)
+        stats.update_stats()
+        return article
+
+
 class HistoryArticle(models.Model):
     """Published history article (approved content)."""
 
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, max_length=220, blank=True)
     excerpt = models.CharField(max_length=300, blank=True)
-    thumbnail = models.ImageField(upload_to='history_thumbnails/', blank=True, null=True)
+    thumbnail = models.ImageField(validators=[validate_image_upload], upload_to='history_thumbnails/', blank=True, null=True)
     content_english = RichTextField(blank=True)
     content_igala = RichTextField(blank=True)
-    audio_english = models.FileField(upload_to='history_audio/', blank=True, null=True)
-    audio_igala = models.FileField(upload_to='history_audio/', blank=True, null=True)
+    audio_english = models.FileField(validators=[validate_audio_upload], upload_to='history_audio/', blank=True, null=True)
+    audio_igala = models.FileField(validators=[validate_audio_upload], upload_to='history_audio/', blank=True, null=True)
 
     contributor = models.ForeignKey(
         settings.AUTH_USER_MODEL,

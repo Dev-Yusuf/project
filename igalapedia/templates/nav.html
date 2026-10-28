@@ -1,56 +1,51 @@
 {% load static %}
-<nav class="navbar navbar-expand-lg fixed-top">
+<nav aria-label="Main navigation" class="navbar navbar-expand-xl fixed-top site-nav">
     <div class="container nav-container">
         <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
-            <svg class="navbar-logo" width="210" height="40" viewBox="0 0 420 80" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="IgalaHeritage logo">
+            <svg class="brand-symbol" width="38" height="38" viewBox="0 0 72 80" fill="none" aria-hidden="true">
                 <g transform="translate(0,8)">
-                    <circle cx="32" cy="32" r="30" stroke="#1a1a1a" stroke-width="3" fill="none" />
-                    <circle cx="44" cy="22" r="7" fill="#FFC107" />
-                    <line x1="44" y1="8" x2="44" y2="2" stroke="#FFC107" stroke-width="2"/>
-                    <line x1="54" y1="12" x2="58" y2="8" stroke="#FFC107" stroke-width="2"/>
-                    <line x1="60" y1="22" x2="66" y2="22" stroke="#FFC107" stroke-width="2"/>
-                    <polygon points="20,30 32,20 44,30" fill="#1a1a1a" />
-                    <rect x="24" y="30" width="16" height="14" rx="2" fill="#059669" />
-                    <rect x="30" y="36" width="4" height="8" rx="1" fill="#ffffff" />
-                    <path d="M14 48 C20 46, 26 50, 32 48 C38 46, 44 50, 50 48" stroke="#059669" stroke-width="2" fill="none" />
+                    <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="2.5" />
+                    <circle cx="44" cy="22" r="7" fill="#e8b44d" />
+                    <path d="M44 8V2M54 12l4-4M60 22h6" stroke="#e8b44d" stroke-width="2" />
+                    <path d="m20 30 12-10 12 10" fill="currentColor" />
+                    <rect x="24" y="30" width="16" height="14" rx="2" fill="#2c7058" />
+                    <path d="M32 36v8" stroke="white" stroke-width="4" />
+                    <path d="M14 48c6-2 12 2 18 0s12 2 18 0" stroke="#2c7058" stroke-width="2" />
                 </g>
-                <text x="80" y="52" font-family="Outfit, Inter, system-ui, sans-serif" font-size="32" font-weight="600" fill="#1a1a1a">
-                    Igala<tspan fill="#FFC107">Heritage</tspan>
-                </text>
             </svg>
+            <span class="brand-wordmark">Igala<span>Heritage</span></span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'words' %}">Dictionary</a>
+            <ul class="navbar-nav ms-auto mb-2 mb-xl-0 align-items-xl-center">
+                <li class="nav-item"><a class="nav-link{% if request.resolver_match.url_name == 'words' or request.resolver_match.url_name == 'single-word' %} is-active{% endif %}" href="{% url 'words' %}">Dictionary</a></li>
+                <li class="nav-item"><a class="nav-link{% if request.resolver_match.url_name == 'history_list' %} is-active{% endif %}" href="{% url 'history_list' %}">History</a></li>
+                <li class="nav-item"><a class="nav-link{% if request.resolver_match.namespace == 'library' %} is-active{% endif %}" href="{% url 'library:library_home' %}">Library</a></li>
+                <li class="nav-item"><a class="nav-link{% if request.resolver_match.namespace == 'music' %} is-active{% endif %}" href="{% url 'music:home' %}" data-music-link>Music</a></li>
+                <li class="nav-item dropdown">
+                    <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Community</button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'feed' %}">Discover feed</a></li>
+                        <li><a class="dropdown-item" href="{% url 'blog:blog_list' %}">Community blog</a></li>
+                        <li><a class="dropdown-item" href="{% url 'leaderboard' %}">Leaderboard</a></li>
+                        <li><a class="dropdown-item" href="{% url 'pioneers' %}">Our pioneers</a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'history_list' %}">History</a>
+                <li class="nav-item dropdown">
+                    <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Resources</button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'translator' %}">Translator</a></li>
+                        <li><a class="dropdown-item" href="{% url 'api' %}">API</a></li>
+                        <li><a class="dropdown-item" href="{% url 'about' %}">About the project</a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'library:library_home' %}">Library</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'feed' %}">Feeds</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'leaderboard' %}">Leaderboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'translator' %}">Translator</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'blog:blog_list' %}">Blog</a>
-                </li>
-
                 {% if user.is_authenticated %}
-                <li class="nav-item dropdown ms-lg-3">
+                <li class="nav-item dropdown ms-xl-3">
                     <a class="nav-link dropdown-toggle btn btn-sm btn-outline-primary px-2 py-2 rounded-pill" href="#"
-                        role="button" data-bs-toggle="dropdown" aria-expanded="false" title="{{ user.username }}">
+                        role="button" data-bs-toggle="dropdown" aria-expanded="false" title="{{ user.username }}" aria-label="Your account">
                         <i class="fas fa-user-circle"></i>
                     </a>
                                         <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg"
@@ -64,17 +59,22 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="{% url 'logout' %}"><i
-                                    class="fas fa-sign-out-alt me-2 text-danger"></i> Logout</a></li>
+                        <li>
+                            <form method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="dropdown-item"><i
+                                    class="fas fa-sign-out-alt me-2 text-danger"></i> Logout</button>
+                            </form>
+                        </li>
                     </ul>
                 </li>
                 {% else %}
-                <li class="nav-item ms-lg-2">
-                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                <li class="nav-item ms-xl-2">
+                    <a class="nav-link nav-login" href="{% url 'login' %}">Login</a>
                 </li>
-                <li class="nav-item ms-lg-2">
-                    <a class="btn btn-primary btn-sm px-4 rounded-pill" href="{% url 'register' %}">
-                        Register
+                <li class="nav-item ms-xl-2">
+                    <a class="btn nav-register" href="{% url 'register' %}">
+                        Join the community <span aria-hidden="true">↗</span>
                     </a>
                 </li>
                 {% endif %}

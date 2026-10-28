@@ -52,6 +52,6 @@ def send_welcome_email(user, request=None):
     )
     msg.attach_alternative(html_content, 'text/html')
     try:
-        msg.send(fail_silently=True)
-    except BaseException:
+        msg.send(fail_silently=False)
+    except Exception:
         logger.warning("Welcome email could not be sent (e.g. SMTP unavailable).", exc_info=True)

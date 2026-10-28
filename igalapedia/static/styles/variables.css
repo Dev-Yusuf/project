@@ -17,9 +17,9 @@
     --bg-nav: rgba(255, 255, 255, 0.95);
     /* High opacity white for clean look */
 
-    --text-main: #1a1a1a;
+    --text-main: #172d28;
     /* Black for main text */
-    --text-muted: #4b5563;
+    --text-muted: #65736e;
     /* Gray 600 */
     --text-light: #f3f4f6;
     /* Gray 100 */
@@ -28,12 +28,13 @@
     --text-on-secondary: #000000;
     /* Black text on yellow bg (accessibility) */
 
-    --border-color: #e5e7eb;
+    --border-color: #dfe6e1;
     /* Gray 200 */
 
     /* Typography */
-    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-    --font-heading: 'Outfit', sans-serif;
+    --font-sans: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+    --font-heading: 'Space Grotesk', 'IBM Plex Sans', sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 
     /* Spacing */
     --spacing-xs: 0.25rem;

@@ -11,13 +11,13 @@
                 <span class="mx-1">/</span>
                 <a href="{% url 'library:books_list' %}" class="text-decoration-none" style="color: #9ca3af;">Books</a>
                 <span class="mx-1">/</span>
-                <span style="color: #6b7280;">Submit</span>
+                <span style="color: #65736a;">Submit</span>
             </p>
         </div>
-        <h1 style="font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: #1a1a1a; margin-bottom: 8px;">
+        <h1 style="font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 500; line-height: 1.1; letter-spacing: -0.02em; color: #183d31; margin-bottom: 8px;">
             Submit a Book
         </h1>
-        <p style="font-size: 1rem; color: #6b7280; line-height: 1.7;">
+        <p style="font-size: 1rem; color: #65736a; line-height: 1.7;">
             Share Igala books with the community. Submissions are reviewed before publishing.
         </p>
     </div>
@@ -94,7 +94,7 @@
                     <input type="file" name="cover_image" accept="image/*" id="cover-input"
                            style="position: absolute; inset: 0; opacity: 0; cursor: pointer;">
                     <p style="margin: 0; color: #9ca3af; font-size: 0.85rem;">
-                        <span style="color: #1a1a1a; font-weight: 600;">Choose a file</span> or drag and drop
+                        <span style="color: #183d31; font-weight: 600;">Choose a file</span> or drag and drop
                     </p>
                     <p style="margin: 4px 0 0; color: #bbb; font-size: 0.75rem;">PNG, JPG up to 5 MB</p>
                 </div>
@@ -108,7 +108,7 @@
                     <input type="file" name="file" accept=".pdf" id="file-input"
                            style="position: absolute; inset: 0; opacity: 0; cursor: pointer;">
                     <p style="margin: 0; color: #9ca3af; font-size: 0.85rem;">
-                        <span style="color: #1a1a1a; font-weight: 600;">Choose a file</span> or drag and drop
+                        <span style="color: #183d31; font-weight: 600;">Choose a file</span> or drag and drop
                     </p>
                     <p style="margin: 4px 0 0; color: #bbb; font-size: 0.75rem;">PDF up to 20 MB</p>
                 </div>
@@ -129,11 +129,11 @@
 
             <!-- Submit -->
             <div class="d-flex justify-content-between align-items-center">
-                <a href="{% url 'library:books_list' %}" class="text-decoration-none" style="font-size: 0.9rem; color: #6b7280; font-weight: 600;">
+                <a href="{% url 'library:books_list' %}" class="text-decoration-none" style="font-size: 0.9rem; color: #65736a; font-weight: 600;">
                     ← Cancel
                 </a>
                 <button type="submit"
-                        style="padding: 12px 32px; background: #1a1a1a; color: white; border: none; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: opacity 0.2s;">
+                        style="padding: 12px 32px; background: #183d31; color: white; border: none; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: opacity 0.2s;">
                     Submit Book
                 </button>
             </div>
@@ -157,18 +157,18 @@
         display: block;
         width: 100%;
         padding: 11px 16px;
-        background: #fafafa;
+        background: #f3f6ed;
         border: 1.5px solid transparent;
         border-radius: 10px;
         font-size: 0.9rem;
-        color: #1a1a1a;
+        color: #183d31;
         transition: all 0.2s;
         outline: none;
         -webkit-appearance: none;
     }
     .form-field-input:focus {
         background: #fff;
-        border-color: #1a1a1a;
+        border-color: #183d31;
     }
     .form-field-input::placeholder {
         color: #bbb;
@@ -181,7 +181,7 @@
     .file-upload-area {
         position: relative;
         padding: 28px 20px;
-        background: #fafafa;
+        background: #f3f6ed;
         border: 1.5px dashed #ddd;
         border-radius: 10px;
         text-align: center;

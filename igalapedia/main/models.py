@@ -1,3 +1,4 @@
+from core.validators import validate_image_upload
 from django.db import models
 
 # Create your models here.
@@ -12,7 +13,7 @@ class Pioneer(models.Model):
     pioneer_name = models.CharField(max_length=100, null=True, blank=True, verbose_name="Name")
     position = models.CharField(max_length=200, null=True, blank=True, verbose_name="Position/Title")
     bio = models.TextField(null=True, blank=True, verbose_name="Biography")
-    profile_image = models.ImageField(null=True, blank=True, upload_to='pioneers/')
+    profile_image = models.ImageField(validators=[validate_image_upload], null=True, blank=True, upload_to='pioneers/')
     pioneer_social_link = models.CharField(max_length=200, null=True, blank=True, verbose_name="Social Link")
     
     class Meta:

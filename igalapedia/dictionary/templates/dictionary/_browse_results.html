@@ -1,0 +1,26 @@
+<div class="lexicon-result-content" data-page="{{ current_page_holder.number }}" data-query="{{ query }}" data-total="{{ current_page_holder.paginator.count }}">
+  <div class="lexicon-results-heading">
+    <div><h2 id="lexicon-results-heading" tabindex="-1">{% if query %}Results for “{{ query }}”{% else %}Words{% endif %}</h2></div>
+    {% if query %}<a href="{% url 'words' %}" data-browse-link class="lexicon-reset">Clear <span aria-hidden="true">×</span></a>{% endif %}
+  </div>
+  {% if words %}
+  <div class="lexicon-column-labels" aria-hidden="true"><span>IGALA WORD</span><span>ENGLISH MEANING</span><span></span></div>
+  <ul class="lexicon-entries" aria-labelledby="lexicon-results-heading">
+    {% for word in words %}
+    <li><a href="{% url 'single-word' word.slug %}" class="lexicon-entry"><div class="lexicon-entry-word"><h3>{{ word.word }}</h3>{% if word.pronunciation %}<svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-label="Pronunciation available" role="img"><path d="M9 4 5 7H2v6h3l4 3V4ZM12 7a4 4 0 0 1 0 6m3-9a8 8 0 0 1 0 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>{% endif %}</div><div class="lexicon-entry-definition">{% with definition=word.meanings.all|first %}{% if definition %}{% if definition.part_of_speech.name != "None" %}<span>{{ definition.part_of_speech.name }}</span>{% endif %}<p>{{ definition.meaning|truncatewords:15 }}</p>{% else %}<span class="lexicon-no-definition">—</span>{% endif %}{% endwith %}</div><span class="lexicon-entry-arrow" aria-hidden="true">↗</span></a></li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <div class="lexicon-empty"><span aria-hidden="true">∅</span><h3>No matching words.</h3><a href="{% url 'submit_word' %}">Contribute a word ↗</a></div>
+  {% endif %}
+  <div class="lexicon-results-footer">
+    <span>{% if current_page_holder.paginator.count %}Showing {{ current_page_holder.start_index }}–{{ current_page_holder.end_index }} of {{ current_page_holder.paginator.count }}{% else %}0 words{% endif %}</span>
+    {% if current_page_holder.has_other_pages %}
+    <nav class="lexicon-pagination" aria-label="Dictionary pagination">
+      {% if previous_url %}<a href="{{ previous_url }}" data-browse-link aria-label="Previous page">←</a>{% endif %}
+      {% for item in page_links %}{% if item.url %}<a href="{{ item.url }}" data-browse-link aria-label="Page {{ item.number }}"{% if item.number == current_page_holder.number %} class="is-selected" aria-current="page"{% endif %}>{{ item.number }}</a>{% else %}<span>…</span>{% endif %}{% endfor %}
+      {% if next_url %}<a href="{{ next_url }}" data-browse-link aria-label="Next page">→</a>{% endif %}
+    </nav>
+    {% endif %}
+  </div>
+</div>

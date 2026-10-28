@@ -1,19 +1,19 @@
 {% extends 'main.html' %}
 {% load static %}
+{% block title %}Developer API · IgalaHeritage{% endblock %}
 
+{% block extra_css %}<link rel="stylesheet" href="{% static 'styles/api.css' %}">{% endblock %}
 {% block content %}
 
 <!-- Link to external API page CSS -->
-<link rel="stylesheet" href="{% static 'styles/api.css' %}">
+
 
 <section class="api-hero">
     <div class="container">
         <div class="api-hero-content">
             <span class="section-eyebrow">API Documentation</span>
-            <h1 class="hero-title">Igalapedia <span class="accent-text">API</span></h1>
-            <p class="hero-description">
-                Integrate Igala language resources into your applications with our RESTful API.
-            </p>
+            <h1 class="hero-title">Developer API</h1>
+            <p class="hero-description">Igala language resources for your applications.</p>
         </div>
     </div>
 </section>

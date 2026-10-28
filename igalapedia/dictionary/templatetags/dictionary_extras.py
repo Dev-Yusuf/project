@@ -1,7 +1,6 @@
 from django import template
-from django.utils.text import slugify
 from django.urls import reverse
-from django.utils.safestring import mark_safe
+from django.utils.html import format_html, format_html_join
 
 register = template.Library()
 
@@ -18,16 +17,10 @@ def create_word_link(word):
     """Create a clickable link for a word"""
     from dictionary.models import Words
     
-    # Try to find the word in database
-    try:
-        word_obj = Words.objects.filter(word__iexact=word.strip()).first()
-        if word_obj:
-            url = reverse('single-word', kwargs={'slug': word_obj.slug})
-            return mark_safe(f'<a href="{url}" class="related-term-link">{word}</a>')
-    except:
-        pass
-    
-    # If word not found, return as plain text
+    word_obj = Words.objects.filter(word__iexact=word.strip()).first()
+    if word_obj:
+        url = reverse('single-word', kwargs={'slug': word_obj.slug})
+        return format_html('<a href="{}" class="related-term-link">{}</a>', url, word)
     return word
 
 
@@ -47,9 +40,9 @@ def related_terms_html(related_terms_string):
         word_obj = Words.objects.filter(word__iexact=term).first()
         if word_obj:
             url = reverse('single-word', kwargs={'slug': word_obj.slug})
-            html_parts.append(f'<a href="{url}" class="related-term-link">{term}</a>')
+            html_parts.append(format_html('<a href="{}" class="related-term-link">{}</a>', url, term))
         else:
-            html_parts.append(f'<span class="related-term-plain">{term}</span>')
+            html_parts.append(format_html('<span class="related-term-plain">{}</span>', term))
     
-    return mark_safe(', '.join(html_parts))
+    return format_html_join(', ', '{}', ((part,) for part in html_parts))
 

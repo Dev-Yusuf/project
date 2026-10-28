@@ -2,10 +2,12 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.urls import reverse
 from .models import BlogPost, BlogPostLike, BlogPostComment, BlogGuidelinesAck, BlogPostReport, BlogPostView
+from .forms import BlogPostAdminForm
 
 
 @admin.register(BlogPost)
 class BlogPostAdmin(admin.ModelAdmin):
+    form = BlogPostAdminForm
     list_display = ('title', 'author', 'status', 'published_at', 'is_hidden', 'created_at')
     list_filter = ('status', 'is_hidden', 'created_at')
     search_fields = ('title', 'author__username', 'body')

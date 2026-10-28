@@ -3,11 +3,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.db import IntegrityError
+from django.db import IntegrityError, transaction
 from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 from .models import Community, Pioneer
 from dictionary.models import Words, Example, ContributionStats
-from .utils import get_aggregated_counts, get_first_instance
+from .utils import get_aggregated_counts, get_first_instance, redirect_to_safe_next
 from .forms import CustomUserRegistrationForm, CustomLoginForm
 from .feeds_utils import get_feed_items
 from django.contrib.auth import get_user_model
@@ -16,33 +17,17 @@ logger = logging.getLogger(__name__)
 
 
 def mainpage(request):
-    fields_to_count = [
-        ('word', ''),
-        ('pronunciation', ''),
-        ('igala_example', '')
-    ]
-    
+    from .kogi import boundaries
     pioneers = Pioneer.objects.all()[:3]
     recent_words = Words.objects.select_related('contributor').order_by('-id')[:3]
     recent_examples = Example.objects.order_by('-id')[:2]
     word_count = Words.objects.count()
     audio_count = Words.objects.exclude(pronunciation__isnull=True).exclude(pronunciation='').count()
-    contributor_count = ContributionStats.objects.filter(approved_words_count__gt=0).count()
-    history_count = 0
-    try:
-        from history.models import HistoryArticle
-        history_count = HistoryArticle.objects.count()
-    except Exception:
-        pass
-    book_count = 0
-    try:
-        from library.models import Book
-        book_count = Book.objects.filter(status='published').count()
-    except Exception:
-        pass
-    if contributor_count == 0:
-        User = get_user_model()
-        contributor_count = User.objects.count()
+    from history.models import HistoryArticle
+    from library.models import Book
+    contributor_count = Words.objects.exclude(contributor=None).values('contributor').distinct().count()
+    history_count = HistoryArticle.objects.count()
+    book_count = Book.objects.filter(status='published').count()
 
     context = {
         'word_count': word_count,
@@ -53,7 +38,8 @@ def mainpage(request):
         'community_stats': get_first_instance(Community),
         'pioneers': pioneers,
         'recent_words': recent_words,
-        'recent_examples': recent_examples
+        'recent_examples': recent_examples,
+        'hero_map': boundaries(),
     }
     
     return render(request, 'main/index.html', context)
@@ -61,8 +47,10 @@ def mainpage(request):
 
 def about(request):
     """About page view"""
+    from .kogi import map_context
     context = {
-        'page_title': 'About Igalapedia'
+        'page_title': 'About IgalaHeritage',
+        **map_context(request.GET.get('lga', 'idah')),
     }
     return render(request, 'main/about.html', context)
 
@@ -92,8 +80,9 @@ def register(request):
         form = CustomUserRegistrationForm(request.POST)
         if form.is_valid():
             try:
-                user = form.save()
-                ContributionStats.objects.create(user=user)
+                with transaction.atomic():
+                    user = form.save()
+                    ContributionStats.objects.create(user=user)
             except IntegrityError:
                 messages.error(
                     request,
@@ -107,17 +96,17 @@ def register(request):
                 )
                 messages.info(
                     request,
-                    'Something went wrong during registration. If you already have an account, try signing in.',
+                    'Registration could not be completed. Please try again.',
                 )
-                return redirect('login')
+                return render(request, 'main/register.html',
+                              {'form': form, 'page_title': 'Register - Igalapedia'}, status=503)
             try:
                 login(request, user)
-                # Welcome email disabled; will use another email platform later.
-                # try:
-                #     from main.emails import send_welcome_email
-                #     send_welcome_email(user, request)
-                # except BaseException:
-                #     pass
+                try:
+                    from main.emails import send_welcome_email
+                    send_welcome_email(user, request)
+                except Exception:
+                    logger.exception("Failed to send welcome email")
                 messages.success(request, f'Welcome to Igalapedia, {user.username}! Your account has been created successfully.')
                 return redirect('index')
             except Exception:
@@ -155,9 +144,7 @@ def user_login(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, f'Welcome back, {user.username}!')
-                # Redirect to next page or index
-                next_page = request.GET.get('next', 'index')
-                return redirect(next_page)
+                return redirect_to_safe_next(request, 'index')
         else:
             messages.error(request, 'Invalid username or password.')
     else:
@@ -167,7 +154,7 @@ def user_login(request):
     total_words = Words.objects.count()
     total_examples = Example.objects.count()
     # Count contributors with at least one approved word
-    total_contributors = ContributionStats.objects.filter(approved_words_count__gt=0).count()
+    total_contributors = Words.objects.exclude(contributor=None).values('contributor').distinct().count()
     
     context = {
         'form': form,
@@ -180,6 +167,7 @@ def user_login(request):
 
 
 @login_required
+@require_POST
 def user_logout(request):
     """User logout view"""
     logout(request)
@@ -195,8 +183,7 @@ def user_dashboard(request):
     
     # Get or create user stats
     stats, created = ContributionStats.objects.get_or_create(user=request.user)
-    if created or stats.total_submissions == 0:
-        stats.update_stats()
+    stats.update_stats()
     
     # Fetch recent 4 approved and rejected words
     recent_approved = PendingWord.objects.filter(

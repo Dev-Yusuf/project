@@ -1,8 +1,28 @@
 import hashlib
+import logging
 
 from django.db.models import Count, Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
+from django.shortcuts import resolve_url
+from django.utils.http import url_has_allowed_host_and_scheme
+
+
+logger = logging.getLogger(__name__)
+
+
+def redirect_to_safe_next(request, fallback):
+    """Accept same-host HTTP(S) destinations without downgrading HTTPS."""
+    destination = (request.GET.get('next') or '').strip()
+    if not url_has_allowed_host_and_scheme(
+        destination,
+        allowed_hosts={request.get_host()},
+        require_https=request.is_secure(),
+    ):
+        destination = resolve_url(fallback)
+    # Do not interpret a user-provided relative URL as a Django view name.
+    return HttpResponseRedirect(destination)
 
 def get_client_ip_hash(request):
     """Return SHA256 hash of client IP for privacy-safe view tracking."""
@@ -32,6 +52,7 @@ def get_aggregated_counts(model, fields):
                 count=Count(field, filter=~Q(**{field: value}))
             )['count']
     except Exception:
+        logger.exception('Could not aggregate counts for %s', model.__name__)
         for field, _ in fields:
             count_key = f"{field}_count"
             counts[count_key] = None
@@ -50,6 +71,7 @@ def get_first_instance(model):
     try:
         return model.objects.first()
     except Exception:
+        logger.exception('Could not load first %s', model.__name__)
         return None
 
 def paginate_queryset(queryset, results_per_page, page_number):

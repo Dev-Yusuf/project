@@ -1,0 +1,10 @@
+{% extends 'admin/base_site.html' %}
+{% block content %}
+<h2>{{ item.title }} — {{ item.artist_name }}</h2>
+<p>Submitted by {{ item.user }} · {{ item.get_status_display }}</p>
+<p>Rights contact: {{ item.rights_contact }}</p><p>{{ item.rights_notes }}</p>
+<audio controls preload="none" src="{% url 'music:submission_preview' item.pk %}"></audio>
+{% if item.artwork %}<p><img src="{{ item.artwork.url }}" alt="Submitted cover artwork" style="max-width:240px;max-height:240px;"></p>{% endif %}
+<p>Select a published artist profile after verifying the recording and streaming permission.</p>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit" name="decision" value="approve">Approve &amp; publish</button> <button type="submit" name="decision" value="reject">Reject</button></form>
+{% endblock %}

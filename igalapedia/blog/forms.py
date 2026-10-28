@@ -1,8 +1,9 @@
+from core.forms import SanitizedRichTextModelForm
 from django import forms
 from .models import BlogPost, BlogPostComment
 
 
-class BlogPostForm(forms.ModelForm):
+class BlogPostForm(SanitizedRichTextModelForm):
     class Meta:
         model = BlogPost
         fields = ['title', 'body', 'cover_image', 'status']
@@ -17,6 +18,11 @@ class BlogPostForm(forms.ModelForm):
             'cover_image': 'Cover image',
             'status': 'Publish as',
         }
+
+
+class BlogPostAdminForm(BlogPostForm):
+    class Meta(BlogPostForm.Meta):
+        fields = '__all__'
 
 
 class BlogCommentForm(forms.ModelForm):

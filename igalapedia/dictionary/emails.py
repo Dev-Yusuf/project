@@ -61,7 +61,7 @@ def send_word_approved_email(user, word, pending_word, request=None):
     )
     msg.attach_alternative(html_content, 'text/html')
     try:
-        msg.send(fail_silently=not settings.DEBUG)
+        msg.send(fail_silently=False)
     except Exception as e:
         logger.exception('Failed to send word approval email to %s: %s', user.email, e)
 
@@ -114,7 +114,7 @@ def send_word_rejected_email(user, pending_word, request=None):
     )
     msg.attach_alternative(html_content, 'text/html')
     try:
-        msg.send(fail_silently=not settings.DEBUG)
+        msg.send(fail_silently=False)
     except Exception as e:
         logger.exception('Failed to send word rejection email to %s: %s', user.email, e)
 
@@ -171,7 +171,7 @@ def send_example_approved_email(user, meaning, word, request=None):
     )
     msg.attach_alternative(html_content, 'text/html')
     try:
-        msg.send(fail_silently=not settings.DEBUG)
+        msg.send(fail_silently=False)
     except Exception as e:
         logger.exception('Failed to send example approval email to %s: %s', user.email, e)
 
@@ -229,6 +229,6 @@ def send_example_rejected_email(user, pending_example, request=None):
     )
     msg.attach_alternative(html_content, 'text/html')
     try:
-        msg.send(fail_silently=not settings.DEBUG)
+        msg.send(fail_silently=False)
     except Exception as e:
         logger.exception('Failed to send example rejection email to %s: %s', user.email, e)

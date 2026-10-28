@@ -1,17 +1,14 @@
 {% extends 'main.html' %}
 {% load static %}
+{% block title %}Discover · IgalaHeritage{% endblock %}
 
 {% block content %}
 
 <section class="section feed-section" style="padding-top: 120px;">
   <div class="container">
-    <div class="text-center mb-5">
-      <span class="badge rounded-pill px-3 py-2 mb-3 feed-badge">Discover</span>
-      <h1 class="display-4 fw-bold mb-3" style="color: var(--text-main);">Feed</h1>
-      <p class="text-muted lead mx-auto" style="max-width: 600px;">
-        Mixed content from the dictionary, blog, and Igala history. Scroll to load more.
-      </p>
-    </div>
+    <header class="page-header">
+      <div><span class="page-index">04 / DISCOVER</span><h1>Fresh from the archive</h1></div>
+    </header>
 
     <div id="feed-list" class="row g-4">
       {% for item in feed_items %}
@@ -66,6 +63,7 @@
   </div>
 </section>
 
+{% include 'footer.html' %}
 {% endblock content %}
 
 {% block extra_css %}

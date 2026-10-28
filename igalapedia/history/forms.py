@@ -1,8 +1,9 @@
+from core.forms import SanitizedRichTextModelForm
 from django import forms
 from .models import PendingHistory
 
 
-class HistorySubmissionForm(forms.ModelForm):
+class HistorySubmissionForm(SanitizedRichTextModelForm):
     class Meta:
         model = PendingHistory
         fields = [

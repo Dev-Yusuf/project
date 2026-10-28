@@ -12,7 +12,7 @@
                 <span class="mx-1">/</span>
                 <a href="{% url 'library:books_list' %}" class="text-decoration-none" style="color: #9ca3af;">Books</a>
                 <span class="mx-1">/</span>
-                <span style="color: #6b7280;">{{ book.title }}</span>
+                <span style="color: #65736a;">{{ book.title }}</span>
             </p>
         </div>
 
@@ -35,26 +35,26 @@
             <div class="col-md-8 col-lg-9 d-flex flex-column justify-content-center">
                 <!-- Tags -->
                 <div class="d-flex gap-2 flex-wrap mb-3">
-                    <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #10b981; background: rgba(16, 185, 129, 0.08); padding: 4px 12px; border-radius: 6px;">
+                    <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #466543; background: rgba(16, 185, 129, 0.08); padding: 4px 12px; border-radius: 6px;">
                         {{ book.get_language_display }}
                     </span>
                     {% if book.publication_year %}
-                    <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #6b7280; background: rgba(0,0,0,0.04); padding: 4px 12px; border-radius: 6px;">
+                    <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #65736a; background: rgba(0,0,0,0.04); padding: 4px 12px; border-radius: 6px;">
                         {{ book.publication_year }}
                     </span>
                     {% endif %}
                     {% if book.access_type == "open" %}
-                    <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #10b981; background: rgba(16, 185, 129, 0.08); padding: 4px 12px; border-radius: 6px;">
+                    <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #466543; background: rgba(16, 185, 129, 0.08); padding: 4px 12px; border-radius: 6px;">
                         Open Access
                     </span>
                     {% else %}
-                    <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #d9a406; background: rgba(255, 193, 7, 0.08); padding: 4px 12px; border-radius: 6px;">
+                    <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #8a7130; background: rgba(255, 193, 7, 0.08); padding: 4px 12px; border-radius: 6px;">
                         Request Access
                     </span>
                     {% endif %}
                 </div>
 
-                <h1 style="font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: #1a1a1a; margin-bottom: 6px;">
+                <h1 style="font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; color: #183d31; margin-bottom: 6px;">
                     {{ book.title }}
                 </h1>
                 <p style="font-size: 1rem; color: #9ca3af; margin-bottom: 28px;">
@@ -65,41 +65,41 @@
                 <div class="d-flex gap-3 flex-wrap">
                     {% if can_download %}
                     <a href="{{ book.file.url }}" target="_blank"
-                       style="display: inline-block; padding: 12px 28px; background: #1a1a1a; color: white; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: opacity 0.2s;">
+                       style="display: inline-block; padding: 12px 28px; background: #183d31; color: white; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: opacity 0.2s;">
                         Download PDF
                     </a>
                     {% elif book.access_type == "open" and book.external_url %}
                     <a href="{{ book.external_url }}" target="_blank"
-                       style="display: inline-block; padding: 12px 28px; background: #1a1a1a; color: white; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-decoration: none;">
+                       style="display: inline-block; padding: 12px 28px; background: #183d31; color: white; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-decoration: none;">
                         Read Online ↗
                     </a>
                     {% elif book.access_type == "request" %}
                         {% if has_requested %}
-                        <span style="display: inline-block; padding: 12px 28px; background: #f3f4f6; color: #6b7280; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: default;">
+                        <span style="display: inline-block; padding: 12px 28px; background: #f3f4f6; color: #65736a; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: default;">
                             Request Sent ✓
                         </span>
                         {% elif user.is_authenticated %}
                         <button type="button" onclick="document.getElementById('request-form').style.display='block'; this.style.display='none';"
-                           style="display: inline-block; padding: 12px 28px; background: #1a1a1a; color: white; border: none; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer;">
+                           style="display: inline-block; padding: 12px 28px; background: #183d31; color: white; border: none; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer;">
                             Request Access
                         </button>
                         {% else %}
                         <a href="{% url 'login' %}?next={{ request.path }}"
-                           style="display: inline-block; padding: 12px 28px; background: #1a1a1a; color: white; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-decoration: none;">
+                           style="display: inline-block; padding: 12px 28px; background: #183d31; color: white; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-decoration: none;">
                             Log in to Request
                         </a>
                         {% endif %}
                     {% endif %}
 
                     <a href="{% url 'library:books_list' %}"
-                       style="display: inline-block; padding: 12px 28px; border: 1.5px solid #e5e7eb; color: #6b7280; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-decoration: none;">
+                       style="display: inline-block; padding: 12px 28px; border: 1.5px solid #e5e7eb; color: #65736a; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-decoration: none;">
                         ← Back
                     </a>
                 </div>
 
                 <!-- Inline Request Form (hidden by default) -->
                 {% if book.access_type == "request" and user.is_authenticated and not has_requested %}
-                <div id="request-form" style="display: none; margin-top: 24px; padding: 24px; background: #fafafa; border-radius: 14px; max-width: 480px;">
+                <div id="request-form" style="display: none; margin-top: 24px; padding: 24px; background: #f3f6ed; border-radius: 8px; max-width: 480px;">
                     <form method="post" action="{% url 'library:request_book_access' book.slug %}">
                         {% csrf_token %}
                         <p style="font-size: 0.85rem; color: #4b5563; margin-bottom: 16px;">
@@ -117,11 +117,11 @@
                         </div>
                         <div class="d-flex gap-2">
                             <button type="submit"
-                                    style="padding: 10px 24px; background: #1a1a1a; color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer;">
+                                    style="padding: 10px 24px; background: #183d31; color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer;">
                                 Send Request
                             </button>
                             <button type="button" onclick="document.getElementById('request-form').style.display='none'; document.querySelector('[onclick]').style.display='inline-block';"
-                                    style="padding: 10px 24px; background: transparent; color: #6b7280; border: 1.5px solid #e5e7eb; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer;">
+                                    style="padding: 10px 24px; background: transparent; color: #65736a; border: 1.5px solid #e5e7eb; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer;">
                                 Cancel
                             </button>
                         </div>

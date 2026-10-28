@@ -1,0 +1,40 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}Igala Music · IgalaHeritage{% endblock %}
+{% block body_class %}music-page{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'styles/music.css' %}?v=20261027">{% endblock %}
+{% block content %}
+<div class="music-shell" data-music-root>
+  <form id="music-csrf" hidden>{% csrf_token %}</form>
+  <aside class="music-sidebar" aria-label="Music navigation">
+    <a class="music-wordmark" href="{% url 'music:home' %}" data-music-link><span class="music-mark" aria-hidden="true">≋</span> Igala<span>Music</span></a>
+    <nav class="music-nav">
+      <a href="{% url 'music:home' %}" data-music-link data-section="home"><i class="bx bx-grid-alt" aria-hidden="true"></i>Discover</a>
+      <a href="{% url 'music:search' %}" data-music-link data-section="search"><i class="bx bx-search" aria-hidden="true"></i>Search</a>
+      <a href="{% url 'music:artists' %}" data-music-link data-section="artists"><i class="bx bx-user-voice" aria-hidden="true"></i>Artists</a>
+      <a href="{% url 'music:releases' %}" data-music-link data-section="releases"><i class="bx bx-album" aria-hidden="true"></i>Releases</a>
+      <a href="{% url 'music:library' %}" data-music-link data-section="library"><i class="bx bx-library" aria-hidden="true"></i>Your library</a>
+    </nav>
+    <div class="music-sidebar-bottom"><span class="music-overline">FOR THE CREATORS</span><a href="{% url 'music:submit' %}" data-music-link><i class="bx bx-cloud-upload" aria-hidden="true"></i> Submit music</a>{% if user.is_authenticated %}<a href="{% url 'music:submissions' %}" data-music-link>My submissions <span aria-hidden="true">↗</span></a>{% endif %}<a href="{% url 'index' %}">Back to IgalaHeritage <span aria-hidden="true">↗</span></a></div>
+  </aside>
+  <div class="music-workspace">
+    <div class="music-topbar"><span class="music-overline">OUR SOUND. OUR SPACE.</span><div>{% if user.is_authenticated %}<span>{{ user.username }}</span>{% else %}<a href="{% url 'login' %}?next={% url 'music:home' %}">Sign in</a><a class="music-button music-button-small" href="{% url 'register' %}?next={% url 'music:home' %}">Join the community ↗</a>{% endif %}</div></div>
+    <div id="music-content" tabindex="-1">{% include 'music/_content.html' %}</div>
+  </div>
+</div>
+<aside id="music-queue" class="music-queue" hidden aria-labelledby="queue-heading"><div class="music-section-heading"><h2 id="queue-heading">Your queue</h2><button type="button" data-queue-close aria-label="Close queue">×</button></div><ol data-queue-list></ol><p data-queue-empty>No tracks queued.</p><button type="button" class="music-text-button" data-queue-clear>Clear queue</button></aside>
+<div class="music-toast" role="status" aria-live="polite" hidden></div>
+<section class="music-player" aria-label="Music player" data-player>
+  <audio id="music-audio" preload="none"></audio>
+  <div class="player-track"><div class="player-art" data-player-art><span aria-hidden="true">♫</span></div><div><a data-player-title>Choose a track</a><a data-player-artist>Igala Music</a></div><button type="button" class="player-expand" data-player-expand aria-label="Expand player" aria-expanded="false">⌃</button></div>
+  <div class="player-centre"><div class="player-buttons">
+    <button type="button" data-shuffle aria-label="Shuffle" aria-pressed="false" disabled><i class="bx bx-shuffle" aria-hidden="true"></i></button>
+    <button type="button" data-previous aria-label="Previous track" disabled><i class="bx bx-skip-previous" aria-hidden="true"></i></button>
+    <button type="button" class="player-play" data-toggle-play aria-label="Play" disabled><i class="bx bx-play" aria-hidden="true"></i></button>
+    <button type="button" data-next aria-label="Next track" disabled><i class="bx bx-skip-next" aria-hidden="true"></i></button>
+    <button type="button" data-repeat aria-label="Repeat off" aria-pressed="false" disabled><i class="bx bx-repeat" aria-hidden="true"></i></button>
+  </div><div class="player-timeline"><span data-current-time>0:00</span><input type="range" data-seek min="0" max="100" value="0" step="0.1" aria-label="Playback position" disabled><span data-total-time>0:00</span></div></div>
+  <div class="player-extras"><button type="button" data-queue-toggle aria-label="Open queue" aria-controls="music-queue" aria-expanded="false"><i class="bx bx-list-ul" aria-hidden="true"></i></button><button type="button" data-mute aria-label="Mute"><i class="bx bx-volume-full" aria-hidden="true"></i></button><input type="range" data-volume min="0" max="1" step="0.05" value="0.8" aria-label="Volume"></div>
+</section>
+{% endblock %}
+{% block extra_js %}<script src="{% static 'js/music.js' %}?v=20261027"></script>{% endblock %}

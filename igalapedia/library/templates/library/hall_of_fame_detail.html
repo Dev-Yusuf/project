@@ -1,4 +1,5 @@
 {% extends "main.html" %}
+{% load content_safety %}
 {% load static %}
 
 {% block content %}
@@ -12,7 +13,7 @@
                 <span class="mx-1">/</span>
                 <a href="{% url 'library:hall_of_fame_list' %}" class="text-decoration-none" style="color: #9ca3af;">Hall of Fame</a>
                 <span class="mx-1">/</span>
-                <span style="color: #6b7280;">{{ profile.name }}</span>
+                <span style="color: #65736a;">{{ profile.name }}</span>
             </p>
         </div>
 
@@ -34,10 +35,10 @@
 
             <!-- Info -->
             <div class="col-md-8">
-                <h1 style="font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: #1a1a1a; margin-bottom: 4px;">
+                <h1 style="font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; color: #183d31; margin-bottom: 4px;">
                     {{ profile.name }}
                 </h1>
-                <p style="font-size: 1.05rem; color: #d9a406; font-weight: 600; margin-bottom: 8px;">
+                <p style="font-size: 1.05rem; color: #8a7130; font-weight: 600; margin-bottom: 8px;">
                     {{ profile.title_role|default:"Igala Legend" }}
                 </p>
 
@@ -48,12 +49,12 @@
                 {% endif %}
 
                 <div style="color: #4b5563; line-height: 1.9; font-size: 1rem; margin-bottom: 32px;">
-                    {{ profile.bio|safe }}
+                    {{ profile.bio|sanitized_html }}
                 </div>
 
                 {% if profile.achievements %}
-                <div style="margin-bottom: 32px; padding: 24px 28px; background: #fafafa; border-radius: 16px;">
-                    <p class="text-uppercase fw-bold mb-3" style="letter-spacing: 2px; font-size: 0.7rem; color: #d9a406;">Achievements</p>
+                <div style="margin-bottom: 32px; padding: 24px 28px; background: #f3f6ed; border-radius: 8px;">
+                    <p class="text-uppercase fw-bold mb-3" style="letter-spacing: 2px; font-size: 0.7rem; color: #8a7130;">Achievements</p>
                     <div style="color: #4b5563; line-height: 1.9;">{{ profile.achievements|linebreaksbr }}</div>
                 </div>
                 {% endif %}
@@ -66,7 +67,7 @@
                 {% endif %}
 
                 <a href="{% url 'library:hall_of_fame_list' %}"
-                   style="display: inline-block; padding: 12px 28px; border: 1.5px solid #e5e7eb; color: #6b7280; border-radius: 12px; font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: all 0.2s;">
+                   style="display: inline-block; padding: 12px 28px; border: 1.5px solid #e5e7eb; color: #65736a; border-radius: 12px; font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: all 0.2s;">
                     ← Back to Hall of Fame
                 </a>
             </div>

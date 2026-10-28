@@ -7,9 +7,18 @@ from django.core.paginator import Paginator
 from django.db.models import Count
 from django.utils import timezone
 
-from main.utils import get_client_ip_hash
+from main.utils import get_client_ip_hash, redirect_to_safe_next
 from .models import BlogPost, BlogPostLike, BlogPostComment, BlogGuidelinesAck, BlogPostReport, BlogPostView
 from .forms import BlogPostForm, BlogCommentForm
+
+
+def get_visible_post(request, slug, queryset=None):
+    post = get_object_or_404(queryset if queryset is not None else BlogPost.objects.all(), slug=slug)
+    if post.is_hidden or (post.status != 'published' and (
+        not request.user.is_authenticated or post.author_id != request.user.pk
+    )):
+        raise Http404
+    return post
 
 
 def blog_list(request):
@@ -21,11 +30,7 @@ def blog_list(request):
 
 
 def blog_detail(request, slug):
-    post = get_object_or_404(BlogPost.objects.annotate(view_count=Count('view_records')), slug=slug)
-    if post.is_hidden:
-        raise Http404
-    if post.status == 'draft' and (not request.user.is_authenticated or request.user != post.author):
-        raise Http404
+    post = get_visible_post(request, slug, BlogPost.objects.annotate(view_count=Count('view_records')))
     ip_hash = get_client_ip_hash(request)
     if ip_hash:
         today = timezone.localdate()
@@ -46,8 +51,7 @@ def blog_detail(request, slug):
 def blog_guidelines(request):
     if request.method == 'POST':
         BlogGuidelinesAck.objects.get_or_create(user=request.user)
-        next_url = request.GET.get('next', '/blog/create/')
-        return redirect(next_url)
+        return redirect_to_safe_next(request, 'blog:blog_create')
     return render(request, 'blog/blog_guidelines.html')
 
 
@@ -98,7 +102,7 @@ def blog_delete(request, slug):
 @login_required
 @require_POST
 def blog_like_toggle(request, slug):
-    post = get_object_or_404(BlogPost, slug=slug)
+    post = get_visible_post(request, slug)
     like, created = BlogPostLike.objects.get_or_create(user=request.user, post=post)
     if not created:
         like.delete()
@@ -112,11 +116,15 @@ def blog_like_toggle(request, slug):
 @login_required
 @require_POST
 def blog_comment_add(request, slug):
-    post = get_object_or_404(BlogPost, slug=slug)
+    post = get_visible_post(request, slug)
     parent_id = request.POST.get('parent')
     parent = None
     if parent_id:
-        parent = BlogPostComment.objects.filter(post=post, pk=parent_id).first()
+        try:
+            parent_id = int(parent_id)
+        except (TypeError, ValueError):
+            raise Http404
+        parent = get_object_or_404(BlogPostComment, post=post, pk=parent_id, parent=None)
     form = BlogCommentForm(request.POST)
     if form.is_valid():
         comment = form.save(commit=False)
@@ -131,7 +139,7 @@ def blog_comment_add(request, slug):
 @login_required
 @require_POST
 def blog_report(request, slug):
-    post = get_object_or_404(BlogPost, slug=slug)
+    post = get_visible_post(request, slug)
     reason = request.POST.get('reason', '')
     BlogPostReport.objects.create(post=post, reported_by=request.user, reason=reason or None)
     messages.success(request, 'Thank you. Your report has been submitted.')

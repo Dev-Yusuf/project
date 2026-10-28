@@ -1,3 +1,4 @@
+from core.forms import SanitizedRichTextModelForm
 from django.contrib import admin, messages
 from .models import (
     Book,
@@ -56,6 +57,7 @@ class PendingBookAdmin(admin.ModelAdmin):
 
 @admin.register(HallOfFameProfile)
 class HallOfFameProfileAdmin(admin.ModelAdmin):
+    form = SanitizedRichTextModelForm
     list_display = ("name", "title_role", "era", "is_featured", "created_at")
     list_filter = ("is_featured",)
     search_fields = ("name", "title_role", "era")
@@ -64,6 +66,7 @@ class HallOfFameProfileAdmin(admin.ModelAdmin):
 
 @admin.register(PendingHallOfFameProfile)
 class PendingHallOfFameProfileAdmin(admin.ModelAdmin):
+    form = SanitizedRichTextModelForm
     list_display = ("name", "submitted_by", "status", "submitted_at", "reviewed_at")
     list_filter = ("status",)
     search_fields = ("name", "submitted_by__username")

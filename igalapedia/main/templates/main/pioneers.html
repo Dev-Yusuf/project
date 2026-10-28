@@ -1,102 +1,59 @@
 {% extends 'main.html' %}
 {% load static %}
-
+{% block title %}Pioneers · IgalaHeritage{% endblock %}
+{% block body_class %}pioneers-page{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'styles/pioneers.css' %}?v=20261028">{% endblock %}
 {% block content %}
-
-<!-- Link to external pioneers CSS -->
-<link rel="stylesheet" href="{% static 'styles/pioneers.css' %}">
-
-<section class="pioneers-hero">
-    <div class="container">
-        <div class="hero-content">
-            <span class="section-eyebrow">Our Pioneers</span>
-            <h1 class="hero-title">Visionaries Preserving Igala Heritage</h1>
-            <p class="hero-description">
-                Meet the dedicated individuals who are leading the way in documenting and preserving 
-                the Igala language for future generations. Their passion and commitment ensure that 
-                our rich cultural heritage lives on.
-            </p>
+<div class="pioneers-wrap">
+    <header class="people-hero">
+        <div class="people-hero-main">
+            <span class="people-eyebrow">Community / Our people</span>
+            <h1>Pioneers<span>.</span></h1>
         </div>
-    </div>
-</section>
+        <div class="people-hero-aside">
+            <svg class="people-mark" viewBox="0 0 88 88" fill="none" aria-hidden="true"><circle cx="44" cy="44" r="41" stroke="currentColor"/><path d="M44 16v56M16 44h56M24 24l40 40M24 64l40-40" stroke="currentColor" stroke-width="2"/><circle cx="44" cy="44" r="13" fill="currentColor"/></svg>
+            <p>The people bringing Igala heritage into the future.</p>
+            <a class="people-text-link" href="{% url 'about' %}">Our story <span aria-hidden="true">↗</span></a>
+        </div>
+    </header>
 
-<section class="pioneers-main">
-    <div class="container">
+    <section class="people-directory" aria-labelledby="people-heading">
+        <div class="people-section-top">
+            <h2 id="people-heading">Behind the archive</h2>
+            <span class="people-total">{{ pioneers|length|stringformat:"02d" }} pioneer{{ pioneers|length|pluralize }}</span>
+        </div>
         {% if pioneers %}
-            <div class="pioneers-count">
-                <i class="fas fa-users"></i>
-                <span>{{ pioneers|length }} Pioneer{{ pioneers|length|pluralize }} Leading the Way</span>
-            </div>
-
-            <div class="pioneers-grid-full">
-                {% for pioneer in pioneers %}
-                <div class="pioneer-card-full">
-                    <div class="pioneer-image-container">
-                        {% if pioneer.profile_image %}
-                            <img src="{{ pioneer.profile_image.url }}" alt="{{ pioneer.pioneer_name }}" class="pioneer-img">
-                        {% else %}
-                            <div class="pioneer-placeholder">
-                                <i class="fas fa-user fa-3x"></i>
-                            </div>
+        <div class="people-grid">
+            {% for pioneer in pioneers %}
+            <article class="person" aria-labelledby="person-{{ pioneer.pk }}">
+                <div class="person-portrait">
+                    <span class="person-monogram" aria-hidden="true">{{ pioneer.pioneer_name|default:"P"|slice:":1"|upper }}</span>
+                    {% if pioneer.profile_image %}<img src="{{ pioneer.profile_image.url }}" alt="Portrait of {{ pioneer.pioneer_name|default:'a pioneer' }}" width="600" height="690" {% if forloop.counter > 3 %}loading="lazy"{% endif %} decoding="async">{% endif %}
+                    <span class="person-number" aria-hidden="true">{{ forloop.counter|stringformat:"02d" }}</span>
+                </div>
+                <div class="person-info">
+                    <div class="person-title-row">
+                        <h3 id="person-{{ pioneer.pk }}">{{ pioneer.pioneer_name|default:"Community pioneer" }}</h3>
+                        {% if pioneer.pioneer_social_link|slice:":8" == 'https://' or pioneer.pioneer_social_link|slice:":7" == 'http://' %}
+                        <a class="person-profile" href="{{ pioneer.pioneer_social_link }}" target="_blank" rel="noopener noreferrer" aria-label="Visit {{ pioneer.pioneer_name|default:'pioneer' }}'s profile (opens in a new tab)"><span aria-hidden="true">↗</span></a>
                         {% endif %}
                     </div>
-                    
-                    <div class="pioneer-details">
-                        <h3 class="pioneer-name">{{ pioneer.pioneer_name|default:"Pioneer Name" }}</h3>
-                        <span class="pioneer-badge">{{ pioneer.position|default:"Cultural Advocate" }}</span>
-                        
-                        <p class="pioneer-bio">
-                            {{ pioneer.bio|default:"Contributing to the preservation and promotion of Igala language and culture. Dedicated to ensuring our heritage is passed down to future generations." }}
-                        </p>
-                        
-                        {% if pioneer.pioneer_social_link %}
-                        <div class="pioneer-social-links">
-                            <a href="{{ pioneer.pioneer_social_link }}" target="_blank" class="social-btn" title="Visit profile">
-                                <i class="fas fa-external-link-alt"></i>
-                                <span>Connect</span>
-                            </a>
-                        </div>
-                        {% endif %}
-                    </div>
+                    {% if pioneer.position %}<p class="person-role">{{ pioneer.position }}</p>{% endif %}
+                    {% if pioneer.bio %}<div class="person-bio">{{ pioneer.bio|linebreaksbr }}</div>{% endif %}
                 </div>
-                {% endfor %}
-            </div>
-        {% else %}
-            <!-- Empty State -->
-            <div class="empty-state">
-                <div class="empty-icon">
-                    <i class="fas fa-users fa-5x"></i>
-                </div>
-                <h2>No Pioneers Yet</h2>
-                <p>Be the first to join our community of cultural advocates dedicated to preserving the Igala language.</p>
-                <a href="{% url 'register' %}" class="btn btn-primary btn-lg">
-                    <i class="fas fa-user-plus"></i> Become a Pioneer
-                </a>
-            </div>
-        {% endif %}
-
-        <!-- Call to Action -->
-        <div class="pioneers-cta-section">
-            <div class="cta-card-pioneers">
-                <div class="cta-icon-pioneers">🌍</div>
-                <div class="cta-content-pioneers">
-                    <h3>Join Our Mission</h3>
-                    <p>Become part of a dedicated community working to preserve and promote the Igala language and culture.</p>
-                    <div class="cta-buttons-pioneers">
-                        <a href="{% url 'register' %}" class="btn btn-primary">
-                            <i class="fas fa-user-plus"></i> Get Started
-                        </a>
-                        <a href="{% url 'about' %}" class="btn btn-outline-primary">
-                            <i class="fas fa-info-circle"></i> Learn More
-                        </a>
-                    </div>
-                </div>
-            </div>
+            </article>
+            {% endfor %}
         </div>
-    </div>
-</section>
+        {% else %}
+        <div class="people-empty"><span aria-hidden="true">↗</span><h3>Our next chapter starts with people.</h3><p>Pioneer profiles are coming soon.</p></div>
+        {% endif %}
+    </section>
 
-{% include "footer.html" %}
-
-{% endblock content %}
-
+    <aside class="people-invitation" aria-labelledby="invitation-heading">
+        <div><span class="people-eyebrow">An open invitation</span><h2 id="invitation-heading">Heritage is a shared effort.</h2><p>Bring your words, knowledge, and perspective.</p></div>
+        <a class="people-join" href="{% if user.is_authenticated %}{% url 'submit_word' %}{% else %}{% url 'register' %}{% endif %}">Start contributing <span aria-hidden="true">↗</span></a>
+    </aside>
+</div>
+{% include 'footer.html' %}
+{% endblock %}
+{% block extra_js %}<script src="{% static 'js/pioneers.js' %}?v=20261028" defer></script>{% endblock %}

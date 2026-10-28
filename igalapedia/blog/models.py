@@ -1,8 +1,10 @@
+from core.validators import validate_image_upload
 from django.db import models
 from django.conf import settings
 from django.utils.text import slugify
 from django.utils import timezone
 from ckeditor.fields import RichTextField
+from .sanitization import sanitize_blog_html
 
 
 class BlogPost(models.Model):
@@ -19,7 +21,7 @@ class BlogPost(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, max_length=220, blank=True)
     body = RichTextField()
-    cover_image = models.ImageField(upload_to='blog_covers/', blank=True, null=True)
+    cover_image = models.ImageField(validators=[validate_image_upload], upload_to='blog_covers/', blank=True, null=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
     published_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -30,6 +32,7 @@ class BlogPost(models.Model):
         ordering = ['-created_at']
 
     def save(self, *args, **kwargs):
+        self.body = sanitize_blog_html(self.body)
         if not self.slug:
             base = slugify(self.title)
             slug = base
@@ -44,6 +47,11 @@ class BlogPost(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def sanitized_body(self):
+        # Also protects historical posts and writes that bypass Model.save().
+        return sanitize_blog_html(self.body)
 
 
 class BlogPostLike(models.Model):

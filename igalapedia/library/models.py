@@ -1,4 +1,6 @@
+from core.validators import validate_image_upload, validate_audio_upload, validate_pdf_upload
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models, transaction
 from django.utils import timezone
 from django.utils.text import slugify
@@ -29,8 +31,8 @@ class Book(models.Model):
         help_text="Author's email for access requests. Required if access type is 'Request Access'.",
     )
     description = models.TextField(blank=True)
-    cover_image = models.ImageField(upload_to="library/book_covers/", blank=True, null=True)
-    file = models.FileField(upload_to="library/books/", blank=True, null=True)
+    cover_image = models.ImageField(validators=[validate_image_upload], upload_to="library/book_covers/", blank=True, null=True)
+    file = models.FileField(validators=[validate_pdf_upload], upload_to="library/books/", blank=True, null=True)
     external_url = models.URLField(blank=True, null=True)
     language = models.CharField(max_length=10, choices=LANGUAGE_CHOICES, default="ig")
     publication_year = models.IntegerField(blank=True, null=True)
@@ -48,7 +50,19 @@ class Book(models.Model):
     class Meta:
         ordering = ["-created_at"]
 
+    def clean(self):
+        super().clean()
+        if self.access_type == 'request':
+            errors = {}
+            if self.file or self.external_url:
+                errors['access_type'] = 'Request-only books must be shared privately by the author; remove public files and links first.'
+            if not self.author_email:
+                errors['author_email'] = 'An author email is required for access requests.'
+            if errors:
+                raise ValidationError(errors)
+
     def save(self, *args, **kwargs):
+        self.clean()
         if not self.slug:
             base = slugify(self.title)
             slug = base
@@ -99,8 +113,8 @@ class PendingBook(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=200, blank=True)
     description = models.TextField(blank=True)
-    cover_image = models.ImageField(upload_to="library/book_covers/", blank=True, null=True)
-    file = models.FileField(upload_to="library/books/", blank=True, null=True)
+    cover_image = models.ImageField(validators=[validate_image_upload], upload_to="library/book_covers/", blank=True, null=True)
+    file = models.FileField(validators=[validate_pdf_upload], upload_to="library/books/", blank=True, null=True)
     external_url = models.URLField(blank=True, null=True)
     language = models.CharField(max_length=10, choices=Book.LANGUAGE_CHOICES, default="ig")
     publication_year = models.IntegerField(blank=True, null=True)
@@ -177,7 +191,7 @@ class HallOfFameProfile(models.Model):
     era = models.CharField(max_length=200, blank=True)
     bio = RichTextField(blank=True)
     achievements = models.TextField(blank=True)
-    profile_image = models.ImageField(upload_to="library/hall_of_fame/", blank=True, null=True)
+    profile_image = models.ImageField(validators=[validate_image_upload], upload_to="library/hall_of_fame/", blank=True, null=True)
     external_links = models.TextField(blank=True)
     is_featured = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -215,7 +229,7 @@ class PendingHallOfFameProfile(models.Model):
     era = models.CharField(max_length=200, blank=True)
     bio = RichTextField(blank=True)
     achievements = models.TextField(blank=True)
-    profile_image = models.ImageField(upload_to="library/hall_of_fame/", blank=True, null=True)
+    profile_image = models.ImageField(validators=[validate_image_upload], upload_to="library/hall_of_fame/", blank=True, null=True)
     external_links = models.TextField(blank=True)
 
     submitted_by = models.ForeignKey(
@@ -330,8 +344,8 @@ class Quiz(models.Model):
 class QuizQuestion(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name="questions")
     question_text = models.TextField()
-    image = models.ImageField(upload_to="library/quiz_images/", blank=True, null=True)
-    audio = models.FileField(upload_to="library/quiz_audio/", blank=True, null=True)
+    image = models.ImageField(validators=[validate_image_upload], upload_to="library/quiz_images/", blank=True, null=True)
+    audio = models.FileField(validators=[validate_audio_upload], upload_to="library/quiz_audio/", blank=True, null=True)
     explanation = models.TextField(blank=True)
     order = models.IntegerField(default=0)
 

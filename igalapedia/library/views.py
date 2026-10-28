@@ -1,3 +1,4 @@
+import logging
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
@@ -8,7 +9,7 @@ from django.utils import timezone
 from django.views.decorators.http import require_POST
 
 from main.utils import paginate_queryset
-from .forms import BookSubmissionForm, HallOfFameSubmissionForm
+from .forms import BookSubmissionForm, HallOfFameSubmissionForm, BookAccessRequestForm
 from .models import (
     Book,
     BookAccessRequest,
@@ -20,6 +21,9 @@ from .models import (
     QuizAttemptAnswer,
     QuizChoice,
 )
+
+
+logger = logging.getLogger(__name__)
 
 
 def library_home(request):
@@ -90,24 +94,25 @@ def book_detail(request, slug):
 def request_book_access(request, slug):
     book = get_object_or_404(Book, slug=slug, status="published", access_type="request")
 
-    email = (request.POST.get("email") or "").strip()
-    message_text = (request.POST.get("message") or "").strip()
-
-    if not email:
-        messages.error(request, "Please provide your email address.")
-        return redirect("library:book_detail", slug=slug)
-
+    form = BookAccessRequestForm(request.POST)
+    if not form.is_valid():
+        messages.error(request, 'Please provide a valid email and a message of at most 5000 characters.')
+        return redirect('library:book_detail', slug=slug)
+    email = form.cleaned_data['email']
+    message_text = form.cleaned_data['message']
     try:
-        access_request = BookAccessRequest.objects.create(
-            book=book,
-            user=request.user,
-            email=email,
-            message=message_text,
-        )
+        with transaction.atomic():
+            access_request = form.save(commit=False)
+            access_request.book = book
+            access_request.user = request.user
+            access_request.save()
     except IntegrityError:
-        messages.info(request, "You have already requested access to this book.")
-        return redirect("library:book_detail", slug=slug)
+        if not BookAccessRequest.objects.filter(book=book, user=request.user).exists():
+            raise
+        messages.info(request, 'You have already requested access to this book.')
+        return redirect('library:book_detail', slug=slug)
 
+    notified = False
     # Send email notification to the author
     if book.author_email:
         subject = f"Book Access Request: {book.title}"
@@ -125,20 +130,21 @@ def request_book_access(request, slug):
             f"Thank you for contributing to IgalaHeritage."
         )
         try:
-            send_mail(
+            sent = send_mail(
                 subject,
                 body,
                 django_settings.DEFAULT_FROM_EMAIL,
                 [book.author_email],
-                fail_silently=True,
+                fail_silently=False,
             )
+            notified = sent == 1 and django_settings.EMAIL_BACKEND != 'django.core.mail.backends.console.EmailBackend'
         except Exception:
-            pass  # Don't block the user if email fails
+            logger.exception('Book access notification failed for request %s', access_request.pk)
 
-    messages.success(
-        request,
-        "Your request has been sent to the author. They will contact you at the email you provided.",
-    )
+    if notified:
+        messages.success(request, 'Your request was saved and an email notification was sent to the author.')
+    else:
+        messages.warning(request, 'Your request was saved, but we could not email the author. Our team can review it.')
     return redirect("library:book_detail", slug=slug)
 
 

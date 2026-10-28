@@ -1,40 +1,62 @@
+import logging
+from urllib.parse import urlencode
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db import transaction
 from django.http import JsonResponse
 from django.urls import reverse
-from .models import Words, PendingWord, PendingMeaning, PendingExample, PendingExampleContribution, ContributionStats
-from .filters import WordsFilters
+from .models import Words, Meaning, PendingWord, PendingMeaning, PendingExample, PendingExampleContribution, ContributionStats
 from .forms import WordSubmissionForm, MeaningFormSet, ExampleInlineFormSet, ExampleContributionForm
-from main.utils import paginate_queryset, get_filtered_queryset, get_object_or_404
+from main.utils import paginate_queryset, get_object_or_404
 from django.contrib.auth import get_user_model
-from django.db.models import Count
+from django.db.models import Count, Q, Prefetch
+from django.db.models.functions import Lower
+
+
+logger = logging.getLogger(__name__)
 
 
 def all_words(request):
-    # Get all words ordered by word
-    words = Words.objects.all().order_by('word')
-    filtered_words, word_filter = get_filtered_queryset(words, WordsFilters, request)
-    
-    # Paginate results
-    page_number = request.GET.get('page')
-    current_page_holder = paginate_queryset(filtered_words, 50, page_number)
-    
+    query = (request.GET.get('word') or '').strip()[:100]
+    meanings = Prefetch('meanings', queryset=Meaning.objects.select_related('part_of_speech').order_by('pk'))
+    archive = Words.objects.all()
+    words = archive.order_by(Lower('word'), 'pk').prefetch_related(meanings)
+    if query:
+        words = words.filter(word__istartswith=query)
+    page = paginate_queryset(words, 20, request.GET.get('page'))
+    params = {'word': query} if query else {}
+    page_link = lambda number: '?' + urlencode({**params, 'page': number})
     context = {
-        'words': current_page_holder,
-        'word_filter': word_filter,
-        'current_page_holder': current_page_holder
+        'words': page, 'current_page_holder': page,
+        'query': query,
+        'page_links': [{'number': number, 'url': page_link(number) if isinstance(number, int) else ''}
+                       for number in page.paginator.get_elided_page_range(page.number, on_each_side=1, on_ends=1)],
+        'previous_url': page_link(page.previous_page_number()) if page.has_previous() else '',
+        'next_url': page_link(page.next_page_number()) if page.has_next() else '',
     }
-    
+    if request.GET.get('fragment') == '1':
+        return render(request, 'dictionary/_browse_results.html', context)
+    context['featured_word'] = archive.prefetch_related(meanings).order_by('-created_at', '-pk').first()
     return render(request, "dictionary/dictionary.html", context)
 
 
 def dictionary_search_api(request):
-    """JSON API for live search: words starting with q (prefix match), cap at 50."""
+    """Prefix search, or an exact lookup with meanings for the homepage word lab."""
     q = (request.GET.get('q') or '').strip()
-    if not q:
+    if not q or len(q) > Words._meta.get_field('word').max_length:
         return JsonResponse({'words': []})
+    if request.GET.get('exact') == '1':
+        words = Words.objects.filter(word__iexact=q).order_by('pk').prefetch_related(
+            Prefetch('meanings', queryset=Meaning.objects.select_related('part_of_speech').order_by('pk')),
+        )[:10]
+        return JsonResponse({'words': [
+            {'word': word.word, 'slug': word.slug,
+             'url': reverse('single-word', kwargs={'slug': word.slug}),
+             'meanings': [{'meaning': meaning.meaning, 'part_of_speech': meaning.part_of_speech.name}
+                          for meaning in word.meanings.all()]}
+            for word in words
+        ]})
     words = Words.objects.filter(word__istartswith=q).order_by('word')[:50]
     return JsonResponse({
         'words': [{'word': w.word, 'slug': w.slug} for w in words]
@@ -78,26 +100,16 @@ def singleword(request, slug):
 
 def leaderboard(request):
     User = get_user_model()
-    contributors_data = []
-    pending_words = PendingWord.objects.select_related('submitted_by').all()
-    user_ids = set(pending_words.values_list('submitted_by_id', flat=True))
-    
-    for user_id in user_ids:
-        user = User.objects.get(id=user_id)
-        stats, created = ContributionStats.objects.get_or_create(user=user)
-        if created or stats.total_submissions == 0:
-            stats.update_stats()
-        
-        if stats.approved_words_count > 0:  # Only show Users with approved contributions
-            contributors_data.append({
-                'user': user,
-                'word_count': stats.approved_words_count,
-                'pending_count': stats.pending_words_count,
-                'total_submissions': stats.total_submissions
-            })
-    
-    # Sort by approved word count bb85c26eac1fb94fdd4e8dc885063783
-    contributors_data.sort(key=lambda x: x['word_count'], reverse=True)
+    contributors = User.objects.annotate(
+        approved_count=Count('pending_word_submissions', filter=Q(pending_word_submissions__status='APPROVED')),
+        pending_count=Count('pending_word_submissions', filter=Q(pending_word_submissions__status='PENDING')),
+        submission_count=Count('pending_word_submissions'),
+    ).filter(approved_count__gt=0).order_by('-approved_count', 'username')
+    contributors_data = [
+        {'user': user, 'word_count': user.approved_count,
+         'pending_count': user.pending_count, 'total_submissions': user.submission_count}
+        for user in contributors
+    ]
     context = {'contributors': contributors_data}
     return render(request, 'dictionary/leaderboard.html', context)
 
@@ -158,8 +170,9 @@ def submit_word(request):
                     )
                     return redirect('submit_word')
                     
-            except Exception as e:
-                messages.error(request, f'An error occurred: {str(e)}')
+            except Exception:
+                logger.exception('Word submission failed for user %s', request.user.pk)
+                messages.error(request, 'Your submission could not be saved. Please try again.')
         else:
             messages.error(request, 'Please correct the errors below.')
     else:
@@ -199,19 +212,15 @@ def my_contributions(request):
     pending_histories = []
     approved_histories = []
     rejected_histories = []
-    try:
-        from history.models import PendingHistory
-        base_histories_qs = PendingHistory.objects.filter(submitted_by=request.user).select_related('approved_article')
-        pending_histories = list(base_histories_qs.filter(status='PENDING').order_by('-submitted_at'))
-        approved_histories = list(base_histories_qs.filter(status='APPROVED').order_by('-reviewed_at', '-submitted_at'))
-        rejected_histories = list(base_histories_qs.filter(status='REJECTED').order_by('-reviewed_at', '-submitted_at'))
-    except Exception:
-        pass
-    
+    from history.models import PendingHistory
+    base_histories_qs = PendingHistory.objects.filter(submitted_by=request.user).select_related('approved_article')
+    pending_histories = list(base_histories_qs.filter(status='PENDING').order_by('-submitted_at'))
+    approved_histories = list(base_histories_qs.filter(status='APPROVED').order_by('-reviewed_at', '-submitted_at'))
+    rejected_histories = list(base_histories_qs.filter(status='REJECTED').order_by('-reviewed_at', '-submitted_at'))
+
     # Get stats
     stats, created = ContributionStats.objects.get_or_create(user=request.user)
-    if created:
-        stats.update_stats()
+    stats.update_stats()
     
     context = {
         # Word submissions by status

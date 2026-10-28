@@ -1,20 +1,15 @@
 {% extends 'main.html' %}
 {% load static %}
+{% block title %}Create an account · IgalaHeritage{% endblock %}
 
 {% block content %}
 
-<section class="section d-flex align-items-center mb-5" style="min-height: 80vh; padding-top: 120px;">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6 col-lg-5">
-                <div class="card border-0 shadow-lg"
-                    style="background: var(--bg-card); border-radius: var(--radius-lg);">
-                    <div class="card-body p-4 p-md-5">
-                        <div class="text-center mb-4">
-                            <h2 class="h3 fw-bold mb-1" style="color: var(--text-main);">Create Account</h2>
-                            <p class="text-muted small">Join the community and start contributing</p>
-                        </div>
-
+<section class="auth-section">
+  <div class="container">
+    <div class="auth-shell">
+      <aside class="auth-aside"><span>IGALAHERITAGE / COMMUNITY</span><h2>Our heritage.<br>Our next chapter.</h2><span>LANGUAGE / CULTURE / CONNECTION</span></aside>
+      <div class="auth-content">
+        <h1>Create an account</h1>
                         {% if messages %}
                         {% for message in messages %}
                         <div class="alert alert-{{ message.tags }} alert-dismissible fade show small" role="alert">
@@ -30,7 +25,7 @@
                             <!-- Username & Email -->
                             <div class="row g-4">
                                 <div class="col-12">
-                                    <label
+                                    <label for="{{ form.username.id_for_label }}"
                                         class="form-label small fw-bold text-muted text-uppercase mb-2">Username</label>
                                     {{ form.username }}
                                     {% if form.username.errors %}
@@ -38,7 +33,7 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-12">
-                                    <label class="form-label small fw-bold text-muted text-uppercase mb-2">Email
+                                    <label for="{{ form.email.id_for_label }}" class="form-label small fw-bold text-muted text-uppercase mb-2">Email
                                         Address</label>
                                     {{ form.email }}
                                     {% if form.email.errors %}
@@ -50,12 +45,12 @@
                             <!-- Names -->
                             <div class="row g-4">
                                 <div class="col-md-6">
-                                    <label class="form-label small fw-bold text-muted text-uppercase mb-2">First
+                                    <label for="{{ form.first_name.id_for_label }}" class="form-label small fw-bold text-muted text-uppercase mb-2">First
                                         Name</label>
                                     {{ form.first_name }}
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label small fw-bold text-muted text-uppercase mb-2">Last
+                                    <label for="{{ form.last_name.id_for_label }}" class="form-label small fw-bold text-muted text-uppercase mb-2">Last
                                         Name</label>
                                     {{ form.last_name }}
                                 </div>
@@ -64,7 +59,7 @@
                             <!-- Passwords -->
                             <div class="row g-4">
                                 <div class="col-12">
-                                    <label
+                                    <label for="{{ form.password1.id_for_label }}"
                                         class="form-label small fw-bold text-muted text-uppercase mb-2">Password</label>
                                     {{ form.password1 }}
                                     {% if form.password1.errors %}
@@ -73,7 +68,7 @@
                                     <div class="form-text small opacity-50 mt-1">At least 8 characters</div>
                                 </div>
                                 <div class="col-12">
-                                    <label class="form-label small fw-bold text-muted text-uppercase mb-2">Confirm
+                                    <label for="{{ form.password2.id_for_label }}" class="form-label small fw-bold text-muted text-uppercase mb-2">Confirm
                                         Password</label>
                                     {{ form.password2 }}
                                     {% if form.password2.errors %}
@@ -99,11 +94,10 @@
                             <p class="text-muted small mb-0">Already have an account? <a href="{% url 'login' %}"
                                     class="fw-bold text-primary text-decoration-none">Sign in</a></p>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 </section>
+{% include 'footer.html' %}
 
 {% endblock content %}

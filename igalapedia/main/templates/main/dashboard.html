@@ -6,11 +6,11 @@
 <!-- Hero -->
 <section style="padding: 160px 0 40px;">
     <div class="container" style="max-width: 900px;">
-        <p class="text-uppercase fw-bold mb-2" style="letter-spacing: 3px; font-size: 0.75rem; color: #10b981;">Dashboard</p>
-        <h1 style="font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: #1a1a1a; margin-bottom: 8px;">
+        <p class="text-uppercase fw-bold mb-2" style="letter-spacing: 3px; font-size: 0.75rem; color: #466543;">Dashboard</p>
+        <h1 style="font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 500; line-height: 1.1; letter-spacing: -0.02em; color: #183d31; margin-bottom: 8px;">
             Welcome, {{ user.get_full_name|default:user.username }}.
         </h1>
-        <p style="font-size: 1rem; color: #6b7280; line-height: 1.7;">
+        <p style="font-size: 1rem; color: #65736a; line-height: 1.7;">
             Your contributions overview and quick actions.
         </p>
     </div>
@@ -21,32 +21,32 @@
     <div class="container" style="max-width: 900px;">
         <div class="row g-3">
             <div class="col-6 col-md">
-                <div style="background: #fafafa; border-radius: 14px; padding: 24px 20px; text-align: center;">
-                    <p style="font-size: 2rem; font-weight: 800; color: #10b981; margin-bottom: 4px; line-height: 1;">{{ stats.approved_words_count }}</p>
+                <div style="background: #f3f6ed; border-radius: 8px; padding: 24px 20px; text-align: center;">
+                    <p style="font-size: 2rem; font-weight: 500; color: #466543; margin-bottom: 4px; line-height: 1;">{{ stats.approved_words_count }}</p>
                     <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; color: #9ca3af; margin: 0;">Approved Words</p>
                 </div>
             </div>
             <div class="col-6 col-md">
-                <div style="background: #fafafa; border-radius: 14px; padding: 24px 20px; text-align: center;">
-                    <p style="font-size: 2rem; font-weight: 800; color: #d9a406; margin-bottom: 4px; line-height: 1;">{{ stats.pending_words_count }}</p>
+                <div style="background: #f3f6ed; border-radius: 8px; padding: 24px 20px; text-align: center;">
+                    <p style="font-size: 2rem; font-weight: 500; color: #8a7130; margin-bottom: 4px; line-height: 1;">{{ stats.pending_words_count }}</p>
                     <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; color: #9ca3af; margin: 0;">Pending</p>
                 </div>
             </div>
             <div class="col-6 col-md">
-                <div style="background: #fafafa; border-radius: 14px; padding: 24px 20px; text-align: center;">
-                    <p style="font-size: 2rem; font-weight: 800; color: #dc2626; margin-bottom: 4px; line-height: 1;">{{ stats.rejected_words_count }}</p>
+                <div style="background: #f3f6ed; border-radius: 8px; padding: 24px 20px; text-align: center;">
+                    <p style="font-size: 2rem; font-weight: 500; color: #dc2626; margin-bottom: 4px; line-height: 1;">{{ stats.rejected_words_count }}</p>
                     <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; color: #9ca3af; margin: 0;">Rejected</p>
                 </div>
             </div>
             <div class="col-6 col-md">
-                <div style="background: #fafafa; border-radius: 14px; padding: 24px 20px; text-align: center;">
-                    <p style="font-size: 2rem; font-weight: 800; color: #10b981; margin-bottom: 4px; line-height: 1;">{{ stats.approved_histories_count|default:0 }}</p>
+                <div style="background: #f3f6ed; border-radius: 8px; padding: 24px 20px; text-align: center;">
+                    <p style="font-size: 2rem; font-weight: 500; color: #466543; margin-bottom: 4px; line-height: 1;">{{ stats.approved_histories_count|default:0 }}</p>
                     <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; color: #9ca3af; margin: 0;">Histories</p>
                 </div>
             </div>
             <div class="col-6 col-md">
-                <div style="background: #fafafa; border-radius: 14px; padding: 24px 20px; text-align: center;">
-                    <p style="font-size: 2rem; font-weight: 800; color: #1a1a1a; margin-bottom: 4px; line-height: 1;">{{ stats.total_submissions }}</p>
+                <div style="background: #f3f6ed; border-radius: 8px; padding: 24px 20px; text-align: center;">
+                    <p style="font-size: 2rem; font-weight: 500; color: #183d31; margin-bottom: 4px; line-height: 1;">{{ stats.total_submissions }}</p>
                     <p style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; color: #9ca3af; margin: 0;">Total</p>
                 </div>
             </div>
@@ -62,7 +62,7 @@
             <a href="{% url 'submit_word' %}" class="text-decoration-none d-block dash-action-row">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h4 style="font-size: 0.95rem; font-weight: 700; color: #1a1a1a; margin-bottom: 2px;">Submit New Word</h4>
+                        <h4 style="font-size: 0.95rem; font-weight: 700; color: #183d31; margin-bottom: 2px;">Submit New Word</h4>
                         <p style="font-size: 0.8rem; color: #9ca3af; margin: 0;">Contribute a new Igala word to the dictionary</p>
                     </div>
                     <span style="color: #d1d5db; font-size: 1.2rem;">→</span>
@@ -71,7 +71,7 @@
             <a href="{% url 'submit_history' %}" class="text-decoration-none d-block dash-action-row">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h4 style="font-size: 0.95rem; font-weight: 700; color: #1a1a1a; margin-bottom: 2px;">Submit History</h4>
+                        <h4 style="font-size: 0.95rem; font-weight: 700; color: #183d31; margin-bottom: 2px;">Submit History</h4>
                         <p style="font-size: 0.8rem; color: #9ca3af; margin: 0;">Share Igala history for review and publishing</p>
                     </div>
                     <span style="color: #d1d5db; font-size: 1.2rem;">→</span>
@@ -80,7 +80,7 @@
             <a href="{% url 'my_contributions' %}" class="text-decoration-none d-block dash-action-row">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h4 style="font-size: 0.95rem; font-weight: 700; color: #1a1a1a; margin-bottom: 2px;">My Contributions</h4>
+                        <h4 style="font-size: 0.95rem; font-weight: 700; color: #183d31; margin-bottom: 2px;">My Contributions</h4>
                         <p style="font-size: 0.8rem; color: #9ca3af; margin: 0;">See all your submitted words and their status</p>
                     </div>
                     <span style="color: #d1d5db; font-size: 1.2rem;">→</span>
@@ -89,7 +89,7 @@
             <a href="{% url 'leaderboard' %}" class="text-decoration-none d-block dash-action-row">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h4 style="font-size: 0.95rem; font-weight: 700; color: #1a1a1a; margin-bottom: 2px;">Leaderboard</h4>
+                        <h4 style="font-size: 0.95rem; font-weight: 700; color: #183d31; margin-bottom: 2px;">Leaderboard</h4>
                         <p style="font-size: 0.8rem; color: #9ca3af; margin: 0;">See where you rank among contributors</p>
                     </div>
                     <span style="color: #d1d5db; font-size: 1.2rem;">→</span>
@@ -98,7 +98,7 @@
             <a href="{% url 'words' %}" class="text-decoration-none d-block dash-action-row">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h4 style="font-size: 0.95rem; font-weight: 700; color: #1a1a1a; margin-bottom: 2px;">Browse Dictionary</h4>
+                        <h4 style="font-size: 0.95rem; font-weight: 700; color: #183d31; margin-bottom: 2px;">Browse Dictionary</h4>
                         <p style="font-size: 0.8rem; color: #9ca3af; margin: 0;">Explore the full Igala dictionary</p>
                     </div>
                     <span style="color: #d1d5db; font-size: 1.2rem;">→</span>
@@ -116,20 +116,20 @@
             <p class="text-uppercase fw-bold mb-3" style="letter-spacing: 2px; font-size: 0.7rem; color: #9ca3af;">Recent History Submissions</p>
             <div class="row g-4">
                 <div class="col-md-6">
-                    <p style="font-size: 0.75rem; font-weight: 700; color: #10b981; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Approved</p>
+                    <p style="font-size: 0.75rem; font-weight: 700; color: #466543; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Approved</p>
                     {% if recent_approved_histories %}
                     {% for item in recent_approved_histories %}
                     <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f5f5f5;">
                         {% if item.approved_article %}
-                        <a href="{% url 'history_detail' item.approved_article.slug %}" class="text-decoration-none" style="font-size: 0.9rem; font-weight: 600; color: #1a1a1a;">{{ item.title }}</a>
+                        <a href="{% url 'history_detail' item.approved_article.slug %}" class="text-decoration-none" style="font-size: 0.9rem; font-weight: 600; color: #183d31;">{{ item.title }}</a>
                         {% else %}
-                        <span style="font-size: 0.9rem; font-weight: 600; color: #1a1a1a;">{{ item.title }}</span>
+                        <span style="font-size: 0.9rem; font-weight: 600; color: #183d31;">{{ item.title }}</span>
                         {% endif %}
                         <span style="font-size: 0.75rem; color: #9ca3af;">{{ item.reviewed_at|date:"M d" }}</span>
                     </div>
                     {% endfor %}
                     {% if stats.approved_histories_count > 4 %}
-                    <a href="{% url 'history_list' %}" class="text-decoration-none d-inline-block mt-3" style="font-size: 0.85rem; font-weight: 600; color: #10b981;">View all →</a>
+                    <a href="{% url 'history_list' %}" class="text-decoration-none d-inline-block mt-3" style="font-size: 0.85rem; font-weight: 600; color: #466543;">View all →</a>
                     {% endif %}
                     {% else %}
                     <p style="color: #9ca3af; font-size: 0.85rem;">No approved histories yet.</p>
@@ -140,7 +140,7 @@
                     {% if recent_rejected_histories %}
                     {% for item in recent_rejected_histories %}
                     <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f5f5f5;">
-                        <span style="font-size: 0.9rem; font-weight: 600; color: #1a1a1a;">{{ item.title }}</span>
+                        <span style="font-size: 0.9rem; font-weight: 600; color: #183d31;">{{ item.title }}</span>
                         <span style="font-size: 0.75rem; color: #9ca3af;">{{ item.reviewed_at|date:"M d" }}</span>
                     </div>
                     {% endfor %}
@@ -162,16 +162,16 @@
             <p class="text-uppercase fw-bold mb-3" style="letter-spacing: 2px; font-size: 0.7rem; color: #9ca3af;">Recent Word Activity</p>
             <div class="row g-4">
                 <div class="col-md-6">
-                    <p style="font-size: 0.75rem; font-weight: 700; color: #10b981; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Approved</p>
+                    <p style="font-size: 0.75rem; font-weight: 700; color: #466543; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Approved</p>
                     {% if recent_approved %}
                     {% for item in recent_approved %}
                     <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f5f5f5;">
-                        <span style="font-size: 0.9rem; font-weight: 600; color: #1a1a1a;">{{ item.word }}</span>
+                        <span style="font-size: 0.9rem; font-weight: 600; color: #183d31;">{{ item.word }}</span>
                         <span style="font-size: 0.75rem; color: #9ca3af;">{{ item.reviewed_at|date:"M d" }}</span>
                     </div>
                     {% endfor %}
                     {% if stats.approved_words_count > 4 %}
-                    <a href="{% url 'my_contributions' %}" class="text-decoration-none d-inline-block mt-3" style="font-size: 0.85rem; font-weight: 600; color: #10b981;">View all {{ stats.approved_words_count }} →</a>
+                    <a href="{% url 'my_contributions' %}" class="text-decoration-none d-inline-block mt-3" style="font-size: 0.85rem; font-weight: 600; color: #466543;">View all {{ stats.approved_words_count }} →</a>
                     {% endif %}
                     {% else %}
                     <p style="color: #9ca3af; font-size: 0.85rem;">No approved words yet.</p>
@@ -182,7 +182,7 @@
                     {% if recent_rejected %}
                     {% for item in recent_rejected %}
                     <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f5f5f5;">
-                        <span style="font-size: 0.9rem; font-weight: 600; color: #1a1a1a;">{{ item.word }}</span>
+                        <span style="font-size: 0.9rem; font-weight: 600; color: #183d31;">{{ item.word }}</span>
                         <span style="font-size: 0.75rem; color: #9ca3af;">{{ item.reviewed_at|date:"M d" }}</span>
                     </div>
                     {% endfor %}
@@ -205,27 +205,27 @@
     <div class="container" style="max-width: 900px;">
         <div style="border-top: 1px solid #f0f0f0; padding-top: 40px;">
             <p class="text-uppercase fw-bold mb-3" style="letter-spacing: 2px; font-size: 0.7rem; color: #9ca3af;">Achievement</p>
-            <div style="background: #fafafa; border-radius: 16px; padding: 28px;">
+            <div style="background: #f3f6ed; border-radius: 8px; padding: 28px;">
                 {% if stats.approved_words_count >= 100 %}
-                <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #d9a406; margin-bottom: 8px;">Legendary</p>
-                <h3 style="font-size: 1.2rem; font-weight: 800; color: #1a1a1a; margin-bottom: 6px;">Legendary Contributor</h3>
-                <p style="font-size: 0.9rem; color: #6b7280; margin: 0; line-height: 1.6;">100+ approved words. You're a pillar of the IgalaHeritage community.</p>
+                <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #8a7130; margin-bottom: 8px;">Legendary</p>
+                <h3 style="font-size: 1.2rem; font-weight: 500; color: #183d31; margin-bottom: 6px;">Legendary Contributor</h3>
+                <p style="font-size: 0.9rem; color: #65736a; margin: 0; line-height: 1.6;">100+ approved words. You're a pillar of the IgalaHeritage community.</p>
                 {% elif stats.approved_words_count >= 50 %}
-                <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #d9a406; margin-bottom: 8px;">Champion</p>
-                <h3 style="font-size: 1.2rem; font-weight: 800; color: #1a1a1a; margin-bottom: 6px;">Champion</h3>
-                <p style="font-size: 0.9rem; color: #6b7280; margin: 0; line-height: 1.6;">50+ approved words. Keep up the excellent work.</p>
+                <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #8a7130; margin-bottom: 8px;">Champion</p>
+                <h3 style="font-size: 1.2rem; font-weight: 500; color: #183d31; margin-bottom: 6px;">Champion</h3>
+                <p style="font-size: 0.9rem; color: #65736a; margin: 0; line-height: 1.6;">50+ approved words. Keep up the excellent work.</p>
                 {% elif stats.approved_words_count >= 25 %}
-                <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #10b981; margin-bottom: 8px;">Expert</p>
-                <h3 style="font-size: 1.2rem; font-weight: 800; color: #1a1a1a; margin-bottom: 6px;">Expert Contributor</h3>
-                <p style="font-size: 0.9rem; color: #6b7280; margin: 0; line-height: 1.6;">25+ approved words. You're making a real impact.</p>
+                <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #466543; margin-bottom: 8px;">Expert</p>
+                <h3 style="font-size: 1.2rem; font-weight: 500; color: #183d31; margin-bottom: 6px;">Expert Contributor</h3>
+                <p style="font-size: 0.9rem; color: #65736a; margin: 0; line-height: 1.6;">25+ approved words. You're making a real impact.</p>
                 {% elif stats.approved_words_count >= 10 %}
-                <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #10b981; margin-bottom: 8px;">Active</p>
-                <h3 style="font-size: 1.2rem; font-weight: 800; color: #1a1a1a; margin-bottom: 6px;">Active Member</h3>
-                <p style="font-size: 0.9rem; color: #6b7280; margin: 0; line-height: 1.6;">10+ approved words. You're on your way to greatness.</p>
+                <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #466543; margin-bottom: 8px;">Active</p>
+                <h3 style="font-size: 1.2rem; font-weight: 500; color: #183d31; margin-bottom: 6px;">Active Member</h3>
+                <p style="font-size: 0.9rem; color: #65736a; margin: 0; line-height: 1.6;">10+ approved words. You're on your way to greatness.</p>
                 {% else %}
-                <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #10b981; margin-bottom: 8px;">Starter</p>
-                <h3 style="font-size: 1.2rem; font-weight: 800; color: #1a1a1a; margin-bottom: 6px;">Getting Started</h3>
-                <p style="font-size: 0.9rem; color: #6b7280; margin: 0; line-height: 1.6;">Keep contributing to unlock more achievements.</p>
+                <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #466543; margin-bottom: 8px;">Starter</p>
+                <h3 style="font-size: 1.2rem; font-weight: 500; color: #183d31; margin-bottom: 6px;">Getting Started</h3>
+                <p style="font-size: 0.9rem; color: #65736a; margin: 0; line-height: 1.6;">Keep contributing to unlock more achievements.</p>
                 {% endif %}
             </div>
         </div>
@@ -241,16 +241,16 @@
             <p class="text-uppercase fw-bold mb-3" style="letter-spacing: 2px; font-size: 0.7rem; color: #9ca3af;">Your Journey</p>
             <div class="row g-3">
                 <div class="col-sm-6">
-                    <div style="background: #fafafa; border-radius: 14px; padding: 20px;">
-                        <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #10b981; margin-bottom: 8px;">First Contribution</p>
-                        <p style="font-size: 1rem; font-weight: 700; color: #1a1a1a; margin: 0;">{{ stats.first_contribution|date:"F d, Y" }}</p>
+                    <div style="background: #f3f6ed; border-radius: 8px; padding: 20px;">
+                        <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #466543; margin-bottom: 8px;">First Contribution</p>
+                        <p style="font-size: 1rem; font-weight: 700; color: #183d31; margin: 0;">{{ stats.first_contribution|date:"F d, Y" }}</p>
                     </div>
                 </div>
                 {% if stats.last_contribution %}
                 <div class="col-sm-6">
-                    <div style="background: #fafafa; border-radius: 14px; padding: 20px;">
-                        <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #d9a406; margin-bottom: 8px;">Latest Contribution</p>
-                        <p style="font-size: 1rem; font-weight: 700; color: #1a1a1a; margin: 0;">{{ stats.last_contribution|date:"F d, Y" }}</p>
+                    <div style="background: #f3f6ed; border-radius: 8px; padding: 20px;">
+                        <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #8a7130; margin-bottom: 8px;">Latest Contribution</p>
+                        <p style="font-size: 1rem; font-weight: 700; color: #183d31; margin: 0;">{{ stats.last_contribution|date:"F d, Y" }}</p>
                     </div>
                 </div>
                 {% endif %}
@@ -264,8 +264,8 @@
 
 <style>
     .dash-action-row {
-        background: #fafafa;
-        border-radius: 14px;
+        background: #f3f6ed;
+        border-radius: 8px;
         padding: 18px 22px;
         transition: all 0.2s ease;
     }
@@ -274,7 +274,7 @@
         transform: translateY(-1px);
     }
     .dash-action-row:hover span:last-child {
-        color: #1a1a1a;
+        color: #183d31;
     }
 </style>
 

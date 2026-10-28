@@ -1,5 +1,6 @@
+from core.forms import SanitizedRichTextModelForm
 from django import forms
-from .models import PendingBook, PendingHallOfFameProfile
+from .models import PendingBook, PendingHallOfFameProfile, BookAccessRequest
 
 
 class BookSubmissionForm(forms.ModelForm):
@@ -20,7 +21,7 @@ class BookSubmissionForm(forms.ModelForm):
         }
 
 
-class HallOfFameSubmissionForm(forms.ModelForm):
+class HallOfFameSubmissionForm(SanitizedRichTextModelForm):
     class Meta:
         model = PendingHallOfFameProfile
         fields = [
@@ -37,3 +38,11 @@ class HallOfFameSubmissionForm(forms.ModelForm):
             "achievements": forms.Textarea(attrs={"rows": 5}),
             "external_links": forms.Textarea(attrs={"rows": 3, "placeholder": "Add links separated by commas"}),
         }
+
+
+class BookAccessRequestForm(forms.ModelForm):
+    message = forms.CharField(required=False, max_length=5000)
+
+    class Meta:
+        model = BookAccessRequest
+        fields = ['email', 'message']

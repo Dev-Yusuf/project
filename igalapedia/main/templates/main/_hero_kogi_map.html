@@ -1,0 +1,18 @@
+<div class="hero-map-layer" data-hero-map>
+    <div class="hero-map-meta"><span>Kogi State <span>/ Nigeria</span></span><span aria-hidden="true">N ↑</span></div>
+    <svg class="hero-map-svg" viewBox="{{ hero_map.viewbox }}" width="680" height="620" role="group" aria-labelledby="hero-map-title hero-map-description">
+        <title id="hero-map-title">Kogi State local government areas</title>
+        <desc id="hero-map-description">Kogi East is highlighted. Click an area to highlight it, or click it again to clear. With a keyboard, use arrow keys to move, Enter or Space to select, and Escape to clear. Selection stays on this page and opens no preview.</desc>
+        <g class="hero-map-context" aria-hidden="true">{% for area in hero_map.lgas %}{% if not area.east %}<path d="{{ area.path }}" fill-rule="evenodd"/>{% endif %}{% endfor %}</g>
+        {% for area in hero_map.lgas %}{% if area.east %}
+        <g class="hero-lga" data-hero-lga="{{ area.id }}" data-name="{{ area.name }}" role="group" aria-label="{{ area.name }}">
+            <path d="{{ area.path }}" fill-rule="evenodd"/>
+            {% if area.id == 'idah' %}<circle class="hero-idah-target" cx="{{ area.label_x }}" cy="{{ area.label_y }}" r="13"/>{% endif %}
+            <text class="hero-lga-name" x="{{ area.label_x }}" y="{{ area.label_y }}" aria-hidden="true">{% if area.id == 'igalamela-odolu' %}<tspan x="{{ area.label_x }}" dy="-4">Igalamela</tspan><tspan x="{{ area.label_x }}" dy="13">Odolu</tspan>{% else %}{{ area.name }}{% endif %}</text>
+        </g>
+        {% endif %}{% endfor %}
+        <g class="hero-district-labels" aria-hidden="true"><text x="235" y="235">KOGI WEST</text><text x="320" y="370" transform="rotate(-36 320 370)">KOGI CENTRAL</text></g>
+    </svg>
+    <a class="hero-map-footer" href="{% url 'about' %}#explore-kogi"><span>Explore our roots</span><span aria-hidden="true">↗</span></a>
+    <span class="visually-hidden" role="status" aria-live="polite" data-hero-map-status></span>
+</div>

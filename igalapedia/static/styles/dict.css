@@ -145,7 +145,7 @@ main {
     color: #101E4A;
     text-align: center;
     margin-bottom: 20px;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-sans);
 }
 
 .leaderboard-desc {
@@ -153,7 +153,7 @@ main {
     color: #555;
     font-size: 18px;
     margin-bottom: 32px;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-sans);
 }
 
 .leaderboard-table-container {
@@ -165,7 +165,7 @@ main {
     border-collapse: separate;
     border-spacing: 0;
     background: #fff;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-sans);
 }
 
 .leaderboard-table th, .leaderboard-table td {

@@ -1,16 +1,18 @@
 {% extends 'main.html' %}
 {% load static %}
+{% block title %}Leaderboard · IgalaHeritage{% endblock %}
 
+{% block extra_css %}<link rel="stylesheet" href="{% static 'styles/leaderboard.css' %}">{% endblock %}
 {% block content %}
 
-<link rel="stylesheet" href="{% static 'styles/leaderboard.css' %}">
+
 
 <section class="leaderboard-main" style="padding-top: 120px;">
     <div class="container">
-        <div class="leaderboard-header text-center mb-4">
-            <h1 class="leaderboard-title">Leaderboard</h1>
-            <p class="leaderboard-subtitle text-muted">Top contributors by approved words</p>
-        </div>
+        <header class="page-header">
+            <div><span class="page-index">05 / CONTRIBUTORS</span><h1>Leaderboard</h1><p>Ranked by approved words.</p></div>
+            <a href="{% url 'submit_word' %}" class="btn btn-outline-primary">Contribute a word ↗</a>
+        </header>
 
         {% if contributors %}
             <div class="leaderboard-table-section">

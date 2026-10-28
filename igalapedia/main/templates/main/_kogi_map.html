@@ -1,0 +1,58 @@
+<section class="roots-section" id="explore-kogi" aria-labelledby="roots-heading">
+    <div class="roots-heading-row">
+        <div><span class="about-kicker">01 / Our roots</span><h2 id="roots-heading">Every place has a story.</h2></div>
+        <p>Explore the nine LGAs of Kogi East.</p>
+    </div>
+    <div class="roots-explorer" data-kogi-explorer data-selected="{{ kogi_selected }}">
+        <div class="roots-map-column">
+            <div class="roots-map-toolbar">
+                <span class="roots-location"><span aria-hidden="true">◎</span> Kogi, Nigeria</span>
+                <form class="roots-picker" action="{% url 'about' %}#explore-kogi" method="get">
+                    <label for="roots-lga" class="visually-hidden">Explore a local government area</label>
+                    <select id="roots-lga" name="lga">{% for place in kogi_profiles %}<option value="{{ place.id }}" {% if kogi_selected == place.id %}selected{% endif %}>{{ place.name }}</option>{% endfor %}</select>
+                    <button type="submit" class="roots-go" aria-label="Show selected local government area">↗</button>
+                </form>
+            </div>
+            <div class="roots-canvas">
+                <div class="roots-map-caption" aria-hidden="true"><span>KOGI STATE</span><strong data-map-caption>{% for place in kogi_profiles %}{% if place.id == kogi_selected %}{{ place.name }}{% endif %}{% endfor %}</strong></div>
+                <div class="roots-north" aria-hidden="true"><span>N</span><svg viewBox="0 0 14 34"><path d="M7 3V31M2 9L7 2L12 9"/></svg></div>
+                <svg class="roots-map" viewBox="{{ kogi_map.viewbox }}" role="group" aria-labelledby="kogi-map-title kogi-map-description">
+                    <title id="kogi-map-title">Kogi State local government areas</title>
+                    <desc id="kogi-map-description">Nine areas in Kogi East are highlighted. Select one to read about it. Use the area selector as an alternative. With a keyboard, use arrow keys between map areas, and Enter or Space to select. Administrative boundaries do not define language boundaries.</desc>
+                    <g class="roots-context">{% for lga in kogi_map.lgas %}{% if not lga.east %}<path d="{{ lga.path }}" fill-rule="evenodd"><title>{{ lga.name }}</title></path>{% endif %}{% endfor %}</g>
+                    {% for place in kogi_profiles %}
+                    <a href="?lga={{ place.id }}#explore-kogi" class="roots-region{% if place.id == kogi_selected %} is-selected{% endif %}" data-lga="{{ place.id }}" data-name="{{ place.name }}" role="button" tabindex="0" aria-label="Explore {{ place.name }}" aria-pressed="{% if place.id == kogi_selected %}true{% else %}false{% endif %}" aria-controls="place-{{ place.id }}">
+                        <path d="{{ place.path }}" fill-rule="evenodd"/>
+                        {% if place.id == 'idah' %}<circle class="roots-idah-target" cx="{{ place.label_x }}" cy="{{ place.label_y }}" r="15"/>{% endif %}
+                        <text class="roots-lga-label" x="{{ place.label_x }}" y="{{ place.label_y }}" aria-hidden="true">{% if place.id == 'igalamela-odolu' %}<tspan x="{{ place.label_x }}" dy="-4">Igalamela</tspan><tspan x="{{ place.label_x }}" dy="13">Odolu</tspan>{% else %}{{ place.name }}{% endif %}</text>
+                    </a>
+                    {% endfor %}
+                    <text class="roots-context-label" x="235" y="235" aria-hidden="true">KOGI WEST</text>
+                    <text class="roots-context-label" x="320" y="370" aria-hidden="true" transform="rotate(-36 320 370)">KOGI CENTRAL</text>
+                </svg>
+                <div class="roots-map-baseline"><div class="roots-map-legend"><span><i class="legend-east"></i>Kogi East</span><span><i class="legend-selected"></i>Selected</span><span><i class="legend-context"></i>Other LGAs</span></div><button type="button" class="roots-zoom" data-map-zoom aria-pressed="false" hidden>Focus east <span aria-hidden="true">↗</span></button></div>
+            </div>
+            <p class="roots-map-hint">Select a highlighted area or choose a name above.</p>
+            <a class="roots-map-details" href="#place-{{ kogi_selected }}" data-map-details>View place details <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="roots-place-column">
+            {% for place in kogi_profiles %}
+            <article class="roots-place" id="place-{{ place.id }}" {% if place.id != kogi_selected %}hidden{% endif %} aria-labelledby="place-heading-{{ place.id }}">
+                <div class="place-topline"><span class="about-kicker">Kogi East / {{ forloop.counter|stringformat:'02d' }}</span><span class="place-symbol" aria-hidden="true">↗</span></div>
+                <h3 id="place-heading-{{ place.id }}">{{ place.name }}</h3>
+                <p class="place-overview">{{ place.overview }}</p>
+                <dl class="place-facts"><div><dt>Headquarters</dt><dd>{{ place.headquarters }}</dd></div><div><dt>State</dt><dd>Kogi, Nigeria</dd></div></dl>
+                <div class="place-stories"><h4>In the archive</h4>
+                    {% if place.stories %}<p class="place-mention-label">Stories mentioning {{ place.name }}</p>{% for story in place.stories %}<a class="place-story-link" href="{% url 'history_detail' story.slug %}">{{ story.title }}<span aria-hidden="true">↗</span></a>{% endfor %}
+                    {% else %}<p>Have a story from {{ place.name }}?</p>{% endif %}
+                    <a class="place-contribute" href="{% url 'submit_history' %}">Share a local story <span aria-hidden="true">↗</span></a>
+                </div>
+                <div class="place-navigation"><button type="button" data-place-step="-1" aria-label="Previous local government area" hidden>←</button><span>{{ forloop.counter|stringformat:'02d' }} <span class="place-nav-divider">/</span> 09</span><button type="button" data-place-step="1" aria-label="Next local government area" hidden>→</button></div>
+            </article>
+            {% endfor %}
+            <span class="visually-hidden" role="status" aria-live="polite" data-map-status></span>
+        </div>
+    </div>
+    <div class="roots-footnotes"><p>Administrative boundaries, not language borders.</p><details><summary>Map notes & sources</summary><div><p>The highlight follows Kogi East's nine LGAs. Igala is spoken across communities, not a uniform administrative boundary. Bassa is multilingual. This map does not attempt to mark every Igala-speaking community.</p><p>Boundaries: <a href="https://www.geoboundaries.org/api/current/gbOpen/NGA/ADM2/" target="_blank" rel="noopener noreferrer">GRID3 / geoBoundaries</a>, 2022 representation, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>. Adapted to a simplified SVG; not for navigation or legal boundary decisions. Headquarters: <a href="https://www.inecnigeria.org/wp-content/uploads/2022/09/KOGI-STATE.pdf" target="_blank" rel="noopener noreferrer">INEC directory</a>. District grouping: <a href="https://kogistate.gov.ng/wp-content/uploads/LOCAL-GOVT.pdf" target="_blank" rel="noopener noreferrer">Kogi State Gazette</a>.</p></div></details></div>
+    <p class="roots-attribution">Map data: GRID3 / geoBoundaries · CC BY 4.0</p>
+</section>
