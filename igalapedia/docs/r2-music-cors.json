@@ -1,0 +1,13 @@
+[
+  {
+    "AllowedOrigins": ["https://igalaheritage.onrender.com"],
+    "AllowedMethods": ["GET", "HEAD"],
+    "AllowedHeaders": ["Range", "If-Range"],
+    "ExposeHeaders": [
+      "Accept-Ranges",
+      "Content-Range",
+      "Content-Length"
+    ],
+    "MaxAgeSeconds": 3600
+  }
+]

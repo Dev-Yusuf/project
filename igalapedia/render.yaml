@@ -21,3 +21,15 @@ services:
         sync: false
       - key: MUSIC_STORAGE_BUCKET
         sync: false
+      - key: MUSIC_STORAGE_PROVIDER
+        sync: false
+      - key: R2_BUCKET_NAME
+        sync: false
+      - key: R2_ENDPOINT_URL
+        sync: false
+      - key: R2_ACCESS_KEY_ID
+        sync: false
+      - key: R2_SECRET_ACCESS_KEY
+        sync: false
+      - key: R2_REGION_NAME
+        value: "auto"

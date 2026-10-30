@@ -163,3 +163,14 @@
   .is-east-view .hero-district-labels { visibility: hidden; }
 }
 @media (prefers-reduced-motion:reduce) { .hero-lga > path { transition: none; } }
+
+/* Keep the complete map beside the copy on desktop; retain the mobile stack. */
+@media (min-width:1200px) {
+  .home-hero { display: grid; grid-template-columns: minmax(28px,1fr) minmax(0,510px) 64px minmax(0,634px) minmax(28px,1fr); align-items: center; min-height: 0; padding: 140px 0 72px; }
+  .home-hero::after { display: none; }
+  .hero-layout { grid-column: 2; min-width: 0; min-height: 0; width: 100%; padding-inline: 0; }
+  .hero-copy { max-width: none; }
+  .hero-map-layer { grid-column: 4; position: relative; left: auto; top: auto; width: 100%; }
+  .hero-map-meta { position: static; width: auto; margin-bottom: 10px; }
+  .hero-map-footer { position: static; width: auto; margin-top: 14px; }
+}

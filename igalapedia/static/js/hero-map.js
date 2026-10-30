@@ -6,6 +6,7 @@
     const status = root.querySelector('[data-hero-map-status]');
     const map = root.querySelector('.hero-map-svg');
     const compact = window.matchMedia('(max-width:767px)');
+    const desktop = window.matchMedia('(min-width:1200px)');
     let selected = null;
 
     function pick(area) {
@@ -48,10 +49,13 @@
         });
     });
     function resize() {
-        map.setAttribute('viewBox', compact.matches ? '320 185 350 410' : '0 0 680 620');
+        // Give the nine highlighted LGAs more space and align them with the heading.
+        const bounds = compact.matches ? '320 185 350 410' : desktop.matches ? '40 130 600 490' : '0 0 680 620';
+        map.setAttribute('viewBox', bounds);
         root.classList.toggle('is-east-view', compact.matches);
     }
     compact.addEventListener('change', resize);
+    desktop.addEventListener('change', resize);
     resize();
     root.classList.add('is-pickable');
 })();

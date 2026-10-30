@@ -4,6 +4,10 @@ The `music` Django app provides guest listening, search, artist/release/track pa
 
 ## Before production deployment
 
+For the recommended Cloudflare R2 music backend, follow [MUSIC_R2_SETUP.md](MUSIC_R2_SETUP.md).
+It keeps the database and public images on Supabase. The steps below describe the
+existing Supabase music backend (`MUSIC_STORAGE_PROVIDER=supabase`, the default).
+
 1. Install the updated requirements, including Mutagen for audio metadata validation.
 2. Create a **private** Supabase Storage bucket dedicated to music, for example `music-private`. Do not make it public and do not add anonymous read or upload policies.
 3. Set `MUSIC_STORAGE_BUCKET` to that bucket's name in Render. The existing Supabase S3 endpoint, region, and storage credentials must have access to it. No new credentials belong in source control.
@@ -55,7 +59,7 @@ Supported audio: MP3, M4A, and WAV up to 25 MB and two hours. MP3 is the most st
 
 - `/music/api/tracks/<id>/play/` checks publication and streaming permission before returning a temporary audio URL. It is available to guests and sends no private permission notes or storage credentials.
 - Audio downloads directly from storage; Django does not proxy song bytes.
-- `PrivateMusicStorage` uses the existing S3-compatible client with signed URLs, no public ACL, and a separate bucket. The default expiry is one hour (`MUSIC_PLAYBACK_URL_SECONDS`).
+- `PrivateMusicStorage` uses the existing Supabase S3-compatible client. `R2MusicStorage` uses separate R2 credentials and an account S3 endpoint. Both use signed URLs, no public ACL, and a dedicated private bucket. The default expiry is one hour (`MUSIC_PLAYBACK_URL_SECONDS`).
 - A single `<audio>` element sits outside `#music-content`. The browser replaces only music content when navigating between music screens. Track/artist links in the player use the same navigation.
 - Queue, repeat/shuffle choice, and playback position are kept in session storage. Refresh restores them paused. Playback starts only through a listener action.
 - Queue controls include next/previous, removal, clear, shuffle, repeat all/one, seeking, volume, and mute. Mobile has a mini-player and an expandable now-playing view with keyboard focus handling.
@@ -76,6 +80,6 @@ Run `python -B manage.py test --settings=igalapedia.test_settings --noinput` for
 
 Browser checks used generated WAV tones in a temporary local database to verify guest playback, navigation continuity, seeking, next-track control, the queue, likes, playlists, live search, and the mobile expanded player. Those tones are not included in application fixtures.
 
-Actual Supabase signed-URL delivery, byte-range seeking, and expiry behaviour still require a configured private bucket and staging validation. Render free-tier sleep still affects opening the site and new backend requests. No production deployment or storage-bucket changes were made by this implementation.
+Actual cloud signed-URL delivery, CORS, byte-range seeking, and expiry behaviour still require a configured private bucket and staging validation. Render free-tier sleep still affects opening the site and new backend requests. No production deployment or storage-bucket changes were made by this implementation.
 
 This release intentionally excludes payments, advertising, offline downloads, adaptive bitrate streaming, automated transcoding, public playlists, verified artist ownership claims, and royalty accounting. Staff can moderate artist submissions now; a separate verified-artist management dashboard can follow.

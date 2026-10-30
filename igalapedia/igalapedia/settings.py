@@ -38,7 +38,11 @@ ON_RENDER = os.environ.get('RENDER', '').lower() == 'true'
 DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true' and not ON_RENDER
 if ON_RENDER and (not SECRET_KEY or len(SECRET_KEY) < 50 or len(set(SECRET_KEY)) < 5
                   or SECRET_KEY.startswith('django-insecure-')):
-    raise ImproperlyConfigured('Set a strong SECRET_KEY in the Render environment.')
+    raise ImproperlyConfigured(
+        'Set SECRET_KEY in Render > Environment to a random value of at least '
+        '50 characters, with at least 5 distinct characters and without the '
+        'django-insecure- prefix. Save the environment changes and redeploy.'
+    )
 
 SECURE_SSL_REDIRECT = not DEBUG
 SESSION_COOKIE_SECURE = not DEBUG
@@ -162,7 +166,16 @@ MEDIA_ROOT = None  # Not used when using Supabase storage
 
 # Separate, PRIVATE bucket. Never fall back to the public media bucket for songs.
 MUSIC_STORAGE_BUCKET = os.environ.get('MUSIC_STORAGE_BUCKET', '')
-MUSIC_AUDIO_STORAGE = 'music.storage.PrivateMusicStorage'
+MUSIC_STORAGE_PROVIDER = os.environ.get('MUSIC_STORAGE_PROVIDER', 'supabase').strip().lower()
+if MUSIC_STORAGE_PROVIDER not in {'supabase', 'r2'}:
+    raise ImproperlyConfigured('MUSIC_STORAGE_PROVIDER must be supabase or r2.')
+R2_BUCKET_NAME = os.environ.get('R2_BUCKET_NAME', '').strip()
+R2_ENDPOINT_URL = os.environ.get('R2_ENDPOINT_URL', '').strip().rstrip('/')
+R2_ACCESS_KEY_ID = os.environ.get('R2_ACCESS_KEY_ID', '').strip()
+R2_SECRET_ACCESS_KEY = os.environ.get('R2_SECRET_ACCESS_KEY', '').strip()
+R2_REGION_NAME = os.environ.get('R2_REGION_NAME', 'auto').strip() or 'auto'
+MUSIC_AUDIO_STORAGE = ('music.storage.R2MusicStorage' if MUSIC_STORAGE_PROVIDER == 'r2'
+                       else 'music.storage.PrivateMusicStorage')
 MUSIC_MAX_UPLOAD_BYTES = 25 * 1024 * 1024
 MUSIC_PLAYBACK_URL_SECONDS = 3600
 

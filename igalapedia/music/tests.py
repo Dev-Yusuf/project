@@ -66,6 +66,34 @@ class MusicTests(TestCase):
         self.assertNotIn('audio', response.json())
         self.assertIn('no-store', response['Cache-Control'])
 
+    def test_r2_guest_playback_and_unavailable_storage(self):
+        from urllib.parse import parse_qs, urlsplit
+        from .storage import R2MusicStorage
+        configuration = dict(
+            R2_BUCKET_NAME='music-test',
+            R2_ENDPOINT_URL='https://' + 'a' * 32 + '.r2.cloudflarestorage.com',
+            R2_ACCESS_KEY_ID='test-only-r2-access-key',
+            R2_SECRET_ACCESS_KEY='test-only-r2-secret-key',
+            R2_REGION_NAME='auto',
+        )
+        url = reverse('music:playback', args=[self.track.pk])
+        with self.settings(**configuration):
+            with patch.object(Track._meta.get_field('audio'), 'storage', R2MusicStorage()):
+                response = self.client.get(url)
+                self.assertEqual(response.status_code, 200)
+                stream = urlsplit(response.json()['stream'])
+                self.assertTrue(stream.hostname.endswith('.r2.cloudflarestorage.com'))
+                self.assertIn('X-Amz-Signature', parse_qs(stream.query))
+                self.assertNotIn(configuration['R2_SECRET_ACCESS_KEY'], response.content.decode())
+                self.assertIn('no-store', response['Cache-Control'])
+                Track.objects.filter(pk=self.track.pk).update(is_published=False)
+                self.assertEqual(self.client.get(url).status_code, 404)
+                Track.objects.filter(pk=self.track.pk).update(is_published=True)
+            with self.settings(R2_SECRET_ACCESS_KEY=''):
+                with patch.object(Track._meta.get_field('audio'), 'storage', R2MusicStorage()):
+                    with self.assertLogs('music.views', level='ERROR'):
+                        self.assertEqual(self.client.get(url).status_code, 503)
+
     def test_unpublished_or_unapproved_content_never_streams(self):
         url = reverse('music:playback', args=[self.track.pk])
         for field in ['is_published', 'rights_confirmed']:
